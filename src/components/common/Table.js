@@ -1,0 +1,103 @@
+import { useState } from "react";
+import { FormControl, InputGroup, Spinner } from "react-bootstrap";
+import DataTable, { createTheme } from "react-data-table-component";
+import { DATATABLE_NO_DATA } from "../common/Costanst";
+
+
+export function Table(props) {
+  const {
+    data,
+    title,
+    columns,
+    selectableRows,
+    loading,
+    canSearch,
+    paginationComponentOptions,
+    defaultSortField,
+  } = props;
+
+  const [search, setSearch] = useState("");
+
+  createTheme("custom", {
+    title: {
+      backgroundColor: "#e99401",
+      height: "2px",
+      fontColor: "#e99401",
+    },
+    header: {
+      fontSize: "14px",
+      backgroundColor: "#e99401",
+      fontColor: "#e99401",
+      fontWeight: "700",
+    },
+    rows: {
+      backgroundColor: "#FFFFFF",
+      borderWidth: "5px",
+    },
+  });
+
+  const handleSearch = (e) => {
+    setSearch(e.target.value.toLowerCase());
+  };
+
+  let result = [];
+  if (!search || !canSearch) {
+    result = data;
+  } else {
+    result = data.filter((e) => {
+      let name = e.name.toLowerCase();
+      let lastName = e.lastName.toLowerCase();
+      let phone = e.phone;
+      return (
+        name.indexOf(search) > -1 ||
+        lastName.indexOf(search) > -1 ||
+        phone.indexOf(search) > -1
+      );
+    });
+  }
+
+  return (
+    <DataTable
+      title={title}
+      columns={columns}
+      data={result}
+      theme="custom"
+      striped={true}
+      selectableRows={selectableRows}
+      noDataComponent={DATATABLE_NO_DATA}
+      progressPending={loading}
+      progressComponent={
+        <Spinner animation="border" variant="warning" className="mt-3" />
+      }
+      pagination={10}
+      paginationPerPage={10}
+      paginationComponentOptions={paginationComponentOptions}
+      defaultSortField={defaultSortField}
+      noHeader={true}
+      fixedHeader
+      fixedHeaderScrollHeight="300px"
+      highlightOnHover
+      pointerOnHover
+      subHeader={canSearch}
+      subHeaderComponent={
+        canSearch && (
+          <div className="col-3">
+            <InputGroup>
+              <FormControl
+                placeholder="Search..."
+                aria-label="Search"
+                value={search}
+                onChange={handleSearch}
+                className="ml-2"
+              />
+              <InputGroup.Text>
+                <i className="material-icons">search</i>
+              </InputGroup.Text>
+            </InputGroup>
+          </div>
+        )
+      }
+      persistTableHead
+    />
+  );
+}
