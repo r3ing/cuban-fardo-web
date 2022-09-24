@@ -1,7 +1,7 @@
 import { useAuth } from "../../context/authContext";
 import { Navigate } from "react-router-dom";
 
-export function ProtectedRoute({ children, role }) {
+export function ProtectedRoute({ children, roles }) {
   const { REACT_APP_USER_APP } = process.env;
   const { user, loading, logout } = useAuth();
 
@@ -22,12 +22,12 @@ export function ProtectedRoute({ children, role }) {
   };
 
   if (loading) return <h1>loading...</h1>;
-
+ 
   if (!user) return <Navigate to="/" />;
 
   const currentUser = authorization.find((u) => u.user === user.email);
 
-  if (currentUser.role !== "admin" && currentUser.role !== role) {
+  if (currentUser.role !== "admin" && !roles.includes(currentUser.role)) {
     handleLogout();
   }
 

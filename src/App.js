@@ -12,7 +12,6 @@ import { ClientProvider } from "./context/clientContext";
 import { Addresses } from "./components/executive/Addresses";
 
 function App() {
-
   return (
     <div className="h-screen">
       <AuthProvider>
@@ -22,18 +21,11 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/about" element={<About />} />
             <Route path="/support" element={<Support />} />
-            <Route
-              path="/shipping"
-              element={
-                <ProtectedRoute role="admin">
-                  <Shipping />
-                </ProtectedRoute>
-              }
-            />
+
             <Route
               path="/shippings"
               element={
-                <ProtectedRoute role="admin">
+                <ProtectedRoute roles={["executive", "delivery"]}>
                   <Shippings />
                 </ProtectedRoute>
               }
@@ -41,7 +33,7 @@ function App() {
             <Route
               path="/shipping"
               element={
-                <ProtectedRoute>
+                <ProtectedRoute role={["executive"]}>
                   <Shipping />
                 </ProtectedRoute>
               }
@@ -49,7 +41,7 @@ function App() {
             <Route
               path="/customers"
               element={
-                <ProtectedRoute role="admin">
+                <ProtectedRoute role={["executive"]}>
                   <Client />
                 </ProtectedRoute>
               }
