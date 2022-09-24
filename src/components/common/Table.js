@@ -3,7 +3,6 @@ import { FormControl, InputGroup, Spinner } from "react-bootstrap";
 import DataTable, { createTheme } from "react-data-table-component";
 import { DATATABLE_NO_DATA } from "../common/Costanst";
 
-
 export function Table(props) {
   const {
     data,
@@ -12,6 +11,7 @@ export function Table(props) {
     selectableRows,
     loading,
     canSearch,
+    searchCriteria,
     paginationComponentOptions,
     defaultSortField,
   } = props;
@@ -44,15 +44,12 @@ export function Table(props) {
   if (!search || !canSearch) {
     result = data;
   } else {
-    result = data.filter((e) => {
-      let name = e.name.toLowerCase();
-      let lastName = e.lastName.toLowerCase();
-      let phone = e.phone;
-      return (
-        name.indexOf(search) > -1 ||
-        lastName.indexOf(search) > -1 ||
-        phone.indexOf(search) > -1
-      );
+    result = data.filter(function (item) {
+      for (const key of searchCriteria) {
+        if (item[key] !== undefined && item[key].toLowerCase().includes(search))
+          return true;
+      }
+      return false;
     });
   }
 

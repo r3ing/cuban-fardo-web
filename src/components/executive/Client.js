@@ -136,6 +136,7 @@ export function Client() {
                 columns={columns}
                 loading={loading}
                 canSearch={true}
+                searchCriteria={["name", "lastName", "phone"]}
                 selectableRows={false}
               />
             }
