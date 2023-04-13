@@ -1,35 +1,36 @@
 import { useEffect, useState } from "react";
-import { getClients } from "../../repositories/ClientRepository";
+// import { getClients } from "../../repositories/ClientRepository";
 import { CustomerForm } from "./CustomerForm";
 import { Layout } from "../system/Layout";
 import { Button } from "react-bootstrap";
 import { Table } from "../common/Table";
 import { GenericModal } from "../common/GenericModal";
 import { ADD_NEW_CUSTOMER } from "../common/Costanst";
+import { useClient } from "../../context/clientContext";
+// import { useNavigate } from "react-router-dom";
+import { collection, onSnapshot } from "firebase/firestore";
+import { db } from "../../config/firebase";
+import { useAlert } from "react-alert";
+
 
 export function Client() {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
-
-  // const getAllClients = async () => {
-  //   setLoading(true);
-  //   try {
-  //     const clients = await getClients();
-  //     setLoading(false);
-  //     setClients(clients);
-  //     setDataFiltered(clients);
-  //   } catch (error) {
-  //     setLoading(false);
-  //     alert.error('Up, error listing customers!');
-  //   }
-  // };
+  const { setCustomer } = useClient();
+  // const navigate = useNavigate();
+  const alert = useAlert();
 
   const handleClose = () => setShowModal(false);
 
   const handelShowModal = () => {
     setShowModal(true);
   };
+
+  const selectClient = (row) => {
+    setCustomer(row);
+    //navigate("/shipping")
+  }
 
   const columns = [
     {
@@ -40,51 +41,28 @@ export function Client() {
       name: "Last Name",
       selector: (row) => row.lastName,
     },
-    // {
-    //   name: "Email",
-    //   selector: (row) => row.email,
-    // },
     {
       name: "Phone",
       selector: (row) => row.phone,
     },
     {
-      minWidth: "150px",
+      minWidth: "100px",
       cell: (row) => (
         <>
-          <button
-            className="btn btn-primary btn-sm btn-table mr-2"
-            type="button"
-            title="Ver Detalle"
-            raised="true"
-            primary="true"
+          <Button
+            variant="outline-warning"
+            className="mr-3"
+            onClick={handelShowModal}
+            disabled={true}>
+            <i className="material-icons icon">edit_square</i>
+          </Button>
+          <Button
+            variant="outline-success"
+            onClick={() => selectClient(row)}
             disabled={true}
-            onClick={() => {}}
           >
-            <i className="fa fa-search" aria-hidden="true"></i>
-          </button>
-          <button
-            className="btn btn-primary btn-sm btn-table mr-2"
-            type="button"
-            title="Editar"
-            raised="true"
-            primary="true"
-            disabled={false}
-            onClick={() => {}}
-          >
-            <i className="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-          <button
-            className="btn btn-dark btn-sm btn-table mr-2"
-            type="button"
-            title="Reenviar Correo"
-            raised="true"
-            primary="true"
-            disabled={false}
-            onClick={() => {}}
-          >
-            <i className="fa fa-envelope" aria-hidden="true"></i>
-          </button>
+            <i className="material-icons icon">emoji_transportation</i>
+          </Button>
         </>
       ),
       ignoreRowClick: true,
@@ -95,10 +73,28 @@ export function Client() {
 
   useEffect(() => {
     setLoading(true);
-    getClients().then((data) => {
-      setLoading(false);
-      setClients(data);
-    });
+    const unsub = onSnapshot(collection(db, "client"),
+      (snapshot) => {
+        const data = [];
+        snapshot.forEach((doc) => {
+          data.push({ ...doc.data(), id: doc.id });
+        });
+        setClients(data);
+        setLoading(false);
+      },
+      (error) => {
+        alert.error("Up, error listing customers!!!", error.message);
+      });
+    return () => {
+      unsub();
+    }
+
+    // getClients().then((data) => {
+    //   console.log(data);
+    //   setLoading(false);
+    //   setClients(data);
+    // });
+
     // eslint-disable-next-line
   }, []);
 
@@ -123,8 +119,8 @@ export function Client() {
                 onClick={handelShowModal}
                 className="custom-btn"
               >
-                {/* <i className="material-icons">person_add</i> */}
-                New Costomer
+                <i className="material-icons icon">person_add</i>
+                Add Costomer
               </Button>
             </div>
           </div>
@@ -136,6 +132,7 @@ export function Client() {
                 columns={columns}
                 loading={loading}
                 canSearch={true}
+                searchCriteria={["name", "lastName", "phone"]}
                 selectableRows={false}
               />
             }
@@ -143,37 +140,5 @@ export function Client() {
         </div>
       </main>
     </Layout>
-
-    // <div className="container p-6">
-    //     <h3 className="text-center">Customer Record</h3>
-    //   <div className="row">
-    //     <ClientInfo />
-    //   </div>
-    //   <div className="row">
-    //     { /*<Address /> */}
-    //   </div>
-    //   <div className="pt-5">
-    //     <ul className="nav nav-tabs">
-    //       <li className="nav-item">
-    //         <a className="nav-link active" data-bs-toggle="tab" href="#addresses">
-    //           Addresses
-    //         </a>
-    //       </li>
-    //       <li className="nav-item">
-    //         <a className="nav-link" data-bs-toggle="tab" href="#shipments">
-    //           Shipments
-    //         </a>
-    //       </li>
-    //     </ul>
-    //     <div id="myTabContent" className="tab-content">
-    //       <div className="tab-pane fade active show" id="addresses">
-    //         <Addresses />
-    //       </div>
-    //       <div className="tab-pane fade" id="shipments">
-    //         <Shipments />
-    //       </div>
-    //     </div>
-    //   </div>
-    // </div>
   );
 }

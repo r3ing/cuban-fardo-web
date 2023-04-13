@@ -20,8 +20,18 @@ export const useAuth = () => {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { REACT_APP_USER_APP } = process.env;
 
-  const logout = () => signOut(auth);
+  const usersApp = REACT_APP_USER_APP ? REACT_APP_USER_APP.split(":") : "";
+
+  const users = usersApp.map((ua) => {
+    return ua.split(",")[0];
+  }); 
+
+  const logout = () => {
+    signOut(auth); 
+    setUser(null);
+  };
 
   const loginWithGoogle = () => {
     const googleProvider = new GoogleAuthProvider();
@@ -30,10 +40,12 @@ export function AuthProvider({ children }) {
 
   useEffect(() => {
     onAuthStateChanged(auth, currentUser => {
-        
-      setUser(currentUser);
-      setLoading(false);
+        if(currentUser && users.includes(currentUser.email)) {
+          setUser(currentUser);
+          setLoading(false);
+        }
     });
+    //eslint-disable-next-line
   }, []);
 
   return (

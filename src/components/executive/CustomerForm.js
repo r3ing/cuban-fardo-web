@@ -3,12 +3,12 @@ import { useForm } from "react-hook-form";
 import { addOrEditClient } from "../../repositories/ClientRepository";
 import { useAlert } from "react-alert";
 import { useClient } from "../../context/clientContext";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
 
 export function CustomerForm({ handleClose }) {
   const alert = useAlert();
-  const navigate = useNavigate();
-  const { customer, setCustomer } = useClient();
+  // const navigate = useNavigate();
+  const { setCustomer } = useClient();
 
   const [client, setClient] = useState({
     name: "",
@@ -25,21 +25,16 @@ export function CustomerForm({ handleClose }) {
     formState: { errors },
   } = useForm();
 
-  // const handleSubmit = (e) => {
-  //   e.preventDefault();
-  //   //addOrEditClient(customer);
-  // };
-
   const onSubmit = async () => {
     try {
       //TO DO
-      //const result = await addOrEditClient(client);
+      await addOrEditClient(client);
       handleClose();
       setCustomer(client);
-      navigate("/shipping")
+      //navigate("/shipping")
       alert.success("Customer created cuccessfully");
     } catch (error) {
-      alert.error("Up, error creating a customers!");
+      alert.error(error.message);
     }
   };
 
@@ -56,7 +51,7 @@ export function CustomerForm({ handleClose }) {
         </div>
         <input
           type="text"
-          className="form-control"
+          className="form-control text-capitalize"
           {...register("name", { required: true })}
           placeholder="First Name"
           onChange={handleInputChange}
@@ -71,7 +66,7 @@ export function CustomerForm({ handleClose }) {
         </div>
         <input
           type="text"
-          className="form-control"
+          className="form-control text-capitalize"
           {...register("lastName", { required: true })}
           placeholder="Last Name"
           onChange={handleInputChange}
@@ -82,7 +77,7 @@ export function CustomerForm({ handleClose }) {
           Last Name is required
         </small>
       )}
-      <div className="form-group input-group mt-3">
+      {/* <div className="form-group input-group mt-3">
         <div className="input-group-text bg-light">
           <i className="material-icons">email</i>
         </div>
@@ -100,7 +95,7 @@ export function CustomerForm({ handleClose }) {
         <small className="text-danger animated fadeIn">
           Invalid format email
         </small>
-      )}
+      )} */}
       <div className="form-group input-group mt-3">
         <div className="input-group-text bg-light">
           <i className="material-icons">phone</i>
@@ -136,7 +131,8 @@ export function CustomerForm({ handleClose }) {
           Invalid format Phone
         </small>
       )}
-      <button className="btn btn-warning custom-btn btn-block mt-3">
+      <button className="btn-warning custom-btn mt-3">
+      <i className="material-icons icon">save</i> 
         Save
       </button>
     </form>

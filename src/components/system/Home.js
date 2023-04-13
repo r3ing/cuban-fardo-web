@@ -9,8 +9,6 @@ export function Home() {
     <Layout title="Home">
       <main className="contenedor">
         <h2 className="heading">Cuban Fardo Express</h2>
-
-        
         {/* <h1>Welcome {user.displayName || user.email}</h1> */}
 
         <div className="about-content">
