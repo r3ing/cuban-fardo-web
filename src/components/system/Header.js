@@ -9,7 +9,10 @@ export function Header() {
   const handleLoginWithGoogle = async () => {
     try {
       await loginWithGoogle();
-      navigate("/shippings");
+      // if(user) {
+      //   navigate("/shippings");
+      // } 
+
     } catch (error) {
       console.error(error);
     }
@@ -37,37 +40,33 @@ export function Header() {
             />
           </Link>
           <nav className="navegacion">
-            <NavLink
+            {/* <NavLink
               to="/"
-              class={({ isActive }) =>
+              className={({ isActive }) =>
                 isActive ? "navegacion-active" : ""
               }
             >
               Home
+            </NavLink> */}
+            {user ? <> <NavLink
+              to="/customers"
+              className={({ isActive }) =>
+                isActive ? "navegacion-active" : ""
+              }
+            >
+              Customers
             </NavLink>
-            {user && (
-              <NavLink
-                to="/customers"
-                className={({ isActive }) =>
-                  isActive ? "navegacion-active" : ""
-                }
-              >
-                Customers
-              </NavLink>
-            )}
-            {user && (
-              <NavLink
-                to="/shipping"
-                className={({ isActive }) =>
-                  isActive ? "navegacion-active" : ""
-                }
-              >
-                Shippings
-              </NavLink>
-            )}
-
-            <Link
-              to="/about"
+            {/* <NavLink
+              to="/shipping"
+              className={({ isActive }) =>
+                isActive ? "navegacion-active" : ""
+              }
+            >
+              Shippings
+            </NavLink> */}
+            </> : null}
+            {/* <Link
+              to="/"
               className={({ isActive }) =>
                 isActive ? "navegacion-active" : ""
               }
@@ -75,13 +74,13 @@ export function Header() {
               About us
             </Link>
             <Link
-              to="/support"
+              to="/"
               className={({ isActive }) =>
                 isActive ? "navegacion-active" : ""
               }
             >
               Help
-            </Link>
+            </Link> */}
             {!user ? (
               <Link to="#" onClick={handleLoginWithGoogle}>
                 Sign In
