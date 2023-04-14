@@ -1,12 +1,12 @@
 import { db } from "../config/firebase";
 import {
   collection,
-  collectionGroup,
+  // collectionGroup,
   getDocs,
-  addDoc,
-  updateDoc,
-  doc,
-  deleteDoc,
+  // addDoc,
+  // updateDoc,
+  // doc,
+  // deleteDoc,
 } from "firebase/firestore";
 
 export const getShippingAddress = async (idClient) => {

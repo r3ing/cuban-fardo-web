@@ -1,3 +1,4 @@
+import React from 'react'
 import { Button, Modal } from "react-bootstrap";
 
 export function GenericModal({
@@ -11,13 +12,12 @@ export function GenericModal({
   footer
 }) {
 
-
-
   return (
     <Modal
       show={showModal}
       onHide={handleClose}
       className="border-warning mt-5"
+      centered
     >
       <Modal.Header closeButton>
         <Modal.Title className="table-header">{title}</Modal.Title>

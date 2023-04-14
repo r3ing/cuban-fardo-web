@@ -1,5 +1,7 @@
+import React from 'react';
 import { Image } from "react-bootstrap";
 import { Layout } from "./Layout";
+import image from '../../assets/img/nosotros.jpg';
 
 export function About() {
   return (
@@ -7,7 +9,7 @@ export function About() {
       <main className="contenedor">
         <h2 className="heading">About us</h2>
         <div className="about-content">
-          <Image width={600} height={450} alt="About us" src="/img/nosotros.jpg"/>
+          <Image width={600} height={450} alt="About us" src={image}/>
           <div>
             <p>
               There are many variations of passages of Lorem Ipsum available,

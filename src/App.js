@@ -1,3 +1,4 @@
+import React from 'react';
 import { Routes, Route } from "react-router-dom";
 import { Shippings } from "./components/executive/Shippings";
 import { Client } from "./components/executive/Client";
@@ -9,7 +10,7 @@ import { ProtectedRoute } from "./components/utils/ProtectedRoute";
 import { AuthProvider } from "./context/authContext";
 import { Shipping } from "./components/executive/Shipping";
 import { ClientProvider } from "./context/clientContext";
-import { Addresses } from "./components/executive/Addresses";
+// import { Addresses } from "./components/executive/Addresses";
 
 function App() {
   return (
@@ -21,7 +22,6 @@ function App() {
             <Route path="/login" element={<Login />} />
             <Route path="/about" element={<About />} />
             <Route path="/support" element={<Support />} />
-
             <Route
               path="/shippings"
               element={
@@ -32,7 +32,7 @@ function App() {
             />
             <Route
               path="/shipping"
-              element={
+              element={ 
                 <ProtectedRoute role={["executive"]}>
                   <Shipping />
                 </ProtectedRoute>

@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect, useState } from "react";
 // import { getClients } from "../../repositories/ClientRepository";
 import { CustomerForm } from "./CustomerForm";
@@ -60,6 +61,7 @@ export function Client() {
             variant="outline-success"
             onClick={() => selectClient(row)}
             disabled={true}
+            className=""
           >
             <i className="material-icons icon">emoji_transportation</i>
           </Button>

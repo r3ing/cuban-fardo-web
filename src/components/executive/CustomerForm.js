@@ -1,3 +1,4 @@
+import React from 'react';
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { addOrEditClient } from "../../repositories/ClientRepository";
@@ -113,9 +114,11 @@ export function CustomerForm({ handleClose }) {
           onChange={handleInputChange}
         />
       </div>
+      
       {errors.phone?.type === "required" && (
         <small className="text-danger animated fadeIn">Phone is required</small>
       )}
+      
       {errors.phone?.type === "pattern" && (
         <small className="text-danger animated fadeIn">
           Invalid format Phone
@@ -131,7 +134,10 @@ export function CustomerForm({ handleClose }) {
           Invalid format Phone
         </small>
       )}
-      <button className="btn-warning custom-btn mt-3">
+
+
+
+      <button className="btn btn-warning mt-3">
       <i className="material-icons icon">save</i> 
         Save
       </button>

@@ -1,6 +1,8 @@
+import React from 'react';
 import { Image } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
+import logo from '../../assets/img/logo.svg';
 
 export function Header() {
   const { loginWithGoogle, user, logout } = useAuth();
@@ -34,7 +36,7 @@ export function Header() {
           <Link to="/">
             <Image
               alt="Cuban Fardo"
-              src="/img/logo.svg"
+              src={logo}
               width={300}
               height={100}
             />
@@ -56,7 +58,7 @@ export function Header() {
             >
               Customers
             </NavLink>
-            {/* <NavLink
+              {/* <NavLink
               to="/shipping"
               className={({ isActive }) =>
                 isActive ? "navegacion-active" : ""

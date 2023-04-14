@@ -1,3 +1,4 @@
+import React from 'react';
 import { ListGroup } from "react-bootstrap";
 import { useClient } from "../../context/clientContext";
 import { Layout } from "../system/Layout";
@@ -11,7 +12,7 @@ export function Shipping() {
   const alert = useAlert();
   const { customer } = useClient();
 
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [shippingAddress, setShippingAddress] = useState([]);
 
   // const getAllShippingAddress = async () => {
@@ -31,11 +32,11 @@ export function Shipping() {
     } 
 
 
-      setLoading(true);
+      // setLoading(true);
       //TO DO
       // getShippingAddress(customer.id).then((data) => {
       getShippingAddress("5oZQCByyvRkrioobW6eF").then((data) => {  
-        setLoading(false);
+        // setLoading(false);
         setShippingAddress(data);
       });
 
