@@ -1,9 +1,11 @@
+import React from 'react';
 import { Image } from "react-bootstrap";
-import { useAuth } from "../../context/authContext";
+//import { useAuth } from "../../context/authContext";
 import { Layout } from "./Layout";
+import image from '../../assets/img/nosotros.jpg';
 
 export function Home() {
-  const { user } = useAuth();
+  //const { user } = useAuth();
 
   return (
     <Layout title="Home">
@@ -16,7 +18,7 @@ export function Home() {
             width={600}
             height={450}
             alt="About us"
-            src="/img/nosotros.jpg"
+            src={image}
           />
           <div>
             <p>

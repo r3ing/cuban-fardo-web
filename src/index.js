@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import "./index.css";
-import "./styles/globals.css";
-import "./styles/normalize.css";
+//import "./index.css";
+import "./assets/styles/globals.css";
+import "./assets/styles/normalize.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import "bootswatch/dist/yeti/bootstrap.min.css";
