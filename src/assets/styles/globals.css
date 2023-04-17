@@ -92,8 +92,8 @@ img {
 .footer {
   background-color: var(--negro);
   padding: 2rem 0; 
-  position:fixed;
-  bottom:0;
+  /*position:fixed;
+  bottom:0;*/
   width:100%;
 }
 
