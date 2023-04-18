@@ -22,14 +22,15 @@ export function Table(props) {
   createTheme("custom", {
     title: {
       backgroundColor: "#e99401",
-      height: "2px",
+      height: "5px",
       fontColor: "#e99401",
     },
     header: {
-      fontSize: "14px",
+      fontSize: "16px",
       backgroundColor: "#e99401",
       fontColor: "#e99401",
-      fontWeight: "700",
+      fontWeight: "bold",
+      
     },
     rows: {
       backgroundColor: "#FFFFFF",
@@ -40,6 +41,12 @@ export function Table(props) {
   const handleSearch = (e) => {
     setSearch(e.target.value.toLowerCase());
   };
+
+  const cancelSearch = (e) => {
+    if (e.keyCode === 27) {
+      setSearch("");
+    }
+  }
 
   let result = [];
   if (!search || !canSearch) {
@@ -79,7 +86,7 @@ export function Table(props) {
       subHeader={canSearch}
       subHeaderComponent={
         canSearch && (
-          <div className="col-3">
+          <div className="col-md-4">
             <InputGroup>
               <FormControl
                 placeholder="Search..."
@@ -87,6 +94,7 @@ export function Table(props) {
                 value={search}
                 onChange={handleSearch}
                 className="ml-2"
+                onKeyDown={cancelSearch}
               />
               <InputGroup.Text>
                 <i className="material-icons">search</i>

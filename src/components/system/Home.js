@@ -15,6 +15,7 @@ export function Home() {
 
         <div className="about-content">
           <Image
+            className='main-image'
             width={600}
             height={450}
             alt="About us"
