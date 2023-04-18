@@ -2,7 +2,7 @@ import React from 'react';
 import { Image } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
-import logo from '../../assets/img/logo.svg';
+import logo from '../../assets/img/logo.png';
 
 export function Header() {
   const { loginWithGoogle, user, logout } = useAuth();
@@ -38,7 +38,7 @@ export function Header() {
               alt="Cuban Fardo"
               src={logo}
               width={300}
-              height={100}
+              height={120}
             />
           </Link>
           <nav className="navegacion">

@@ -37,7 +37,7 @@ img {
 }
 
 .header {
-  background-image: linear-gradient(to right, rgb(0 0 0 / 0.8), rgb(0 0 0 /0.7)),
+  background-image: linear-gradient(to right, rgb(0 0 0 / 0.3), rgb(0 0 0 /0.5)),
     url("../img/header.jpg");
   background-size: cover;
   background-position: 50%;
@@ -183,6 +183,11 @@ img {
   padding-bottom: 3rem;;
   color: #e99401;
 }
+
+.main-image {
+  background: linear-gradient(rgb(5 0 0 / 0.8), rgb(0 6 0 /0.8));
+  background-size: cover;
+} 
 
 
 .App {
