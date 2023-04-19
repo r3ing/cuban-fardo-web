@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { addOrEditClient } from "../../repositories/ClientRepository";
 import { useAlert } from "react-alert";
@@ -9,8 +9,7 @@ import { useClient } from "../../context/clientContext";
 export function CustomerForm({ handleClose }) {
   const alert = useAlert();
   // const navigate = useNavigate();
-  const { setCustomer } = useClient();
-
+  const { customer, setCustomer } = useClient();
   const [client, setClient] = useState({
     name: "",
     lastName: "",
@@ -24,16 +23,16 @@ export function CustomerForm({ handleClose }) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm({ mode: "all" });
 
   const onSubmit = async () => {
     try {
-      //TO DO
+      const msg = client.id ? "Customer updated cuccessfully" : "Customer created cuccessfully";
       await addOrEditClient(client);
       handleClose();
       setCustomer(client);
       //navigate("/shipping")
-      alert.success("Customer created cuccessfully");
+      alert.success(msg);
     } catch (error) {
       alert.error(error.message);
     }
@@ -44,6 +43,13 @@ export function CustomerForm({ handleClose }) {
     setClient({ ...client, [name]: value });
   };
 
+  useEffect(() => {
+    if (customer) {
+      setClient(customer)
+    }
+  }, [customer]);
+
+
   return (
     <form className="card card-body" onSubmit={handleSubmit(onSubmit)}>
       <div className="form-group input-group">
@@ -53,14 +59,20 @@ export function CustomerForm({ handleClose }) {
         <input
           type="text"
           className="form-control text-capitalize"
-          {...register("name", { required: true })}
+          {...register("name", {
+            required: "Name is required",
+            pattern: {
+              value: /^[a-zA-Z ]*$/,
+              message: "Please enter a valid Name"
+            }
+          })}
           placeholder="First Name"
           onChange={handleInputChange}
+          value={client.name}
         />
       </div>
-      {errors.name && (
-        <small className="text-danger animated fadeIn">Name is required</small>
-      )}
+      {errors.name && <small className="text-danger animated fadeIn">{errors.name.message}</small>}
+
       <div className="form-group input-group mt-3">
         <div className="input-group-text bg-light">
           <i className="material-icons">person</i>
@@ -68,35 +80,20 @@ export function CustomerForm({ handleClose }) {
         <input
           type="text"
           className="form-control text-capitalize"
-          {...register("lastName", { required: true })}
+          {...register("lastName", {
+            required: "Last Name is required",
+            pattern: {
+              value: /^[a-zA-Z ]*$/,
+              message: "Please enter a valid Last Name"
+            }
+          })}
           placeholder="Last Name"
           onChange={handleInputChange}
+          value={client.lastName}
         />
       </div>
-      {errors.lastName && (
-        <small className="text-danger animated fadeIn">
-          Last Name is required
-        </small>
-      )}
-      {/* <div className="form-group input-group mt-3">
-        <div className="input-group-text bg-light">
-          <i className="material-icons">email</i>
-        </div>
-        <input
-          type="email"
-          className="form-control"
-          {...register("email", {
-            pattern: /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/,
-          })}
-          placeholder="Email"
-          onChange={handleInputChange}
-        />
-      </div>
-      {errors.email && (
-        <small className="text-danger animated fadeIn">
-          Invalid format email
-        </small>
-      )} */}
+      {errors.lastName && <small className="text-danger animated fadeIn">{errors.lastName.message}</small>}
+
       <div className="form-group input-group mt-3">
         <div className="input-group-text bg-light">
           <i className="material-icons">phone</i>
@@ -105,40 +102,20 @@ export function CustomerForm({ handleClose }) {
           type="tel"
           className="form-control"
           {...register("phone", {
-            required: true,
-            minLength: 10,
-            maxLength: 10,
-            pattern: /^[0-9]*$/,
+            required: "Phone is required",
+            minLength: { value: 10, message: "Invalid format Phone" },
+            maxLength: { value: 10, message: "Invalid format Phone" },
+            pattern: { value: /^[0-9]*$/, message: "Invalid format Phone" },
           })}
           placeholder="Phone"
           onChange={handleInputChange}
+          value={client.phone}
         />
       </div>
-      
-      {errors.phone?.type === "required" && (
-        <small className="text-danger animated fadeIn">Phone is required</small>
-      )}
-      
-      {errors.phone?.type === "pattern" && (
-        <small className="text-danger animated fadeIn">
-          Invalid format Phone
-        </small>
-      )}
-      {errors.phone?.type === "minLength" && (
-        <small className="text-danger animated fadeIn">
-          Invalid format Phone
-        </small>
-      )}
-      {errors.phone?.type === "maxLength" && (
-        <small className="text-danger animated fadeIn">
-          Invalid format Phone
-        </small>
-      )}
-
-
+      {errors.phone && <small className="text-danger animated fadeIn">{errors.phone.message}</small>}
 
       <button className="btn btn-warning mt-3">
-      <i className="material-icons icon">save</i> 
+        <i className="material-icons icon">save</i>
         Save
       </button>
     </form>

@@ -6,7 +6,7 @@ import { Layout } from "../system/Layout";
 import { Button } from "react-bootstrap";
 import { Table } from "../common/Table";
 import { GenericModal } from "../common/GenericModal";
-import { ADD_NEW_CUSTOMER } from "../common/Costanst";
+import { ADD_NEW_CUSTOMER, EDIT_CUSTOMER } from "../common/Costanst";
 import { useClient } from "../../context/clientContext";
 // import { useNavigate } from "react-router-dom";
 import { collection, onSnapshot } from "firebase/firestore";
@@ -18,15 +18,30 @@ export function Client() {
   const [clients, setClients] = useState([]);
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
+  const [edit, setEdit] = useState(false);
   const { setCustomer } = useClient();
   // const navigate = useNavigate();
   const alert = useAlert();
 
-  const handleClose = () => setShowModal(false);
+  const handleClose = () => { 
+    setShowModal(false); 
+  };
 
   const handelShowModal = () => {
     setShowModal(true);
   };
+
+  const addClient = () => {
+    setCustomer(null);
+    setEdit(false);
+    handelShowModal();
+  }
+
+  const editClient = (row) => {
+    setEdit(true);
+    setCustomer(row);
+    handelShowModal();
+  }
 
   const selectClient = (row) => {
     setCustomer(row);
@@ -52,16 +67,16 @@ export function Client() {
         <>
           <Button
             variant="outline-warning"
-            className="mr-3"
-            onClick={handelShowModal}
-            disabled={true}>
+            className="table-btn"
+            onClick={() => editClient(row)}
+            disabled={false}>
             <i className="material-icons icon">edit_square</i>
           </Button>
           <Button
             variant="outline-success"
             onClick={() => selectClient(row)}
             disabled={true}
-            className=""
+            className="table-btn"
           >
             <i className="material-icons icon">emoji_transportation</i>
           </Button>
@@ -105,7 +120,7 @@ export function Client() {
       <GenericModal
         showModal={showModal}
         handleClose={handleClose}
-        title={ADD_NEW_CUSTOMER}
+        title={edit ? EDIT_CUSTOMER : ADD_NEW_CUSTOMER}
         body={<CustomerForm handleClose={handleClose} />}
         buttonClose={true}
         footer={false}
@@ -117,8 +132,7 @@ export function Client() {
               <h2>Customers</h2>
               <Button
                 variant="outline-warning"
-                // title="New Costomer"
-                onClick={handelShowModal}
+                onClick={addClient}
                 className="custom-btn"
               >
                 <i className="material-icons icon">person_add</i>

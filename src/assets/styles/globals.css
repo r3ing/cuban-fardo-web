@@ -168,6 +168,10 @@ img {
   }
 }
 
+.table-btn {
+  margin-right: 0.5rem;
+}
+
 .custom-btn {
   font-weight: bold !important;
 }
