@@ -8,10 +8,19 @@ on:
     branches: [ "master" ]
   pull_request:
     branches: [ "master" ]
-
+env:
+  CI: false
+  REACT_APP_FIREBASE_API_APP: ${{ secrets.REACT_APP_FIREBASE_API_APP }}
+  REACT_APP_AUTHDOMAIN_APP: ${{secrets.REACT_APP_AUTHDOMAIN_APP}}
+  REACT_APP_PROJECTID_APP: ${{secrets.REACT_APP_PROJECTID_APP}}
+  REACT_APP_STORAGEBUCKET_APP: ${{secrets.REACT_APP_STORAGEBUCKET_APP}}
+  REACT_APP_MESSAGINGSENDETID_APP: ${{secrets.REACT_APP_MESSAGINGSENDETID_APP}}
+  REACT_APP_APPID_APP: ${{secrets.REACT_APP_APPID_APP}}
+  REACT_APP_MEASUREMENTID_APP: ${{secrets.REACT_APP_MEASUREMENTID_APP}}
+  REACT_APP_USER_APP: ${{secrets.REACT_APP_USER_APP}}
 jobs:
   build:
-
+    name: build
     runs-on: ubuntu-latest
 
     strategy:
@@ -35,7 +44,7 @@ jobs:
         name: build
         path: build
   deploy:
-    name: Deploy
+    name: deploy
     needs: build
     runs-on: ubuntu-latest
     steps:
