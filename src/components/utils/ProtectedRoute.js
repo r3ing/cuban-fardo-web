@@ -3,10 +3,10 @@ import { useAuth } from "../../context/authContext";
 import { Navigate } from "react-router-dom";
 
 export function ProtectedRoute({ children, roles }) {
-  const { REACT_APP_USER_APP } = process.env;
+  const { REACT_APP_USER } = process.env;
   const { user, loading, logout } = useAuth();
 
-  const usersApp = REACT_APP_USER_APP ? REACT_APP_USER_APP.split(":") : "";
+  const usersApp = REACT_APP_USER ? REACT_APP_USER.split(":") : "";
 
   const authorization = usersApp.map((ua) => {
     let user = ua.split(",")[0];

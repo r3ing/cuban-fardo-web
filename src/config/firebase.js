@@ -2,23 +2,23 @@ import { initializeApp } from "firebase/app";
 import { getFirestore } from "@firebase/firestore";
 import { getAuth } from "firebase/auth";
 const {
-  REACT_APP_APIKEY_APP,
-  REACT_APP_AUTHDOMAIN_APP,
-  REACT_APP_PROJECTID_APP,
-  REACT_APP_STORAGEBUCKET_APP,
-  REACT_APP_MESSAGINGSENDETID_APP,
-  REACT_APP_APPID_APP,
-  REACT_APP_MEASUREMENTID_APP
+  REACT_APP_APIKEY,
+  REACT_APP_AUTHDOMAIN,
+  REACT_APP_PROJECTID,
+  REACT_APP_STORAGEBUCKET,
+  REACT_APP_MESSAGINGSENDETID,
+  REACT_APP_APPID,
+  REACT_APP_MEASUREMENTID
 } = process.env;
 
 const firebaseConfig = {
-  apiKey: REACT_APP_APIKEY_APP,
-  authDomain: REACT_APP_AUTHDOMAIN_APP,
-  projectId: REACT_APP_PROJECTID_APP,
-  storageBucket: REACT_APP_STORAGEBUCKET_APP,
-  messagingSenderId: REACT_APP_MESSAGINGSENDETID_APP,
-  appId: REACT_APP_APPID_APP,
-  measurementId: REACT_APP_MEASUREMENTID_APP,
+  apiKey: REACT_APP_APIKEY,
+  authDomain: REACT_APP_AUTHDOMAIN,
+  projectId: REACT_APP_PROJECTID,
+  storageBucket: REACT_APP_STORAGEBUCKET,
+  messagingSenderId: REACT_APP_MESSAGINGSENDETID,
+  appId: REACT_APP_APPID,
+  measurementId: REACT_APP_MEASUREMENTID,
 };
 
 const app = initializeApp(firebaseConfig);
