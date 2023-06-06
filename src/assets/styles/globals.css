@@ -92,9 +92,10 @@ img {
 .footer {
   background-color: var(--negro);
   padding: 2rem 0; 
-  /*position:fixed;
-  bottom:0;*/
+  /* position:fixed; */
+  bottom:0;
   width:100%;
+  display: block;
 }
 
 @media (min-width: 768px) {
@@ -151,6 +152,22 @@ img {
   }
 }
 
+.content {
+  display: grid;
+  gap: 0rem;
+  font-size: 1.4rem;
+  text-align: justify;
+  padding-bottom: 0rem;
+}
+
+@media (min-width: 768px) {
+  .content {
+    grid-template-columns: repeat(2, 1fr);
+    align-items: center;
+    padding-bottom: 10rem;
+  }
+}
+
 .table-header {
   display: flex;
   flex-direction: column;
@@ -186,6 +203,7 @@ img {
   height: 2px;
   padding-bottom: 3rem;;
   color: #e99401;
+  font-weight: bold;
 }
 
 .main-image {

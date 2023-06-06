@@ -4,11 +4,11 @@ import { useForm } from "react-hook-form";
 import { addOrEditClient } from "../../repositories/ClientRepository";
 import { useAlert } from "react-alert";
 import { useClient } from "../../context/clientContext";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 export function CustomerForm({ handleClose }) {
   const alert = useAlert();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const { customer, setCustomer } = useClient();
   const [client, setClient] = useState({
     name: "",
@@ -28,10 +28,10 @@ export function CustomerForm({ handleClose }) {
   const onSubmit = async () => {
     try {
       const msg = client.id ? "Customer updated cuccessfully" : "Customer created cuccessfully";
-      await addOrEditClient(client);
+      //await addOrEditClient(client);
       handleClose();
       setCustomer(client);
-      //navigate("/shipping")
+      navigate("/addresses")
       alert.success(msg);
     } catch (error) {
       alert.error(error.message);

@@ -8,7 +8,7 @@ import { Table } from "../common/Table";
 import { GenericModal } from "../common/GenericModal";
 import { ADD_NEW_CUSTOMER, EDIT_CUSTOMER } from "../common/Costanst";
 import { useClient } from "../../context/clientContext";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { collection, onSnapshot } from "firebase/firestore";
 import { db } from "../../config/firebase";
 import { useAlert } from "react-alert";
@@ -20,7 +20,7 @@ export function Client() {
   const [showModal, setShowModal] = useState(false);
   const [edit, setEdit] = useState(false);
   const { setCustomer } = useClient();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const alert = useAlert();
 
   const handleClose = () => { 
@@ -43,9 +43,9 @@ export function Client() {
     handelShowModal();
   }
 
-  const selectClient = (row) => {
+  const addAddress = (row) => {
     setCustomer(row);
-    //navigate("/shipping")
+    navigate("/addresses")
   }
 
   const columns = [
@@ -74,8 +74,8 @@ export function Client() {
           </Button>
           <Button
             variant="outline-success"
-            onClick={() => selectClient(row)}
-            disabled={true}
+            onClick={() => addAddress(row)}
+            disabled={false}
             className="table-btn"
           >
             <i className="material-icons icon">emoji_transportation</i>
@@ -129,7 +129,7 @@ export function Client() {
         <div className="card shadow border-warning mb-3">
           <div className="card-header">
             <div className="table-header">
-              <h2>Customers</h2>
+              <h2 className='title'>Customers</h2>
               <Button
                 variant="outline-warning"
                 onClick={addClient}
