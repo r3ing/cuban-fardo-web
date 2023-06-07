@@ -26,10 +26,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Install Dependencies
-      run: npm install
-    - name: Build
-      run: npm run build
       env:
         # CI: false
         REACT_APP_FIREBASE_API: ${{ secrets.REACT_APP_FIREBASE_API_APP }}
@@ -40,6 +36,10 @@ jobs:
         REACT_APP_APPID: ${{ secrets.REACT_APP_APPID_APP }}
         REACT_APP_MEASUREMENTID: ${{ secrets.REACT_APP_MEASUREMENTID_APP }}
         REACT_APP_USER: ${{ secrets.REACT_APP_USER_APP }} 
+    - name: Install Dependencies
+      run: npm install
+    - name: Build
+      run: npm run build      
     - name: Test
       run: npm test
     - name: Archive Build
