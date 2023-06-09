@@ -27,7 +27,6 @@ jobs:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
       env:
-        # CI: false
         REACT_APP_APIKEY: ${{ secrets.REACT_APP_APIKEY_APP }}
         REACT_APP_AUTHDOMAIN: ${{ secrets.REACT_APP_AUTHDOMAIN_APP }}
         REACT_APP_PROJECTID: ${{ secrets.REACT_APP_PROJECTID_APP }}
@@ -36,7 +35,7 @@ jobs:
         REACT_APP_APPID: ${{ secrets.REACT_APP_APPID_APP }}
         REACT_APP_MEASUREMENTID: ${{ secrets.REACT_APP_MEASUREMENTID_APP }}
         REACT_APP_USER: ${{ secrets.REACT_APP_USER_APP }} 
-        
+        # CI: false        
     - name: Install 
       run: npm install
     - name: Build
