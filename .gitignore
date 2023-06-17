@@ -9,8 +9,8 @@
 
 # deploy
 .firebase
-.firebaserc
-firebase.json
+#.firebaserc
+#firebase.json
 
 # testing
 /coverage

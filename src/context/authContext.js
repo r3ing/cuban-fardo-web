@@ -21,9 +21,9 @@ export const useAuth = () => {
 export function AuthProvider({ children }) {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(false);
-  const { REACT_APP_USER_APP } = process.env;
+  const { REACT_APP_USER } = process.env;
 
-  const usersApp = REACT_APP_USER_APP ? REACT_APP_USER_APP.split(":") : "";
+  const usersApp = REACT_APP_USER ? REACT_APP_USER.split(":") : "";
 
   const users = usersApp.map((ua) => {
     return ua.split(",")[0];
