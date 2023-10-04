@@ -20,12 +20,12 @@ export const getClients = async () => {
   // // const coll = await getDocs(colletcion);
   // // coll.docs.forEach((d) => console.log("shipments: ", d.data()));
 
-  // try {
-  //   const data = await getDocs(clientColletcion);
-  //   return data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
-  // } catch (error) {
-  //   throw new Error(error);
-  // }
+  try {
+    const data = await getDocs(clientColletcion);
+     return data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  } catch (error) {
+     throw new Error(error);
+  }
 };
 
 export const addOrEditClient = async (client) => {

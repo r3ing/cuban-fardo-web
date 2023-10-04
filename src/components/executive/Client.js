@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-// import { getClients } from "../../repositories/ClientRepository";
+import { getClients } from "../../repositories/ClientRepository";
 import { CustomerForm } from "./CustomerForm";
 import { Layout } from "../system/Layout";
 import { Button } from "react-bootstrap";
@@ -9,8 +9,8 @@ import { GenericModal } from "../common/GenericModal";
 import { ADD_NEW_CUSTOMER, EDIT_CUSTOMER } from "../common/Costanst";
 import { useClient } from "../../context/clientContext";
 import { useNavigate } from "react-router-dom";
-import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../../config/firebase";
+// import { collection, onSnapshot } from "firebase/firestore";
+// import { db } from "../../config/firebase";
 import { useAlert } from "react-alert";
 
 
@@ -90,27 +90,27 @@ export function Client() {
 
   useEffect(() => {
     setLoading(true);
-    const unsub = onSnapshot(collection(db, "client"),
-      (snapshot) => {
-        const data = [];
-        snapshot.forEach((doc) => {
-          data.push({ ...doc.data(), id: doc.id });
-        });
-        setClients(data);
-        setLoading(false);
-      },
-      (error) => {
-        alert.error("Up, error listing customers!!!", error.message);
-      });
-    return () => {
-      unsub();
-    }
+    // const unsub = onSnapshot(collection(db, "client"),
+    //   (snapshot) => {
+    //     const data = [];
+    //     snapshot.forEach((doc) => {
+    //       data.push({ ...doc.data(), id: doc.id });
+    //     });
+    //     setClients(data);
+    //     setLoading(false);
+    //   },
+    //   (error) => {
+    //     alert.error("Up, error listing customers!!!", error.message);
+    //   });
+    // return () => {
+    //   unsub();
+    // }
 
-    // getClients().then((data) => {
-    //   console.log(data);
-    //   setLoading(false);
-    //   setClients(data);
-    // });
+    getClients().then((data) => {
+       console.log(data);
+       setLoading(false);
+       setClients(data);
+    });
 
     // eslint-disable-next-line
   }, []);
