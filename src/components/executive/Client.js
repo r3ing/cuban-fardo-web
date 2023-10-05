@@ -9,9 +9,7 @@ import { GenericModal } from "../common/GenericModal";
 import { ADD_NEW_CUSTOMER, EDIT_CUSTOMER } from "../common/Costanst";
 import { useClient } from "../../context/clientContext";
 import { useNavigate } from "react-router-dom";
-// import { collection, onSnapshot } from "firebase/firestore";
-// import { db } from "../../config/firebase";
-import { useAlert } from "react-alert";
+//import { useAlert } from "react-alert";
 
 
 export function Client() {
@@ -21,7 +19,7 @@ export function Client() {
   const [edit, setEdit] = useState(false);
   const { setCustomer } = useClient();
   const navigate = useNavigate();
-  const alert = useAlert();
+  //const alert = useAlert();
 
   const handleClose = () => { 
     setShowModal(false); 
@@ -90,24 +88,8 @@ export function Client() {
 
   useEffect(() => {
     setLoading(true);
-    // const unsub = onSnapshot(collection(db, "client"),
-    //   (snapshot) => {
-    //     const data = [];
-    //     snapshot.forEach((doc) => {
-    //       data.push({ ...doc.data(), id: doc.id });
-    //     });
-    //     setClients(data);
-    //     setLoading(false);
-    //   },
-    //   (error) => {
-    //     alert.error("Up, error listing customers!!!", error.message);
-    //   });
-    // return () => {
-    //   unsub();
-    // }
 
-    getClients().then((data) => {
-       console.log(data);
+    getClients().then((data) => {     
        setLoading(false);
        setClients(data);
     });

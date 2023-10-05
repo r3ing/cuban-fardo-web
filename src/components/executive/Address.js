@@ -1,52 +1,76 @@
-import React from 'react';
-import { Button } from 'react-bootstrap';
+import React from "react";
+import { Button } from "react-bootstrap";
+import Accordion from "react-bootstrap/Accordion";
 
-const Address = () => {
-    return (
-        <div className='m-4 shadow-md shadow-orange-300 px-3 py-3'>
-            <div className='flex items-center px-2'>
-                <p className='font-bold text-gray-700 uppercase'>Name: {''}
-                    <span className='font-normal normal-case'>Elena Pedroso Garcia</span>
-                </p>
-                <p className='font-bold text-gray-700 uppercase px-5'>Phone: {''}
-                    <span className='font-normal normal-case'>5023037441 </span>
-                </p>
-            </div>
-            <p className='font-bold text-gray-700 uppercase px-2'>Address: {''}
-                <span className='font-normal normal-case'>
-                    Continental Apto 16 % Jorge y Destrampes Cevillano
-                </span>
-            </p>
-            <div className='flex items-center px-2'>
-                <p className='font-bold text-gray-700 uppercase'>Province: {''}
-                    <span className='font-normal normal-case'>La Habana</span>
-                </p>
-                <p className='font-bold text-gray-700 uppercase px-5'>Town: {''}
-                    <span className='font-normal normal-case'>La Vivora</span>
-                </p>
-            </div>
-            <p className='font-bold text-gray-700 uppercase px-2'>Ref: {''}
-                <span className='font-normal normal-case'>Detras del la placita amarilla</span>
-            </p>
-            <div className='flex'>
-                <Button
-                    variant="outline-warning"
-                    className="table-btn"
-                    onClick={() => { }}
-                    disabled={false}>
-                    <i className="material-icons icon">edit_square</i>
-                </Button>
-                <Button
-                    variant="outline-success"
-                    onClick={() => { }}
-                    disabled={false}
-                    className="table-btn"
-                >
-                    <i className="material-icons icon">trolley</i>
-                </Button>
-            </div>
+const Address = ({ address }) => {
+  return (
+    <>
+      <Accordion.Header>
+        <div className="adresses-title">
+          <b>{address.beneficiary}</b>
+          <b>
+            {address.town}, {address.province}
+          </b>
         </div>
-    )
-}
+      </Accordion.Header>
+      <Accordion.Body className="shadow-md shadow-orange-300">
+        <div className="">
+          <div className="flex items-center">
+            <p className="font-bold text-gray-700 uppercase">
+              <b>Phone:</b> {""}
+              <span className="font-normal normal-case">{address.phone}</span>
+            </p>
+          </div>
+          <p className="font-bold text-gray-700 uppercase">
+            <b>Address:</b> {""}
+            <span className="font-normal normal-case">
+              {address.street !== "" && `${address.street}`}{" "}
+              {address.number !== "" && `#${address.number}`}{" "}
+              {address.betweenStreet !== "" && `%${address.betweenStreet}`}{", "}
+              {address.locality !== "" && `Rpto ${address.locality}`}{" "}
+            </span>
+          </p>
+          <div className="flex items-center">
+            <p className="font-bold text-gray-700 uppercase">
+              <b>Town:</b> {""}
+              <span className="font-normal normal-case">{address.town}</span>
+            </p>
+            <p className="font-bold text-gray-700 uppercase">
+              <b>Province:</b> {""}
+              <span className="font-normal normal-case">
+                {address.province}
+              </span>
+            </p>
+          </div>
+          {address.ref && (
+            <p className="font-bold text-gray-700 uppercase">
+              <b>Ref:</b> {""}
+              <span className="font-normal normal-case">{address.ref}</span>
+            </p>
+          )}
 
-export default Address
+          <div className="adresses-actions text-end">
+            <Button
+              variant="outline-warning"
+              className="table-btn"
+              onClick={() => {}}
+              disabled={false}
+            >
+              <i className="material-icons icon">edit_square</i>
+            </Button>
+            <Button
+              variant="outline-success"
+              onClick={() => {}}
+              disabled={false}
+              className="table-btn"
+            >
+              <i className="material-icons icon">emoji_transportation</i>
+            </Button>
+          </div>
+        </div>
+      </Accordion.Body>
+    </>
+  );
+};
+
+export default Address;

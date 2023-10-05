@@ -22,7 +22,7 @@ export const getClients = async () => {
 
   try {
     const data = await getDocs(clientColletcion);
-     return data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    return data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
   } catch (error) {
      throw new Error(error);
   }

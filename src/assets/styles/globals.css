@@ -192,7 +192,8 @@ img {
 }
 
 .table-btn {
-  margin-right: 0.5rem;
+  margin-right: 1rem;
+  width: 5rem;
 }
 
 .custom-btn {
@@ -216,6 +217,35 @@ img {
   background: linear-gradient(rgb(5 0 0 / 0.8), rgb(0 6 0 /0.8));
   background-size: cover;
 } 
+
+.adresses-page {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  padding: 0 5rem 2rem 5rem;
+  font-weight: 600;
+}
+
+.adresses-page-item {
+  display: flex;
+  flex-direction: column;
+  flex-basis: 100%;
+  flex: 1;
+  padding: 2rem;
+}
+
+.adresses-title {
+  display: flex;
+  gap: 50rem;
+  font-weight: bold;
+  text-transform: uppercase;
+}
+
+.adresses-actions {
+  align-items: end;
+
+}
 
 
 /* .App {
