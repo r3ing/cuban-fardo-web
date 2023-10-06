@@ -1,50 +1,84 @@
-export function Address() {
+import React from "react";
+import { Button } from "react-bootstrap";
+import Accordion from "react-bootstrap/Accordion";
+import { useNavigate } from "react-router-dom";
+
+const Address = ({ address }) => {
+  const navigate = useNavigate();
+
+  const attachAddress = () => {
+    navigate("/shipping");
+  };
+
   return (
-    <form className="card card-body">
-      <div className="form-group input-group mb-3">
-        <div className="input-group-text bg-light">
-          <i className="material-icons">perm_identity</i>
+    <>
+      <Accordion.Header>
+        <div className="adresses-title">
+          <b>{address.beneficiary}</b>
+          <b>
+            {address.town}, {address.province}
+          </b>
         </div>
-        <input
-          type="text"
-          className="form-control"
-          name="name"
-          placeholder="Name"
-        />
-      </div>
-      <div className="form-group input-group mb-3">
-        <div className="input-group-text bg-light">
-          <i className="material-icons">perm_identity</i>
+      </Accordion.Header>
+      <Accordion.Body className="shadow-md shadow-orange-300">
+        <div className="">
+          <div className="flex items-center">
+            <p className="font-bold text-gray-700 uppercase">
+              <b>Phone:</b> {""}
+              <span className="font-normal normal-case">{address.phone}</span>
+            </p>
+          </div>
+          <p className="font-bold text-gray-700 uppercase">
+            <b>Address:</b> {""}
+            <span className="font-normal normal-case">
+              {address.street !== "" && `${address.street}`}{" "}
+              {address.number !== "" && `#${address.number}`}{" "}
+              {address.betweenStreet !== "" && `%${address.betweenStreet}`}
+              {", "}
+              {address.locality !== "" && `Rpto ${address.locality}`}{" "}
+            </span>
+          </p>
+          <div className="flex items-center">
+            <p className="font-bold text-gray-700 uppercase">
+              <b>Town:</b> {""}
+              <span className="font-normal normal-case">{address.town}</span>
+            </p>
+            <p className="font-bold text-gray-700 uppercase">
+              <b>Province:</b> {""}
+              <span className="font-normal normal-case">
+                {address.province}
+              </span>
+            </p>
+          </div>
+          {address.ref && (
+            <p className="font-bold text-gray-700 uppercase">
+              <b>Ref:</b> {""}
+              <span className="font-normal normal-case">{address.ref}</span>
+            </p>
+          )}
+
+          <div className="adresses-actions text-end">
+            <Button
+              variant="outline-warning"
+              className="table-btn"
+              onClick={() => {}}
+              disabled={true}
+            >
+              <i className="material-icons icon">edit_square</i>
+            </Button>
+            <Button
+              variant="outline-success"
+              onClick={attachAddress}
+              disabled={false}
+              className="table-btn"
+            >
+              <i className="material-icons icon">emoji_transportation</i>
+            </Button>
+          </div>
         </div>
-        <input
-          type="text"
-          className="form-control"
-          name="lastName"
-          placeholder="Last Name"
-        />
-      </div>
-      <div className="form-group input-group mb-3">
-        <div className="input-group-text bg-light">
-          <i className="material-icons">email</i>
-        </div>
-        <input
-          type="email"
-          className="form-control"
-          name="email"
-          placeholder="Email"
-        />
-      </div>
-      <div className="form-group input-group mb-3">
-        <div className="input-group-text bg-light">
-          <i className="material-icons">phone</i>
-        </div>
-        <input
-          type="tel"
-          className="form-control"
-          name="phone"
-          placeholder="Phone"
-        />
-      </div>
-    </form>
+      </Accordion.Body>
+    </>
   );
-}
+};
+
+export default Address;

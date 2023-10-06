@@ -9,14 +9,15 @@ import { Support } from "./components/system/Support";
 import { ProtectedRoute } from "./components/utils/ProtectedRoute";
 import { AuthProvider } from "./context/authContext";
 import { Shipping } from "./components/executive/Shipping";
-import { ClientProvider } from "./context/clientContext";
+import { ShipmentProvider } from "./context/shipmentContext";
+import { Addresses } from './components/executive/Addresses';
 // import { Addresses } from "./components/executive/Addresses";
 
 function App() {
   return (
     <div className="h-screen">
       <AuthProvider>
-        <ClientProvider>
+        <ShipmentProvider>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/login" element={<Login />} />
@@ -33,7 +34,7 @@ function App() {
             <Route
               path="/shipping"
               element={ 
-                <ProtectedRoute role={["executive"]}>
+                <ProtectedRoute role={["admin, executive"]}>
                   <Shipping />
                 </ProtectedRoute>
               }
@@ -41,13 +42,23 @@ function App() {
             <Route
               path="/customers"
               element={
-                <ProtectedRoute role={["executive"]}>
+                <ProtectedRoute role={["admin, executive"]}>
                   <Client />
                 </ProtectedRoute>
               }
             />
+            <Route
+              path="/addresses"
+              element={
+                <ProtectedRoute role={["executive"]}>
+                  <Addresses />
+                </ProtectedRoute>
+              }
+            />
+
+
           </Routes>
-        </ClientProvider>
+        </ShipmentProvider>
       </AuthProvider>
     </div>
   );

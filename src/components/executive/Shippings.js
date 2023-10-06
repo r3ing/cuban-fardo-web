@@ -10,12 +10,12 @@ import { ADD_NEW_CUSTOMER, LOOK_FOR_CLIENT } from "../common/Costanst";
 import { ComboboxAutocomplete } from "../common/ComboboxAutocomplete";
 import { CustomerForm } from "./CustomerForm";
 import { Modals } from "../common/Modals";
-import { useClient } from "../../context/clientContext";
+import { useShipment } from "../../context/shipmentContext";
 
 export function Shippings() {
   const alert = useAlert();
   const navigate = useNavigate();
-  const { setCustomer } = useClient();
+  const { setCustomer } = useShipment();
   const [clients, setClients] = useState([]);
   const [dataFiltered, setDataFiltered] = useState([]);
   const [loading, setLoading] = useState(false);

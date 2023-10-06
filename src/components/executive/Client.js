@@ -1,17 +1,15 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-// import { getClients } from "../../repositories/ClientRepository";
+import { getClients } from "../../repositories/ClientRepository";
 import { CustomerForm } from "./CustomerForm";
 import { Layout } from "../system/Layout";
 import { Button } from "react-bootstrap";
 import { Table } from "../common/Table";
 import { GenericModal } from "../common/GenericModal";
 import { ADD_NEW_CUSTOMER, EDIT_CUSTOMER } from "../common/Costanst";
-import { useClient } from "../../context/clientContext";
-// import { useNavigate } from "react-router-dom";
-import { collection, onSnapshot } from "firebase/firestore";
-import { db } from "../../config/firebase";
-import { useAlert } from "react-alert";
+import { useShipment } from "../../context/shipmentContext";
+import { useNavigate } from "react-router-dom";
+//import { useAlert } from "react-alert";
 
 
 export function Client() {
@@ -19,9 +17,9 @@ export function Client() {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [edit, setEdit] = useState(false);
-  const { setCustomer } = useClient();
-  // const navigate = useNavigate();
-  const alert = useAlert();
+  const { setCustomer } = useShipment();
+  const navigate = useNavigate();
+  //const alert = useAlert();
 
   const handleClose = () => { 
     setShowModal(false); 
@@ -43,9 +41,9 @@ export function Client() {
     handelShowModal();
   }
 
-  const selectClient = (row) => {
+  const addAddress = (row) => {
     setCustomer(row);
-    //navigate("/shipping")
+    navigate("/addresses")
   }
 
   const columns = [
@@ -74,8 +72,8 @@ export function Client() {
           </Button>
           <Button
             variant="outline-success"
-            onClick={() => selectClient(row)}
-            disabled={true}
+            onClick={() => addAddress(row)}
+            disabled={false}
             className="table-btn"
           >
             <i className="material-icons icon">emoji_transportation</i>
@@ -90,27 +88,11 @@ export function Client() {
 
   useEffect(() => {
     setLoading(true);
-    const unsub = onSnapshot(collection(db, "client"),
-      (snapshot) => {
-        const data = [];
-        snapshot.forEach((doc) => {
-          data.push({ ...doc.data(), id: doc.id });
-        });
-        setClients(data);
-        setLoading(false);
-      },
-      (error) => {
-        alert.error("Up, error listing customers!!!", error.message);
-      });
-    return () => {
-      unsub();
-    }
 
-    // getClients().then((data) => {
-    //   console.log(data);
-    //   setLoading(false);
-    //   setClients(data);
-    // });
+    getClients().then((data) => {     
+       setLoading(false);
+       setClients(data);
+    });
 
     // eslint-disable-next-line
   }, []);
@@ -129,7 +111,7 @@ export function Client() {
         <div className="card shadow border-warning mb-3">
           <div className="card-header">
             <div className="table-header">
-              <h2>Customers</h2>
+              <h2 className='title'>Customers</h2>
               <Button
                 variant="outline-warning"
                 onClick={addClient}

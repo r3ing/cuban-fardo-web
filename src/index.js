@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-//import "./index.css";
+import "./index.css";
 import "./assets/styles/globals.css";
 import "./assets/styles/normalize.css";
 import App from "./App";
@@ -20,13 +20,13 @@ const options = {
 }
 
 ReactDOM.render(
-  //<React.StrictMode>
+  <React.StrictMode>
     <BrowserRouter>
       <AlertProvider template={AlertTemplate} {...options}>
         <App />
       </AlertProvider>
     </BrowserRouter>,
-  //</React.StrictMode>,
+  </React.StrictMode>,
   document.getElementById("root")
 );
 
