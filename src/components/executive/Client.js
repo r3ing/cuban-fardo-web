@@ -7,7 +7,7 @@ import { Button } from "react-bootstrap";
 import { Table } from "../common/Table";
 import { GenericModal } from "../common/GenericModal";
 import { ADD_NEW_CUSTOMER, EDIT_CUSTOMER } from "../common/Costanst";
-import { useClient } from "../../context/clientContext";
+import { useShipment } from "../../context/shipmentContext";
 import { useNavigate } from "react-router-dom";
 //import { useAlert } from "react-alert";
 
@@ -17,7 +17,7 @@ export function Client() {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(false);
   const [edit, setEdit] = useState(false);
-  const { setCustomer } = useClient();
+  const { setCustomer } = useShipment();
   const navigate = useNavigate();
   //const alert = useAlert();
 

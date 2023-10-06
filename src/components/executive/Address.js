@@ -1,8 +1,15 @@
 import React from "react";
 import { Button } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
+import { useNavigate } from "react-router-dom";
 
 const Address = ({ address }) => {
+  const navigate = useNavigate();
+
+  const attachAddress = () => {
+    navigate("/shipping");
+  };
+
   return (
     <>
       <Accordion.Header>
@@ -26,7 +33,8 @@ const Address = ({ address }) => {
             <span className="font-normal normal-case">
               {address.street !== "" && `${address.street}`}{" "}
               {address.number !== "" && `#${address.number}`}{" "}
-              {address.betweenStreet !== "" && `%${address.betweenStreet}`}{", "}
+              {address.betweenStreet !== "" && `%${address.betweenStreet}`}
+              {", "}
               {address.locality !== "" && `Rpto ${address.locality}`}{" "}
             </span>
           </p>
@@ -54,13 +62,13 @@ const Address = ({ address }) => {
               variant="outline-warning"
               className="table-btn"
               onClick={() => {}}
-              disabled={false}
+              disabled={true}
             >
               <i className="material-icons icon">edit_square</i>
             </Button>
             <Button
               variant="outline-success"
-              onClick={() => {}}
+              onClick={attachAddress}
               disabled={false}
               className="table-btn"
             >

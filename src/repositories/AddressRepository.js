@@ -3,10 +3,9 @@ import {
   collection,
   // collectionGroup,
   getDocs,
-  // addDoc,
+  addDoc,
   // updateDoc,
   // deleteDoc,
-  
 } from "firebase/firestore";
 
 export const getShippingAddress = async (idClient) => {
@@ -17,6 +16,23 @@ export const getShippingAddress = async (idClient) => {
   } catch (error) {
     throw new Error(error);
   }
+};
+
+export const saveShippingAddress = async (idClient, address) => {
+  const addressCollection = collection(
+    db,
+    `/client/${idClient}/shippingAddress`
+  );
+
+  try {
+    await addDoc(addressCollection, address).then((docRef) => {
+      address.id = docRef.id;
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+
+  return address;
 };
 
 export const getProvinces = async () => {
@@ -38,5 +54,3 @@ export const getCities = async (idProvince) => {
     throw new Error(error);
   }
 };
-
-

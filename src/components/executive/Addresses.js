@@ -1,21 +1,18 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { useClient } from "../../context/clientContext";
+import { useShipment } from "../../context/shipmentContext";
 import { getShippingAddress } from "../../repositories/AddressRepository";
 import { Layout } from "../system/Layout";
 import { useAlert } from "react-alert";
 import { useNavigate } from "react-router-dom";
-// import { Button } from 'react-bootstrap';
 import Accordion from "react-bootstrap/Accordion";
 import Address from "./Address";
-// import Address from './Address';
 import { AddressForm } from "./AddressForm";
-// import { ListGroup } from 'react-bootstrap';
 
 export function Addresses() {
   const navigate = useNavigate();
   const alert = useAlert();
-  const { customer } = useClient();
+  const { customer } = useShipment();
   const [addresses, setAddresses] = useState([]);
 
   useEffect(() => {
@@ -25,10 +22,9 @@ export function Addresses() {
       return;
     }
 
-    getShippingAddress("5oZQCByyvRkrioobW6eF").then((data) => {      
+    getShippingAddress(customer.id).then((data) => {      
       setAddresses(data);
     });
-
 
     // eslint-disable-next-line
   }, []);
@@ -43,9 +39,9 @@ export function Addresses() {
         {addresses && addresses.length > 0 ? (
           <section className="adresses-page-item">
             <h2 className="title text-center mt-5">Addresses</h2>
-            <Accordion className="shadow-md shadow-orange-300 text-200">
+            <Accordion defaultActiveKey="0" className="shadow-md shadow-orange-300 text-200">
               {addresses.map((address, key) => (
-                <Accordion.Item eventKey={key} key={key}>
+                <Accordion.Item eventKey="0" key={key}>
                   <Address address={address} />
                 </Accordion.Item>
               ))}
