@@ -15,9 +15,10 @@ export function ShipmentProvider({ children }) {
 
   const [customer, setCustomer] = useState(null);
   const [address, setAddress] = useState(null);
+  const [articles, setArticles] = useState(null);
 
   return (
-    <shipmentContext.Provider value={{ customer, address, setCustomer, setAddress }}>
+    <shipmentContext.Provider value={{ customer, address, articles, setCustomer, setAddress, setArticles }}>
       {children}
     </shipmentContext.Provider>
   );

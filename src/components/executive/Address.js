@@ -2,11 +2,14 @@ import React from "react";
 import { Button } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import { useNavigate } from "react-router-dom";
+import { useShipment } from "../../context/shipmentContext";
 
 const Address = ({ address }) => {
   const navigate = useNavigate();
+  const { setAddress } = useShipment();
 
   const attachAddress = () => {
+    setAddress(address);
     navigate("/shipping");
   };
 
@@ -58,14 +61,14 @@ const Address = ({ address }) => {
           )}
 
           <div className="adresses-actions text-end">
-            <Button
+            {/* <Button
               variant="outline-warning"
               className="table-btn"
               onClick={() => {}}
               disabled={true}
             >
               <i className="material-icons icon">edit_square</i>
-            </Button>
+            </Button> */}
             <Button
               variant="outline-success"
               onClick={attachAddress}

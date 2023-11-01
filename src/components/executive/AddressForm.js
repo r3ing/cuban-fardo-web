@@ -205,7 +205,7 @@ export function AddressForm() {
         <input
           {...register("locality", {
             pattern: {
-              value: /^[a-zA-Z ]*$/,
+              value: /^[a-zA-Z0-9 ]*$/,
               message: "Please enter a valid Neighborhood",
             },
           })}
