@@ -248,6 +248,60 @@ img {
 }
 
 
+
+
+/* table */
+.title {
+  text-align: center;
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
+tr th {
+  font-size: 11px;
+  padding: 7px;
+  border: 0.5px solid #eeeeee;
+  text-align: left;
+  /* background-color: rgba(217, 221, 146, 0.2); */
+  background-color: rgba(248, 166, 9, 0.50);
+}
+
+tr td {
+  border: 0.5px solid #eeeeee;
+  text-align: left;
+}
+
+input {
+  font-size: 18px;
+  background-color: transparent;
+  border: none;
+  width: 91%;
+  padding: 7px 7px;
+  font-family: 'Poppins', sans-serif;
+}
+
+input:hover {
+  background-color: #fffaf3;
+}
+
+.editable-header {
+  display: flex;  
+  justify-content: flex-end; 
+}
+
+i.icon-blue {
+  color: #dc3545;
+}
+
+
+
+
+
 /* .App {
   text-align: center;
 }

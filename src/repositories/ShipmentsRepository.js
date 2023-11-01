@@ -1,12 +1,7 @@
 import { db } from "../config/firebase";
 import {
   collection,
-  collectionGroup,
-  getDocs,
   addDoc,
-  updateDoc,
-  doc,
-  deleteDoc,
 } from "firebase/firestore";
 
 export const addOrEditShipment = async (idClient, shipment) => {
@@ -25,4 +20,18 @@ export const addOrEditShipment = async (idClient, shipment) => {
   } catch (error) {
     throw new Error(error);
   }
+};
+
+export const addShipment = async (shipment) => {
+  const shipmentColletcion = collection(db, "shipping");
+
+  try {
+    await addDoc(shipmentColletcion, shipment).then((docRef) => {
+      shipment.id = docRef.id;
+    });
+  } catch (error) {
+    throw new Error(error);
+  }
+
+  return shipment;
 };
