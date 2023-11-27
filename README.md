@@ -1,70 +1,75 @@
-# Getting Started with Create React App
+# Cuban Fardo Express React Application
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Overview
 
-## Available Scripts
+Cuban Fardo Express is a React application designed to facilitate the process of sending packages to Cuba from Kentucky. 
+This application streamlines the package shipment process, providing users with a user-friendly interface to manage their shipments, track packages, and access essential information.
 
-In the project directory, you can run:
+## Features
 
-### `npm start`
+- **User Authentication**: Secure user authentication system to ensure the privacy and security of user accounts.
 
-Runs the app in the development mode.\
+- **Package Management**: Easily create, edit, and delete packages, with the ability to include relevant details such as package contents, weight, and destination.
+
+## Getting Started
+
+Follow these instructions to get a copy of the project up and running on your local machine for development and testing purposes.
+
+## Prerequisites
+
+Before running the application, ensure that you have the following software installed:
+
+- Node.js
+- npm (Node Package Manager)
+
+## Installation
+
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/cuban-fardo-express.git
+
+2. Navigate to the project directory:
+   
+   cd cuban-fardo-express
+
+3. Install dependencies:
+   
+   npm install
+
+## Configuration
+
+1. Create a .env file in the root directory and configure the necessary environment variables.
+
+REACT_APP_APIKEY=xxx
+REACT_APP_PROJECTID=project_id
+REACT_APP_APPID=app_id
+REACT_APP_USER=users_app
+
+## Usage
+
+1. Start the development server:
+
+  npm start
+
+2. Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Contributing
 
-### `npm test`
+Please read CONTRIBUTING.md for details on our code of conduct and the process for submitting pull requests to us.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## License
 
-### `npm run build`
+This project is licensed under the MIT License - see the LICENSE.md file for details.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Acknowledgments
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+Hat tip to anyone whose code was used
+Inspiration
+etc.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Contact
 
-### `npm run eject`
+For inquiries and support, please contact Reinaldo Rodriguez at reirpinf@gmail.com
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
