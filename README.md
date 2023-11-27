@@ -41,7 +41,7 @@ Before running the application, ensure that you have the following software inst
 
 1. Create a .env file in the root directory and configure the necessary environment variables.
 
-REACT_APP_APIKEY=xxx
+REACT_APP_APIKEY=api_key
 REACT_APP_PROJECTID=project_id
 REACT_APP_APPID=app_id
 REACT_APP_USER=users_app
