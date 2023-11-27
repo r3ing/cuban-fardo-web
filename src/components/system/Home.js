@@ -23,38 +23,27 @@ export function Home() {
           />
           <div>
             <p>
-              Cuban Fardo Express se ha consolidado como la principal agencia de
-              paquetería en Kentucky, ganándose la confianza de clientes locales
-              y nacionales gracias a su compromiso inquebrantable con la
-              excelencia en el servicio. Con una trayectoria impecable y un
-              equipo altamente capacitado, esta agencia ha establecido un
-              estándar ejemplar en términos de rapidez, seguridad y
-              confiabilidad en la entrega de paquetes. Su cobertura abarca todo
-              el estado de Kentucky y más allá, brindando soluciones de envío
-              para empresas y particulares. Además, Cuban Fardo Express se
-              enorgullece de ofrecer tarifas competitivas y un excepcional
-              servicio al cliente, lo que la convierte en la elección
-              indiscutible para quienes buscan una agencia de paquetería de
-              primer nivel en Kentucky. Con Cuban Fardo Express, tus envíos
-              están en las manos más seguras y eficientes del negocio.
+              Cuban Fardo Express has established itself as the premier package delivery agency in Kentucky, 
+              earning the trust of local and national customers through its unwavering commitment to service excellence.
+              With an impeccable track record and a highly trained team, this agency has set an exemplary standard in terms of speed,
+              security and reliability in package delivery. Its coverage encompasses the entire state of Kentucky and beyond,
+              providing shipping solutions for businesses and individuals. In addition, Cuban Fardo Express prides itself
+              on offering competitive rates and exceptional customer service, making it the undisputed choice for those
+              looking for a premier package delivery agency in Kentucky. Kentucky's premier parcel delivery agency.
+              With Cuban Fardo Express, your shipments are in the safest, most efficient hands in the business.
             </p>
             <p>
-              Se ha ganado una merecida reputación como la
-              agencia de paquetería líder en Kentucky. Con años de experiencia
-              en el mercado, esta empresa se destaca por su compromiso
-              inquebrantable con la satisfacción del cliente y la eficiencia en
-              la entrega de paquetes. Ya sea que necesites enviar documentos
-              importantes, paquetes personales o mercancía comercial, Cuban
-              Fardo Express garantiza la seguridad y la puntualidad en cada
-              envío. Su amplia cobertura a nivel estatal, combinada con tarifas
-              competitivas, hace que sea la elección evidente para aquellos que
-              buscan un servicio de paquetería confiable. Además, su dedicación
-              al servicio al cliente y la capacidad de adaptarse a las
-              necesidades individuales hacen que Cuban Fardo Express sea la
-              opción preferida en Kentucky. En resumen, si buscas una agencia de
-              paquetería de confianza que ofrezca calidad y profesionalismo,
-              Cuban Fardo Express es la elección indiscutible en el estado de
-              Kentucky.
+              It has earned a well-deserved reputation as Kentucky's leading parcel delivery agency.
+              With years of experience in the market, this company stands out for its unwavering commitment 
+              to customer to customer satisfaction and efficiency in package delivery. package delivery. 
+              Whether you need to ship important documents important documents, personal packages or 
+              commercial merchandise, Cuban Fardo Express guarantees safety and timeliness in every shipment. 
+              Its extensive statewide coverage, combined with competitive rates, makes it the obvious choice for those
+              competitive rates, makes it the obvious choice for those looking for a looking for reliable parcel service. 
+              In addition, its dedication service and the ability to adapt to individual needs make Cuban Fardo Express 
+              the individual needs make Cuban Fardo Express the preferred choice in Kentucky. In short, if you're 
+              looking for a reliable agency that offers quality and professionalism, Cuban Fardo Express is the 
+              undisputed choice in the state of Kentucky.
             </p>
           </div>
         </div>
