@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
-// import { addOrEditClient } from "../../repositories/ClientRepository";
+import { addOrEditClient } from "../../repositories/ClientRepository";
 import { useAlert } from "react-alert";
 import {useShipment } from "../../context/shipmentContext";
 import { useNavigate } from "react-router-dom";
@@ -28,7 +28,7 @@ export function CustomerForm({ handleClose }) {
   const onSubmit = async () => {
     try {
       const msg = client.id ? "Customer updated cuccessfully" : "Customer created cuccessfully";
-      //await addOrEditClient(client);
+      await addOrEditClient(client);
       handleClose();
       setCustomer(client);
       navigate("/addresses")
