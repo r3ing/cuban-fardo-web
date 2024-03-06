@@ -1,6 +1,10 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { getProvinces, getCities, saveShippingAddress } from "../../repositories/AddressRepository";
+import {
+  getProvinces,
+  getCities,
+  saveShippingAddress,
+} from "../../repositories/AddressRepository";
 import { useForm } from "react-hook-form";
 import { useAlert } from "react-alert";
 import { useShipment } from "../../context/shipmentContext";
@@ -16,6 +20,7 @@ export function AddressForm() {
   const [address, setShippingAddress] = useState({
     beneficiary: "",
     phone: "",
+    ci: "",
     street: "",
     number: "",
     betweenStreet: "",
@@ -42,14 +47,14 @@ export function AddressForm() {
   };
 
   const onSubmit = async () => {
-     try {
-        await saveShippingAddress(customer.id, address);
-        setAddress(address);
-        alert.success("Address successfully added");        
-        navigate("/shipping");
-     } catch (error) {
-       alert.error(error.message);
-     }
+    try {
+      await saveShippingAddress(customer.id, address);
+      setAddress(address);
+      alert.success("Address successfully added");
+      navigate("/shipping");
+    } catch (error) {
+      alert.error(error.message);
+    }
   };
 
   useEffect(() => {
@@ -224,34 +229,6 @@ export function AddressForm() {
 
       <div className="form-group input-group mb-3">
         <div className="input-group-text bg-light">
-          <i className="material-icons">filter_hdr</i>
-        </div>
-        <select
-          {...register("town", {
-            required: "Town is required",
-          })}
-          className="form-control"
-          name="town"
-          onChange={handleInputChange}
-        >
-          <option value="">Town</option>
-          {towns.map((t, key) => {
-            return (
-              <option key={key} value={t.id}>
-                {t.name}
-              </option>
-            );
-          })}
-        </select>
-      </div>
-      {errors.town && (
-        <small className="text-danger animated fadeIn">
-          {errors.town.message}
-        </small>
-      )}
-
-      <div className="form-group input-group mb-3">
-        <div className="input-group-text bg-light">
           <i className="material-icons">dialpad</i>
         </div>
         <select
@@ -281,6 +258,34 @@ export function AddressForm() {
 
       <div className="form-group input-group mb-3">
         <div className="input-group-text bg-light">
+          <i className="material-icons">filter_hdr</i>
+        </div>
+        <select
+          {...register("town", {
+            required: "Town is required",
+          })}
+          className="form-control"
+          name="town"
+          onChange={handleInputChange}
+        >
+          <option value="">Town</option>
+          {towns.map((t, key) => {
+            return (
+              <option key={key} value={t.id}>
+                {t.name}
+              </option>
+            );
+          })}
+        </select>
+      </div>
+      {errors.town && (
+        <small className="text-danger animated fadeIn">
+          {errors.town.message}
+        </small>
+      )}
+
+      <div className="form-group input-group mb-3">
+        <div className="input-group-text bg-light">
           <i className="material-icons">forward</i>
         </div>
         <input
@@ -302,6 +307,31 @@ export function AddressForm() {
           {errors.ref.message}
         </small>
       )}
+
+      <div className="form-group input-group mb-3">
+        <div className="input-group-text bg-light">
+          <i className="material-icons">folder_shared</i>
+        </div>
+        <input
+          {...register("ci", {
+            pattern: {
+              value: /\d{11}/g,
+              message: "Please enter a valid ci",
+            },
+          })}
+          type="text"
+          className="form-control text-capitalize"
+          placeholder="CI"
+          onChange={handleInputChange}
+          value={address.ci}
+        />
+      </div>
+      {errors.ci && (
+        <small className="text-danger animated fadeIn">
+          {errors.ci.message}
+        </small>
+      )}
+
       <button className="btn btn-warning mt-3">
         <i className="material-icons icon">save</i>
         Add

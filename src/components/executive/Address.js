@@ -3,14 +3,27 @@ import { Button } from "react-bootstrap";
 import Accordion from "react-bootstrap/Accordion";
 import { useNavigate } from "react-router-dom";
 import { useShipment } from "../../context/shipmentContext";
+import { useAlert } from "react-alert";
+import { deleteAddress } from "../../repositories/AddressRepository";
 
-const Address = ({ address }) => {
+const Address = ({ address, deleteAddressfromList }) => {
   const navigate = useNavigate();
-  const { setAddress } = useShipment();
+  const alert = useAlert();
+  const { customer, setAddress } = useShipment();
+
+  if (!address) return;
 
   const attachAddress = () => {
     setAddress(address);
     navigate("/shipping");
+  };
+
+  const removeAddress = () => {
+    deleteAddress(customer.id, address.id);
+
+    deleteAddressfromList(address.id);
+
+    alert.success("Address deleted!");
   };
 
   return (
@@ -61,18 +74,26 @@ const Address = ({ address }) => {
           )}
 
           <div className="adresses-actions text-end">
-            {/* <Button
-              variant="outline-warning"
+            <Button
+              variant="outline-danger"
               className="table-btn"
-              onClick={() => {}}
-              disabled={true}
+              onClick={removeAddress}
             >
-              <i className="material-icons icon">edit_square</i>
-            </Button> */}
+              <i className="material-icons icon">delete</i>
+            </Button>
+
+            {/* <Button
+                variant="outline-warning"
+                className="table-btn"
+                onClick={() => {}}
+                disabled={true}
+              >
+                <i className="material-icons icon">edit_square</i>
+              </Button> */}
+
             <Button
               variant="outline-success"
               onClick={attachAddress}
-              disabled={false}
               className="table-btn"
             >
               <i className="material-icons icon">emoji_transportation</i>

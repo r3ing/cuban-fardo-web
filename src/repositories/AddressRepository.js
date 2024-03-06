@@ -2,10 +2,11 @@ import { db } from "../config/firebase";
 import {
   collection,
   // collectionGroup,
+  doc,
   getDocs,
   addDoc,
+  deleteDoc
   // updateDoc,
-  // deleteDoc,
 } from "firebase/firestore";
 
 export const getShippingAddress = async (idClient) => {
@@ -33,6 +34,15 @@ export const saveShippingAddress = async (idClient, address) => {
   }
 
   return address;
+};
+
+export const deleteAddress = async (idClient, idAddress) => {  
+  try {
+    const removeAddress = doc(db, `/client/${idClient}/shippingAddress/${idAddress}`);
+    await deleteDoc(removeAddress);
+  } catch (error) {
+    throw new Error(error);
+  }  
 };
 
 export const getProvinces = async () => {
