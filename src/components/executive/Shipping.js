@@ -11,6 +11,7 @@ import { ShippingForm } from "./ShippingForm";
 import { generateId } from "../utils/Functions";
 import { addShipment } from "../../repositories/ShipmentsRepository";
 import { pdfReport } from "../common/PdfReport";
+import GridSpinner from "../common/GridSpinner";
 
 export function Shipping() {
   const navigate = useNavigate();
@@ -18,12 +19,21 @@ export function Shipping() {
   const { customer, address, setArticles } = useShipment();
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [spinnerShow, setSpinnerShow] = useState(false);
+
+  const spinnerStyle = {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  };
 
   const createShipment = async (weight, amount, details) => {
     let articles = "";
 
     products.forEach((p) => {
-      articles += p.quantity + ":" + p.product + ";";
+      //articles += p.qty + ":" + p.product.trim() + ";";
+      p.product = p.product.toUpperCase().trim();
     });
 
     setArticles(articles);
@@ -34,15 +44,14 @@ export function Shipping() {
       details: details,
       client: `/client/${customer.id}`,
       createDate: Date.now(),
-      products: articles,
+      articles: products,
+      province: address.province,
       shippingAddress: `/client/${customer.id}/shippingAddress/${address.id}`,
       status: DELIVERY_STATUS_CREATED,
-      trackingCode: generateId(),
+      tracking: generateId(),
     };
 
-    //const fileName = `${shipping.trackingCode}-${address.province}`;
-    //save shipping
-    //addShipment(shipping);
+    const fileName = `${shipping.tracking}-${address.province}.pdf`;
 
     let sender = {
       name: customer.name + " " + customer.lastName,
@@ -60,7 +69,7 @@ export function Shipping() {
         address.betweenStreet +
         ", Rpto " +
         address.locality +
-        " ," +
+        ", " +
         address.town +
         ", " +
         address.province +
@@ -71,9 +80,15 @@ export function Shipping() {
     shipping.sender = sender;
     shipping.receives = receives;
 
-    await pdfReport(shipping);
+    setSpinnerShow(true);
 
-    //navigate("/");
+    await pdfReport(shipping, fileName);
+
+    addShipment(shipping);
+
+    setSpinnerShow(false);
+
+    navigate("/customers");
   };
 
   const handleClose = () => {
@@ -105,6 +120,8 @@ export function Shipping() {
         buttonClose={true}
         footer={false}
       />
+
+      <GridSpinner visible={spinnerShow} style={spinnerStyle} />
 
       <main className="contenedor mt-4">
         <div className="d-flex justify-content-center">
@@ -150,7 +167,7 @@ export function Shipping() {
                 </span>
                 {address.ref && (
                   <>
-                    <b>, Ref:</b>{" "}
+                    <>, Ref:</>{" "}
                     <span className="font-normal normal-case">
                       {address.ref}
                     </span>

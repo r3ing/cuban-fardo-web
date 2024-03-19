@@ -3,7 +3,8 @@ import { Button } from "react-bootstrap";
 const short = require("short-uuid");
 
 export function EditableTable({ products, func, setShowModal}) {
-    const onChangeInput = (e, productId) => {
+    
+  const onChangeInput = (e, productId) => {
     const { name, value } = e.target;
 
     const editData = products.map((item) =>
@@ -16,7 +17,10 @@ export function EditableTable({ products, func, setShowModal}) {
   const addProduct = () => {
     const newProduct = {
       productId: short.generate(),
+      quantity: 0,
+      product: ''
     };
+
     const newData = [...products, newProduct];
 
     func(newData);
@@ -60,6 +64,7 @@ export function EditableTable({ products, func, setShowModal}) {
                   name="quantity"
                   value={quantity}
                   type="number"
+                  min={0}
                   onChange={(e) => onChangeInput(e, productId)}
                   placeholder="Qty"
                 />
@@ -67,7 +72,7 @@ export function EditableTable({ products, func, setShowModal}) {
               <td>
                 <input
                   name="product"
-                  value={product}
+                  value={product.toUpperCase()}
                   type="text"
                   onChange={(e) => onChangeInput(e, productId)}
                   placeholder="Type Producto"

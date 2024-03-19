@@ -1,3 +1,5 @@
+import axios from "axios";
+
 const {
   REACT_APP_DOMAIN_URL_INVOICE_REPORT,
   REACT_APP_ENPOINT_PDF_REPORT,
@@ -5,31 +7,43 @@ const {
   REACT_APP_AUTH_API_REPORT_PASSWORD,
 } = process.env;
 
-export const pdfReport = async (shipping) => {
+export const pdfReport = async (shipping, fileName) => {
+    
   let url = REACT_APP_DOMAIN_URL_INVOICE_REPORT + REACT_APP_ENPOINT_PDF_REPORT;
   let username = REACT_APP_AUTH_API_REPORT_USER;
   let password = REACT_APP_AUTH_API_REPORT_PASSWORD;
-  const base64encodedData = Buffer.from(`${username}:${password}`).toString(
-    "base64"
-  );
 
-  const basicAuth = 'Basic ' + btoa(username + ':' + password);
+  const basicAuth = 'Basic ' + btoa(username + ':' + password);  
 
-  fetch(url, {
-    method: "POST",
-    mode: "no-cors",
-    cache: "default",    
-    headers: {
-      "Content-Type": "application/json",
-      'Authorization': basicAuth //`Basic ${base64encodedData}`,
-    },
-    body: shipping,
-  })
-    .then((res) => res.blob())
-    .then((blob) => {
-      window.URL.createObjectURL(blob);
-    })
-    .catch((error) => {
-      console.error("Error fetching or displaying invoice PDF:", error);
-    });
+  try {
+    const response = await axios.post(url, shipping, {
+      headers: {
+        'Content-Type': 'application/json',
+        'Authorization': basicAuth
+      },
+      responseType: 'blob' 
+    });    
+    
+    // Create a virtual link element
+    const downloadUrl = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement('a');
+    link.href = downloadUrl;
+
+    // Set the custom filename using Content-Disposition header
+    link.setAttribute('download', fileName);
+
+    // Append the link to the body and trigger the download
+    document.body.appendChild(link);
+    link.click();
+
+    // Clean up
+    link.remove();
+    window.URL.revokeObjectURL(downloadUrl);
+
+  } catch (error) {
+    console.error('Error downloading PDF:', error);
+    throw error; 
+  }
+  
+
 };
