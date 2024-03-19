@@ -10,6 +10,8 @@ import { CREATE_SHIPMENT, DELIVERY_STATUS_CREATED } from "../common/Costanst";
 import { ShippingForm } from "./ShippingForm";
 import { generateId } from "../utils/Functions";
 import { addShipment } from "../../repositories/ShipmentsRepository";
+import { pdfReport } from "../common/PdfReport";
+import GridSpinner from "../common/GridSpinner";
 
 export function Shipping() {
   const navigate = useNavigate();
@@ -17,12 +19,21 @@ export function Shipping() {
   const { customer, address, setArticles } = useShipment();
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
-  
-  const createShipment = (weight, amount) => {
+  const [spinnerShow, setSpinnerShow] = useState(false);
+
+  const spinnerStyle = {
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+  };
+
+  const createShipment = async (weight, amount, details) => {
     let articles = "";
-    
-    products.forEach(p => {
-      articles += p.quantity + ":" + p.product + ";";
+
+    products.forEach((p) => {
+      //articles += p.qty + ":" + p.product.trim() + ";";
+      p.product = p.product.toUpperCase().trim();
     });
 
     setArticles(articles);
@@ -30,25 +41,60 @@ export function Shipping() {
     let shipping = {
       weight: weight,
       amount: amount,
+      details: details,
       client: `/client/${customer.id}`,
       createDate: Date.now(),
-      products: articles,
+      articles: products,
+      province: address.province,
       shippingAddress: `/client/${customer.id}/shippingAddress/${address.id}`,
       status: DELIVERY_STATUS_CREATED,
-      trackingCode: generateId()
-    }
+      tracking: generateId(),
+    };
+
+    const fileName = `${shipping.tracking}-${address.province}.pdf`;
+
+    let sender = {
+      name: customer.name + " " + customer.lastName,
+      phone: customer.phone,
+    };
+
+    let receives = {
+      name: address.beneficiary,
+      phone: address.phone,
+      address:
+        address.street +
+        " #" +
+        address.number +
+        " % " +
+        address.betweenStreet +
+        ", Rpto " +
+        address.locality +
+        ", " +
+        address.town +
+        ", " +
+        address.province +
+        ", CI: " +
+        address.ci,
+    };
+
+    shipping.sender = sender;
+    shipping.receives = receives;
+
+    setSpinnerShow(true);
+
+    await pdfReport(shipping, fileName);
 
     addShipment(shipping);
 
-    navigate("/")
-  }
+    setSpinnerShow(false);
 
-  
-
-  const handleClose = () => { 
-    setShowModal(false); 
+    navigate("/customers");
   };
-  
+
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
   useEffect(() => {
     if (!customer) {
       alert.error("Sorry, something went wrong!");
@@ -65,11 +111,17 @@ export function Shipping() {
         showModal={showModal}
         handleClose={handleClose}
         title={CREATE_SHIPMENT}
-        body={<ShippingForm handleClose={handleClose} createShipment={createShipment}/>}
+        body={
+          <ShippingForm
+            handleClose={handleClose}
+            createShipment={createShipment}
+          />
+        }
         buttonClose={true}
         footer={false}
       />
 
+      <GridSpinner visible={spinnerShow} style={spinnerStyle} />
 
       <main className="contenedor mt-4">
         <div className="d-flex justify-content-center">
@@ -115,7 +167,7 @@ export function Shipping() {
                 </span>
                 {address.ref && (
                   <>
-                    <b>, Ref:</b>{" "}
+                    <>, Ref:</>{" "}
                     <span className="font-normal normal-case">
                       {address.ref}
                     </span>
@@ -127,7 +179,11 @@ export function Shipping() {
         </div>
         <div className="mt-3">
           <h1 className="title">Product Description</h1>
-          <EditableTable products={products} func={setProducts} setShowModal={setShowModal}/>
+          <EditableTable
+            products={products}
+            func={setProducts}
+            setShowModal={setShowModal}
+          />
         </div>
       </main>
     </Layout>

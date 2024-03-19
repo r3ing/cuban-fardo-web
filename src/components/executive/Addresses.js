@@ -24,10 +24,15 @@ export function Addresses() {
 
     getShippingAddress(customer.id).then((data) => {      
       setAddresses(data);
-    });
+    });    
 
     // eslint-disable-next-line
   }, []);
+
+  const deleteAddressfromList = (addressId) => {
+    let address = addresses.filter(dir => dir.id !== addressId);
+    setAddresses(address);
+  }
 
   return (
     <Layout title="Adresses">
@@ -42,7 +47,7 @@ export function Addresses() {
             <Accordion defaultActiveKey="0" className="shadow-md shadow-orange-300 text-200">
               {addresses.map((address, key) => (
                 <Accordion.Item eventKey="0" key={key}>
-                  <Address address={address} />
+                  <Address address={address} deleteAddressfromList={deleteAddressfromList}/>
                 </Accordion.Item>
               ))}
             </Accordion>
