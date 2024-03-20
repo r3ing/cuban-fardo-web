@@ -5,8 +5,8 @@ import { useForm } from "react-hook-form";
 export function ShippingForm({ handleClose, createShipment }) {
 
   const [shipping, setShipping] = useState({
-    weight: '',
-    amount: '',
+    weight: 0,
+    amount: 0,
     details: ''
   });
  
@@ -59,6 +59,10 @@ export function ShippingForm({ handleClose, createShipment }) {
           className="form-control text-capitalize"
           {...register("amount", {
             required: "Amount is required",
+            min: {
+              value: 1,
+              message: "Please enter a valid Amount"
+            },
             pattern: {
               value: /^\d+(\.\d{1,2})?$/,
               message: "Please enter a valid Amount"

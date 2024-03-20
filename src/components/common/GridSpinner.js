@@ -5,8 +5,8 @@ function GridSpinner({ visible, style }) {
   return (
     <Grid
       visible={visible}
-      height="30"
-      width="30"
+      height="40"
+      width="40"
       color="#4fa94d"
       ariaLabel="grid-loading"
       radius="12.5"
