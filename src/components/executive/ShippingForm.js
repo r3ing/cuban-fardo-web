@@ -37,13 +37,13 @@ export function ShippingForm({ handleClose, createShipment }) {
           type="text"
           className="form-control text-capitalize"
           {...register("weight", {
-            required: "Weight is required",
+            required: "Agregre el peso.",
             pattern: {
               value: /^\d+(\.\d{1,2})?$/,
-              message: "Please enter a valid Weight"
+              message: "Escriba un peso válido."
             }
           })}
-          placeholder="Weight in lb"
+          placeholder="Peso en lb"
           onChange={handleInputChange}
           value={shipping.weight}
         />
@@ -58,17 +58,17 @@ export function ShippingForm({ handleClose, createShipment }) {
           type="text"
           className="form-control text-capitalize"
           {...register("amount", {
-            required: "Amount is required",
+            required: "Agrege el monto del envio.",
             min: {
               value: 1,
-              message: "Please enter a valid Amount"
+              message: "Escriba un monto válido."
             },
             pattern: {
               value: /^\d+(\.\d{1,2})?$/,
-              message: "Please enter a valid Amount"
+              message: "Escriba un monto válido."
             }
           })}
-          placeholder="Amount"
+          placeholder="Monto total"
           onChange={handleInputChange}
           value={shipping.amount}
         />
@@ -85,10 +85,10 @@ export function ShippingForm({ handleClose, createShipment }) {
           {...register("details", {
             pattern: {
               value: /^[ +a-zA-Z0-9_-]+$/,
-              message: "Please enter a valid Detail"
+              message: "Escriba un detalle válido."
             }
           })}
-          placeholder="Details"
+          placeholder="Detalles"
           onChange={handleInputChange}
           value={shipping.details}
         />
@@ -97,7 +97,7 @@ export function ShippingForm({ handleClose, createShipment }) {
 
       <button className="btn btn-warning mt-3">
         <i className="material-icons icon">save</i>
-        Save
+        Guardar
       </button>
 
     </form>

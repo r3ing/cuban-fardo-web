@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useShipment } from "../../context/shipmentContext";
 import { useAlert } from "react-alert";
 import { deleteAddress } from "../../repositories/AddressRepository";
+import {ROUTE_PRODUCTS} from '../common/Costanst';
 
 const Address = ({ address, deleteAddressfromList }) => {
   const navigate = useNavigate();
@@ -15,7 +16,7 @@ const Address = ({ address, deleteAddressfromList }) => {
 
   const attachAddress = () => {
     setAddress(address);
-    navigate("/shipping");
+    navigate(ROUTE_PRODUCTS);
   };
 
   const removeAddress = () => {
@@ -23,7 +24,7 @@ const Address = ({ address, deleteAddressfromList }) => {
 
     deleteAddressfromList(address.id);
 
-    alert.success("Address deleted!");
+    alert.success("Dirección eliminada!");
   };
 
   return (

@@ -1,14 +1,12 @@
-import React from 'react';
-//import { Link } from "react-router-dom";
-import { ExternalLink } from 'react-external-link';
-
+import React from "react";
+import { ExternalLink } from "react-external-link";
 
 export function Footer() {
   return (
     <footer className="footer">
       <div className="contenedor contenido">
         <p className="copyright">
-          © 2023 CUBAN FARDO EXPRESS | All rights reserved
+          © 2024 QVAN FARDO EXPRESS | All rights reserved
         </p>
         <nav className="footer-nav">
           <ExternalLink href="https://www.facebook.com/people/Cuban-Fardo-Express/100078088684414/">

@@ -8,9 +8,16 @@ import { Login } from "./components/system/Login";
 import { Support } from "./components/system/Support";
 import { ProtectedRoute } from "./components/utils/ProtectedRoute";
 import { AuthProvider } from "./context/authContext";
-import { Shipping } from "./components/executive/Shipping";
+import { Products } from "./components/executive/Products";
 import { ShipmentProvider } from "./context/shipmentContext";
 import { Addresses } from "./components/executive/Addresses";
+import {
+  ROUTE_HOME,
+  ROUTE_SHIPPINGS,
+  ROUTE_PRODUCTS,
+  ROUTE_CUSTOMERS,
+  ROUTE_ADDRESSES,
+} from "./components/common/Costanst";
 
 function App() {
   return (
@@ -18,12 +25,12 @@ function App() {
       <AuthProvider>
         <ShipmentProvider>
           <Routes>
-            <Route path="/" element={<Home />} />
+            <Route path={ROUTE_HOME} element={<Home />} />
             <Route path="/login" element={<Login />} />
             <Route path="/about" element={<About />} />
             <Route path="/support" element={<Support />} />
             <Route
-              path="/shippings"
+              path={ROUTE_SHIPPINGS}
               element={
                 <ProtectedRoute roles={["executive", "delivery"]}>
                   <Shippings />
@@ -31,15 +38,15 @@ function App() {
               }
             />
             <Route
-              path="/shipping"
+              path={ROUTE_PRODUCTS}
               element={
                 <ProtectedRoute role={["admin, executive"]}>
-                  <Shipping />
+                  <Products />
                 </ProtectedRoute>
               }
             />
             <Route
-              path="/customers"
+              path={ROUTE_CUSTOMERS}
               element={
                 <ProtectedRoute role={["admin, executive"]}>
                   <Client />
@@ -47,9 +54,9 @@ function App() {
               }
             />
             <Route
-              path="/addresses"
+              path={ROUTE_ADDRESSES}
               element={
-                <ProtectedRoute role={["executive"]}>
+                <ProtectedRoute role={["admin, executive"]}>
                   <Addresses />
                 </ProtectedRoute>
               }

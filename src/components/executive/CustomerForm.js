@@ -5,6 +5,7 @@ import { addOrEditClient } from "../../repositories/ClientRepository";
 import { useAlert } from "react-alert";
 import {useShipment } from "../../context/shipmentContext";
 import { useNavigate } from "react-router-dom";
+import {ROUTE_ADDRESSES} from '../common/Costanst'
 
 export function CustomerForm({ handleClose }) {
   const alert = useAlert();
@@ -27,11 +28,11 @@ export function CustomerForm({ handleClose }) {
 
   const onSubmit = async () => {
     try {
-      const msg = client.id ? "Customer updated cuccessfully" : "Customer created cuccessfully";
+      const msg = client.id ? "Cliente actualizado exitosamente." : "Cliente creado exitosamente.";
       await addOrEditClient(client);
       handleClose();
       setCustomer(client);
-      navigate("/addresses")
+      navigate({ROUTE_ADDRESSES})
       alert.success(msg);
     } catch (error) {
       alert.error(error.message);
@@ -60,20 +61,20 @@ export function CustomerForm({ handleClose }) {
           type="text"
           className="form-control text-capitalize"
           {...register("name", {
-            required: "Name is required",
+            required: "Agregue el nombre del cliente.",
             pattern: {
               value: /^[a-zA-Z ]*$/,
-              message: "Please enter a valid Name"
+              message: "Escriba un nombre de cliente válido."
             }
           })}
-          placeholder="First Name"
+          placeholder="Nombre"
           onChange={handleInputChange}
           value={client.name}
         />
       </div>
       {errors.name && <small className="text-danger animated fadeIn">{errors.name.message}</small>}
 
-      <div className="form-group input-group mt-3">
+      <div className="form-group input-group mt-2">
         <div className="input-group-text bg-light">
           <i className="material-icons">person</i>
         </div>
@@ -81,20 +82,20 @@ export function CustomerForm({ handleClose }) {
           type="text"
           className="form-control text-capitalize"
           {...register("lastName", {
-            required: "Last Name is required",
+            required: "Agregue el apellido del cliente.",
             pattern: {
               value: /^[a-zA-Z ]*$/,
-              message: "Please enter a valid Last Name"
+              message: "Escriba un apellido válido."
             }
           })}
-          placeholder="Last Name"
+          placeholder="Apellidos"
           onChange={handleInputChange}
           value={client.lastName}
         />
       </div>
       {errors.lastName && <small className="text-danger animated fadeIn">{errors.lastName.message}</small>}
 
-      <div className="form-group input-group mt-3">
+      <div className="form-group input-group mt-2">
         <div className="input-group-text bg-light">
           <i className="material-icons">phone</i>
         </div>
@@ -102,21 +103,21 @@ export function CustomerForm({ handleClose }) {
           type="tel"
           className="form-control"
           {...register("phone", {
-            required: "Phone is required",
-            minLength: { value: 10, message: "Invalid format Phone" },
-            maxLength: { value: 10, message: "Invalid format Phone" },
-            pattern: { value: /^[0-9]*$/, message: "Invalid format Phone" },
+            required: "Agregue un número de teléfono.",
+            minLength: { value: 10, message: "Agregue un teléfono válido." },
+            maxLength: { value: 10, message: "Agregue un teléfono válido." },
+            pattern: { value: /^[0-9]*$/, message: "Agregue un teléfono válido." },
           })}
-          placeholder="Phone"
+          placeholder="Teléfono"
           onChange={handleInputChange}
           value={client.phone}
         />
       </div>
       {errors.phone && <small className="text-danger animated fadeIn">{errors.phone.message}</small>}
 
-      <button className="btn btn-warning mt-3">
+      <button className="btn btn-warning mt-2">
         <i className="material-icons icon">save</i>
-        Save
+        Guardar
       </button>
     </form>
   );

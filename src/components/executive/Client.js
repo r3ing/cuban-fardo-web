@@ -6,10 +6,11 @@ import { Layout } from "../system/Layout";
 import { Button } from "react-bootstrap";
 import { Table } from "../common/Table";
 import { GenericModal } from "../common/GenericModal";
-import { ADD_NEW_CUSTOMER, EDIT_CUSTOMER } from "../common/Costanst";
+import { ADD_NEW_CUSTOMER, EDIT_CUSTOMER, ROUTE_ADDRESSES } from "../common/Costanst";
 import { useShipment } from "../../context/shipmentContext";
 import { useNavigate } from "react-router-dom";
 //import { useAlert } from "react-alert";
+
 
 
 export function Client() {
@@ -43,20 +44,20 @@ export function Client() {
 
   const addAddress = (row) => {
     setCustomer(row);
-    navigate("/addresses")
+    navigate(ROUTE_ADDRESSES)
   }
 
   const columns = [
     {
-      name: "Name",
+      name: "NOMBRE",      
       selector: (row) => row.name,
     },
     {
-      name: "Last Name",
+      name: "APELLIDOS",
       selector: (row) => row.lastName,
     },
     {
-      name: "Phone",
+      name: "TELÉFONO",
       selector: (row) => row.phone,
     },
     {
@@ -111,14 +112,14 @@ export function Client() {
         <div className="card shadow border-warning mb-3">
           <div className="card-header">
             <div className="table-header">
-              <h2 className='title'>Customers</h2>
+              <h2 className='title mt-1'>CLientes</h2>
               <Button
                 variant="outline-warning"
                 onClick={addClient}
                 className="custom-btn"
               >
                 <i className="material-icons icon">person_add</i>
-                Add Costomer
+                Nuevo Cliente
               </Button>
             </div>
           </div>
