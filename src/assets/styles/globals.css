@@ -4,7 +4,9 @@
   --blanco: #fff;
   --fuente-principal: "Outfit", sans-serif;
 }
-html, body, main {
+html,
+body,
+main {
   height: 100%;
 }
 html {
@@ -17,7 +19,7 @@ html {
   box-sizing: inherit;
 }
 body {
-  font-size: 2rem;
+  font-size: 12px;
   font-family: var(--fuente-principal);
   line-height: 1.5;
   display: flex;
@@ -34,7 +36,7 @@ img {
   width: 100%;
 }
 [class*="heading"] {
-  font-size: 4rem;
+  font-size: 2.5rem;
   text-align: center;
   font-weight: 900;
   color: var(--primary);
@@ -96,12 +98,10 @@ img {
 
 .footer {
   background-color: var(--negro);
-  padding: 2rem 0; 
-  /* position:fixed; */
-  /* bottom:0; */
-  width:100%;
-  /* display: flex;
-  align-items: flex-end; */
+  padding: 1rem 0;
+  bottom: 0;
+  /* margin-top: 5rem; */
+  width: 100%;
 }
 
 @media (min-width: 768px) {
@@ -136,7 +136,7 @@ img {
 }
 
 .copyright {
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   color: var(--blanco);
   font-weight: 700;
   text-align: center;
@@ -179,7 +179,7 @@ img {
   flex-direction: column;
   align-items: center;
   color: var(--primary);
-  font-size: 4rem;
+  font-size: 10rem;
   font-weight: bold;
   text-transform: uppercase;
 }
@@ -208,15 +208,22 @@ img {
 
 .title {
   height: 2px;
-  padding-bottom: 3rem;;
+  padding-bottom: 3rem;
   color: #e99401;
   font-weight: bold;
+}
+
+.sub-title {
+   height: 2px;
+  /* padding-bottom: 3rem; */
+  color: #e99401;
+  /* font-weight: bold; */
 }
 
 .main-image {
   background: linear-gradient(rgb(5 0 0 / 0.8), rgb(0 6 0 /0.8));
   background-size: cover;
-} 
+}
 
 .adresses-page {
   display: flex;
@@ -230,8 +237,8 @@ img {
 .adresses-page-item {
   display: flex;
   flex-direction: column;
-  flex-basis: 100%;
-  flex: 1;
+  /* flex-basis: 100%; */
+  flex: 1; 
   padding: 2rem;
 }
 
@@ -244,11 +251,7 @@ img {
 
 .adresses-actions {
   align-items: end;
-
 }
-
-
-
 
 /* table */
 .title {
@@ -268,7 +271,7 @@ tr th {
   border: 0.5px solid #eeeeee;
   text-align: left;
   /* background-color: rgba(217, 221, 146, 0.2); */
-  background-color: rgba(248, 166, 9, 0.50);
+  background-color: rgba(248, 166, 9, 0.5);
 }
 
 tr td {
@@ -282,7 +285,7 @@ input {
   border: none;
   width: 91%;
   padding: 7px 7px;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 input:hover {
@@ -290,17 +293,13 @@ input:hover {
 }
 
 .editable-header {
-  display: flex;  
-  justify-content: flex-end; 
+  display: flex;
+  justify-content: flex-end;
 }
 
 i.icon-blue {
   color: #dc3545;
 }
-
-
-
-
 
 /* .App {
   text-align: center;
@@ -332,6 +331,10 @@ i.icon-blue {
   color: #61dafb;
 } */
 
+.capitalize {
+  text-transform: capitalize;
+}
+
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -340,6 +343,3 @@ i.icon-blue {
     transform: rotate(360deg);
   }
 }
-
-
-

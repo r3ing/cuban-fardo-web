@@ -9,6 +9,7 @@ import { useForm } from "react-hook-form";
 import { useAlert } from "react-alert";
 import { useShipment } from "../../context/shipmentContext";
 import { useNavigate } from "react-router-dom";
+import {ROUTE_PRODUCTS} from '../common/Costanst';
 
 export function AddressForm() {
   const alert = useAlert();
@@ -50,8 +51,8 @@ export function AddressForm() {
     try {
       await saveShippingAddress(customer.id, address);
       setAddress(address);
-      alert.success("Address successfully added");
-      navigate("/shipping");
+      alert.success("Dirección agregada exitosamente!");
+      navigate({ROUTE_PRODUCTS});
     } catch (error) {
       alert.error(error.message);
     }
@@ -80,82 +81,82 @@ export function AddressForm() {
       className="card-body card shadow-md shadow-orange-300"
       onSubmit={handleSubmit(onSubmit)}
     >
-      <div className="form-group input-group mb-3">
+      <div className="form-group input-group mb-2">
         <div className="input-group-text bg-light">
           <i className="material-icons">perm_identity</i>
         </div>
         <input
           {...register("beneficiary", {
-            required: "Beneficiary is required",
+            required: "Agregue el nombre del beneficiario.",
             pattern: {
               value: /^[a-zA-Z ]*$/,
-              message: "Please enter a valid Name",
+              message: "Escriba un nombre válido.",
             },
           })}
           type="text"
           className="form-control text-capitalize"
-          placeholder="Name"
+          placeholder="Nombre"
           onChange={handleInputChange}
           value={address.beneficiary}
         />
       </div>
       {errors.beneficiary && (
-        <small className="text-danger animated fadeIn">
+        <small className="text-danger animated fadeIn mb-3">
           {errors.beneficiary.message}
         </small>
       )}
 
-      <div className="form-group input-group mb-3">
+      <div className="form-group input-group mb-2">
         <div className="input-group-text bg-light">
           <i className="material-icons">phone</i>
         </div>
         <input
           {...register("phone", {
-            required: "Phone is required",
+            required: "Agregue un número de teléfono.",
             pattern: {
               value: /^[0-9 \- 0-9]*$/,
-              message: "Please enter a valid phone number",
+              message: "Escriba un número de teléfono válido.",
             },
           })}
           type="text"
           className="form-control text-capitalize"
-          placeholder="Phone"
+          placeholder="Teléfono"
           onChange={handleInputChange}
           value={address.phone}
         />
       </div>
       {errors.phone && (
-        <small className="text-danger animated fadeIn">
+        <small className="text-danger animated fadeIn mb-3">
           {errors.phone.message}
         </small>
       )}
 
-      <div className="form-group input-group mb-3">
+      <div className="form-group input-group mb-2">
         <div className="input-group-text bg-light">
           <i className="material-icons">view_day</i>
         </div>
         <input
           {...register("street", {
-            required: "Street is required",
+            required: "Agregue una calle.",
             pattern: {
               value: /^[a-zA-Z0-9 ]*$/,
-              message: "Please enter a valid street",
+              message: "Escriba un nombre de calle válido.",
             },
           })}
           type="text"
           className="form-control text-capitalize"
-          placeholder="Street"
+          placeholder="Calle"
           onChange={handleInputChange}
           value={address.street}
         />
       </div>
       {errors.street && (
-        <small className="text-danger animated fadeIn">
+        <small className="text-danger animated fadeIn mb-3">
           {errors.street.message}
         </small>
       )}
 
-      <div className="form-group input-group mb-3">
+      <div className="form-group input-group mb-2">
         <div className="input-group-text bg-light">
           <i className="material-icons">filter_1</i>
         </div>
@@ -163,23 +164,23 @@ export function AddressForm() {
           {...register("number", {
             pattern: {
               value: /^[0-9a-zA-Z ]*$/,
-              message: "Please enter a valid number",
+              message: "Agregue un número válido.",
             },
           })}
           type="text"
           className="form-control text-capitalize"
-          placeholder="Number"
+          placeholder="Número"
           onChange={handleInputChange}
           value={address.number}
         />
       </div>
       {errors.number && (
-        <small className="text-danger animated fadeIn">
+        <small className="text-danger animated fadeIn mb-3">
           {errors.number.message}
         </small>
       )}
 
-      <div className="form-group input-group mb-3">
+      <div className="form-group input-group mb-2">
         <div className="input-group-text bg-light">
           <i className="material-icons">dehaze</i>
         </div>
@@ -187,60 +188,60 @@ export function AddressForm() {
           {...register("betweenStreet", {
             pattern: {
               value: /^[0-9a-zA-Z ]*$/,
-              message: "Please enter a valid Between streets",
+              message: "Agregue un entre calles válido",
             },
           })}
           type="text"
           className="form-control text-capitalize"
-          placeholder="Between streets"
+          placeholder="Entre calles"
           onChange={handleInputChange}
           value={address.betweenStreet}
         />
       </div>
       {errors.between && (
-        <small className="text-danger animated fadeIn">
+        <small className="text-danger animated fadeIn mb-3">
           {errors.between.message}
         </small>
       )}
 
-      <div className="form-group input-group mb-3">
+      <div className="form-group input-group mb-2">
         <div className="input-group-text bg-light">
-          <i className="material-icons">business</i>
+          <i className="material-icons">apartment</i>
         </div>
         <input
           {...register("locality", {
             pattern: {
               value: /^[a-zA-Z0-9 ]*$/,
-              message: "Please enter a valid Neighborhood",
+              message: "Escriba un reparto válido.",
             },
           })}
           type="text"
           className="form-control text-capitalize"
-          placeholder="Neighborhood"
+          placeholder="Reparto"
           onChange={handleInputChange}
           value={address.locality}
         />
       </div>
       {errors.locality && (
-        <small className="text-danger animated fadeIn">
+        <small className="text-danger animated fadeIn mb-3">
           {errors.locality.message}
         </small>
       )}
 
-      <div className="form-group input-group mb-3">
+      <div className="form-group input-group mb-2">
         <div className="input-group-text bg-light">
-          <i className="material-icons">dialpad</i>
+          <i className="material-icons">map</i>
         </div>
         <select
           {...register("province", {
-            required: "Province is required",
+            required: "Seleccione una provincia.",
           })}
           className="form-control"
           name="province"
           id="province"
           onChange={selectProvince}
         >
-          <option value="">Province</option>
+          <option value="">Provincia</option>
           {provinces.map((p, key) => {
             return (
               <option key={key} value={p.id}>
@@ -251,24 +252,24 @@ export function AddressForm() {
         </select>
       </div>
       {errors.province && (
-        <small className="text-danger animated fadeIn">
+        <small className="text-danger animated fadeIn mb-3">
           {errors.province.message}
         </small>
       )}
 
-      <div className="form-group input-group mb-3">
+      <div className="form-group input-group mb-2">
         <div className="input-group-text bg-light">
           <i className="material-icons">filter_hdr</i>
         </div>
         <select
           {...register("town", {
-            required: "Town is required",
+            required: "Seleccione un municipio.",
           })}
           className="form-control"
           name="town"
           onChange={handleInputChange}
         >
-          <option value="">Town</option>
+          <option value="">Municipio</option>
           {towns.map((t, key) => {
             return (
               <option key={key} value={t.id}>
@@ -279,12 +280,12 @@ export function AddressForm() {
         </select>
       </div>
       {errors.town && (
-        <small className="text-danger animated fadeIn">
+        <small className="text-danger animated fadeIn mb-3">
           {errors.town.message}
         </small>
       )}
 
-      <div className="form-group input-group mb-3">
+      <div className="form-group input-group mb-2">
         <div className="input-group-text bg-light">
           <i className="material-icons">forward</i>
         </div>
@@ -292,23 +293,23 @@ export function AddressForm() {
           {...register("ref", {
             pattern: {
               value: /^[0-9a-zA-Z ]*$/,
-              message: "Please enter a valid Reference",
+              message: "Escriba una referencia válida.",
             },
           })}
           type="text"
           className="form-control text-capitalize"
-          placeholder="Reference"
+          placeholder="Referencia"
           onChange={handleInputChange}
           value={address.ref}
         />
       </div>
       {errors.ref && (
-        <small className="text-danger animated fadeIn">
+        <small className="text-danger animated fadeIn mb-3">
           {errors.ref.message}
         </small>
       )}
 
-      <div className="form-group input-group mb-3">
+      <div className="form-group input-group mb-2">
         <div className="input-group-text bg-light">
           <i className="material-icons">folder_shared</i>
         </div>
@@ -316,7 +317,7 @@ export function AddressForm() {
           {...register("ci", {
             pattern: {
               value: /\d{11}/g,
-              message: "Please enter a valid ci",
+              message: "Escriba un ci válido.",
             },
           })}
           type="text"
@@ -327,14 +328,14 @@ export function AddressForm() {
         />
       </div>
       {errors.ci && (
-        <small className="text-danger animated fadeIn">
+        <small className="text-danger animated fadeIn mb-3">
           {errors.ci.message}
         </small>
       )}
 
-      <button className="btn btn-warning mt-3">
+      <button className="btn btn-warning mt-2">
         <i className="material-icons icon">save</i>
-        Add
+        Guardar
       </button>
     </form>
   );

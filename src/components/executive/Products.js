@@ -12,8 +12,9 @@ import { generateId } from "../utils/Functions";
 import { addShipment } from "../../repositories/ShipmentsRepository";
 import { pdfReport } from "../common/PdfReport";
 import GridSpinner from "../common/GridSpinner";
+import {ROUTE_CUSTOMERS} from '../common/Costanst'
 
-export function Shipping() {
+export function Products() {
   const navigate = useNavigate();
   const alert = useAlert();
   const { customer, address, setArticles } = useShipment();
@@ -88,7 +89,7 @@ export function Shipping() {
 
     setSpinnerShow(false);
 
-    navigate("/customers");
+    navigate({ROUTE_CUSTOMERS});
   };
 
   const handleClose = () => {
@@ -98,7 +99,7 @@ export function Shipping() {
   useEffect(() => {
     if (!customer) {
       alert.error("Sorry, something went wrong!");
-      navigate("/customers");
+      navigate({ROUTE_CUSTOMERS});
       return;
     }
 
@@ -126,33 +127,33 @@ export function Shipping() {
       <main className="contenedor mt-4">
         <div className="d-flex justify-content-center">
           <div className="col-6 text-center">
-            <h1 className="title text-center">Send</h1>
+            <h1 className="title text-center">Envía</h1>
             <p className="font-bold text-gray-700 uppercase">
-              <b>Name:</b>{" "}
+              <b>Nombre:</b>{" "}
               <span className="font-normal normal-case">
                 {customer.name} {customer.lastName}{" "}
               </span>
-              <b>Phone:</b>{" "}
+              <b>Teléfono:</b>{" "}
               <span className="font-normal normal-case">{customer.phone}</span>
             </p>
           </div>
           <div className="col-6 text-center">
-            <h1 className="title text-center">Receives</h1>
+            <h1 className="title text-center">Recibe</h1>
             <div className="">
               <div className="flex items-center">
                 <p className="font-bold text-gray-700 uppercase">
-                  <b>Beneficiary:</b>{" "}
+                  <b>Beneficiario:</b>{" "}
                   <span className="font-normal normal-case">
                     {address.beneficiary}{" "}
                   </span>
-                  <b>Phone:</b>{" "}
+                  <b>Teléfono:</b>{" "}
                   <span className="font-normal normal-case">
                     {address.phone}
                   </span>
                 </p>
               </div>
               <p className="font-bold text-gray-700 uppercase">
-                <b>Address:</b>{" "}
+                <b>Dirección:</b>{" "}
                 <span className="font-normal normal-case">
                   {address.street !== "" && `${address.street}`}{" "}
                   {address.number !== "" && `#${address.number}`}{" "}
@@ -178,7 +179,7 @@ export function Shipping() {
           </div>
         </div>
         <div className="mt-3">
-          <h1 className="title">Product Description</h1>
+          <h1 className="title">Descripción Productos</h1>
           <EditableTable
             products={products}
             func={setProducts}

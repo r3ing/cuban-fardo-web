@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { useState } from "react";
 import { FormControl, InputGroup, Spinner } from "react-bootstrap";
 import DataTable, { createTheme } from "react-data-table-component";
@@ -30,13 +30,28 @@ export function Table(props) {
       backgroundColor: "#e99401",
       fontColor: "#e99401",
       fontWeight: "bold",
-      
     },
     rows: {
       backgroundColor: "#FFFFFF",
       borderWidth: "5px",
     },
   });
+
+  const customStyles = {
+    headRow: {
+      style: {
+        backgroundColor: "#FFFFFF",
+      },
+    },
+    headCells: {
+      style: {
+        fontWeight: "bold",
+        color: '#e99401',
+        backgroundColor: "#FFFFFF",
+        marginTop: '5px',
+      },
+    },
+  };
 
   const handleSearch = (e) => {
     setSearch(e.target.value.toLowerCase());
@@ -46,7 +61,7 @@ export function Table(props) {
     if (e.keyCode === 27) {
       setSearch("");
     }
-  }
+  };
 
   let result = [];
   if (!search || !canSearch) {
@@ -66,7 +81,8 @@ export function Table(props) {
       title={title}
       columns={columns}
       data={result}
-      theme="custom"
+      //  theme="custom"
+      customStyles={customStyles}
       striped={true}
       selectableRows={selectableRows}
       noDataComponent={DATATABLE_NO_DATA}
@@ -89,7 +105,7 @@ export function Table(props) {
           <div className="col-md-4">
             <InputGroup>
               <FormControl
-                placeholder="Search..."
+                placeholder="Buscar..."
                 aria-label="Search"
                 value={search}
                 onChange={handleSearch}

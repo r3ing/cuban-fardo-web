@@ -20,8 +20,8 @@ export function Filter(props) {
   return (
     <InputGroup>
       <FormControl
-        placeholder="Search..."
-        aria-label="Search"
+        placeholder="Buscar..."
+        aria-label="Buscar"
         onChange={handleOnChange}
         className="ml-2"
       />

@@ -20,7 +20,7 @@ export function GenericModal({
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title className="table-header">{title}</Modal.Title>
+        <Modal.Title className="title">{title}</Modal.Title>
       </Modal.Header>
       <Modal.Body>{body}</Modal.Body>
 
@@ -28,12 +28,12 @@ export function GenericModal({
         <Modal.Footer>
           {buttonClose && (
             <Button variant="secondary" onClick={handleClose}>
-              Close
+              Cerrar
             </Button>
           )}
           {buttonAction && (
             <Button variant="primary" onClick={handleButtonAction}>
-              Save Changes
+              Guardar Cambios
             </Button>
           )}
         </Modal.Footer>

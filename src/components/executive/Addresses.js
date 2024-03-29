@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 import Address from "./Address";
 import { AddressForm } from "./AddressForm";
+import {ROUTE_CUSTOMERS} from '../common/Costanst'
 
 export function Addresses() {
   const navigate = useNavigate();
@@ -17,8 +18,8 @@ export function Addresses() {
 
   useEffect(() => {
     if (!customer) {
-      alert.error("Sorry, something went wrong!");
-      navigate("/customers");
+      alert.error("Lo siento, algo salió mal!");
+      navigate(ROUTE_CUSTOMERS);
       return;
     }
 
@@ -38,12 +39,12 @@ export function Addresses() {
     <Layout title="Adresses">
       <div className="adresses-page">
         <section className="adresses-page-item">
-          <h2 className="title text-center mt-5">New Address</h2>
+          <h2 className="title text-center capitalize">NUEVA DIRECCIÓN</h2>
           <AddressForm />
         </section>
         {addresses && addresses.length > 0 ? (
           <section className="adresses-page-item">
-            <h2 className="title text-center mt-5">Addresses</h2>
+            <h2 className="title text-center capitalize">DIRECCIONES</h2>
             <Accordion defaultActiveKey="0" className="shadow-md shadow-orange-300 text-200">
               {addresses.map((address, key) => (
                 <Accordion.Item eventKey="0" key={key}>

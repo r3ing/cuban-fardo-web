@@ -34,7 +34,7 @@ export function EditableTable({ products, func, setShowModal}) {
 
   const deleteProduct = (row) => {
     if (
-      window.confirm("Are you sure you want to delete this article?") === true
+      window.confirm("¿Estás seguro de que deseas eliminar este artículo?") === true
     ) {
       const filter = products.filter((e) => e.productId !== row);
       func(filter);
@@ -52,7 +52,7 @@ export function EditableTable({ products, func, setShowModal}) {
         <thead>
           <tr>
             <th style={{ width: "6%" }}>Qty</th>
-            <th>Product</th>
+            <th>Producto</th>
             <th style={{ width: "2%" }}></th>
           </tr>
         </thead>
@@ -75,7 +75,7 @@ export function EditableTable({ products, func, setShowModal}) {
                   value={product.toUpperCase()}
                   type="text"
                   onChange={(e) => onChangeInput(e, productId)}
-                  placeholder="Type Producto"
+                  placeholder="Descripcion Producto"
                   className="form-control text-capitalize"
                 />
               </td>
@@ -100,7 +100,7 @@ export function EditableTable({ products, func, setShowModal}) {
           className="custom-btn"
         >
           <i className="material-icons icon">library_add</i>
-          Add Product
+          Nuevo Producto
         </Button>
         <Button
           variant="outline-success"
@@ -109,7 +109,7 @@ export function EditableTable({ products, func, setShowModal}) {
           disabled={products.length === 0}
         >
           <i className="material-icons icon">terminal</i>
-          Shipment
+          Generar Envío
         </Button>
       </div>
     </>

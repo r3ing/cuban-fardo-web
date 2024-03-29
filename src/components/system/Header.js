@@ -11,9 +11,6 @@ export function Header() {
   const handleLoginWithGoogle = async () => {
     try {
       await loginWithGoogle();
-      // if(user) {
-      //   navigate("/shippings");
-      // } 
 
     } catch (error) {
       console.error(error);
@@ -35,7 +32,7 @@ export function Header() {
         <div className="barra">
           <Link to="/">
             <Image
-              alt="Cuban Fardo"
+              alt="Qvan Fardo Express"
               src={logo}
               width={300}
               height={120}
@@ -56,7 +53,7 @@ export function Header() {
                 isActive ? "navegacion-active" : ""
               }
             >
-              Customers
+              Clientes
             </NavLink>
               {/* <NavLink
               to="/shipping"
@@ -85,11 +82,11 @@ export function Header() {
             </Link> */}
             {!user ? (
               <Link to="#" onClick={handleLoginWithGoogle}>
-                Sign In
+                Entrar
               </Link>
             ) : (
               <Link to="#" onClick={handleLogout}>
-                Logout
+                Salir
               </Link>
             )}
           </nav>
