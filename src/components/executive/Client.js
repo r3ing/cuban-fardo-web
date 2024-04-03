@@ -112,7 +112,7 @@ export function Client() {
         <div className="card shadow border-warning mb-3">
           <div className="card-header">
             <div className="table-header">
-              <h2 className='title mt-1'>CLientes</h2>
+              <h4 className='table-title mt-1'>CLientes</h4>
               <Button
                 variant="outline-warning"
                 onClick={addClient}
