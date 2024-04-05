@@ -1,5 +1,6 @@
 :root {
   --primary: #e99401;
+  --secondary: #f8a60980;
   --negro: #262626;
   --blanco: #fff;
   --fuente-principal: "Outfit", sans-serif;
@@ -174,6 +175,13 @@ img {
   }
 }
 
+.modal-title {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #e99401;
+}
+
 .table-header {
   display: flex;
   flex-direction: column;
@@ -191,10 +199,41 @@ img {
   }
 }
 
+/* table */
+.table-title {
+  text-align: center;  
+  text-transform: uppercase;
+  font-weight: bold; 
+  color: #e99401; 
+  /* font-size: 16px; */
+  /* margin-bottom: 10px; */
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+}
+
 .table-btn {
   margin-right: 1rem;
   width: 5rem;
 }
+
+tr th {
+  font-size: 11px;
+  padding: 7px;
+  border: 0.5px solid #eeeeee;
+  text-align: left;
+  /* background-color: rgba(217, 221, 146, 0.2); */
+  background-color: rgba(248, 166, 9, 0.5);
+}
+
+tpager td {
+  border: 0.5px solid #eeeeee;
+  text-align: left;
+}
+
+
 
 .custom-btn {
   font-weight: bold !important;
@@ -227,56 +266,34 @@ img {
 
 .adresses-page {
   display: flex;
-  flex-direction: row;
   flex-wrap: wrap;
-  width: 100%;
-  padding: 0 5rem 2rem 5rem;
-  font-weight: 600;
+  justify-content: space-between;
+  padding: 1rem 5rem 2rem 5rem;
 }
 
 .adresses-page-item {
-  display: flex;
-  flex-direction: column;
-  /* flex-basis: 100%; */
-  flex: 1; 
-  padding: 2rem;
+  flex: 1;
+  padding: 10px;
 }
+
+@media (max-width: 768px) {
+  .adresses-page-item {
+    flex-basis: 100%;
+  }
+}
+
 
 .adresses-title {
-  display: flex;
-  gap: 50rem;
+  /* display: flex;
+  gap: 50rem;*/
   font-weight: bold;
   text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
 }
 
-.adresses-actions {
+.adresses-actions1 {
   align-items: end;
-}
-
-/* table */
-.title {
-  text-align: center;
-  font-size: 16px;
-  margin-bottom: 10px;
-}
-
-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-
-tr th {
-  font-size: 11px;
-  padding: 7px;
-  border: 0.5px solid #eeeeee;
-  text-align: left;
-  /* background-color: rgba(217, 221, 146, 0.2); */
-  background-color: rgba(248, 166, 9, 0.5);
-}
-
-tr td {
-  border: 0.5px solid #eeeeee;
-  text-align: left;
 }
 
 input {

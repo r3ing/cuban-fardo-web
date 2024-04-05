@@ -20,7 +20,7 @@ export function GenericModal({
       centered
     >
       <Modal.Header closeButton>
-        <Modal.Title className="title">{title}</Modal.Title>
+        <Modal.Title><h5 className='modal-title mt-1'>{title}</h5></Modal.Title>
       </Modal.Header>
       <Modal.Body>{body}</Modal.Body>
 

@@ -3,6 +3,7 @@ import { Image } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import logo from '../../assets/img/logo.png';
+import {ROUTE_HOME, ROUTE_CUSTOMERS} from '../common/Costanst'
 
 export function Header() {
   const { loginWithGoogle, user, logout } = useAuth();
@@ -20,7 +21,7 @@ export function Header() {
   const handleLogout = async () => {
     try {
       await logout();
-      navigate("/");
+      navigate(ROUTE_HOME);
     } catch (error) {
       console.error(error);
     }
@@ -48,7 +49,7 @@ export function Header() {
               Home
             </NavLink> */}
             {user ? <> <NavLink
-              to="/customers"
+              to={ROUTE_CUSTOMERS}
               className={({ isActive }) =>
                 isActive ? "navegacion-active" : ""
               }

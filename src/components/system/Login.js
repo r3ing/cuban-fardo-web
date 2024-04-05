@@ -1,6 +1,7 @@
 import React from 'react';
 import { useAuth } from "../../context/authContext";
 import { useNavigate } from "react-router-dom";
+import {ROUTE_HOME} from '../common/Costanst'
 
 export function Login() {
   const { loginWithGoogle } = useAuth();
@@ -9,8 +10,7 @@ export function Login() {
   const handleLoginWithGoogle = async () => {
     try {
       await loginWithGoogle();
-      navigate("/");
-      //navigate("/client");
+      navigate(ROUTE_HOME);
     } catch (error) {
       console.error(error);
     }

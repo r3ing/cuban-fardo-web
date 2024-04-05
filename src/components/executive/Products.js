@@ -12,7 +12,9 @@ import { generateId } from "../utils/Functions";
 import { addShipment } from "../../repositories/ShipmentsRepository";
 import { pdfReport } from "../common/PdfReport";
 import GridSpinner from "../common/GridSpinner";
-import {ROUTE_CUSTOMERS} from '../common/Costanst'
+import { ROUTE_CUSTOMERS } from "../common/Costanst";
+import Send from "./Send";
+import Receives from "./Receives";
 
 export function Products() {
   const navigate = useNavigate();
@@ -89,7 +91,7 @@ export function Products() {
 
     setSpinnerShow(false);
 
-    navigate({ROUTE_CUSTOMERS});
+    navigate({ ROUTE_CUSTOMERS });
   };
 
   const handleClose = () => {
@@ -99,7 +101,7 @@ export function Products() {
   useEffect(() => {
     if (!customer) {
       alert.error("Sorry, something went wrong!");
-      navigate({ROUTE_CUSTOMERS});
+      navigate(ROUTE_CUSTOMERS);
       return;
     }
 
@@ -125,67 +127,19 @@ export function Products() {
       <GridSpinner visible={spinnerShow} style={spinnerStyle} />
 
       <main className="contenedor mt-4">
-        <div className="d-flex justify-content-center">
-          <div className="col-6 text-center">
-            <h1 className="title text-center">Envía</h1>
-            <p className="font-bold text-gray-700 uppercase">
-              <b>Nombre:</b>{" "}
-              <span className="font-normal normal-case">
-                {customer.name} {customer.lastName}{" "}
-              </span>
-              <b>Teléfono:</b>{" "}
-              <span className="font-normal normal-case">{customer.phone}</span>
-            </p>
-          </div>
-          <div className="col-6 text-center">
-            <h1 className="title text-center">Recibe</h1>
-            <div className="">
-              <div className="flex items-center">
-                <p className="font-bold text-gray-700 uppercase">
-                  <b>Beneficiario:</b>{" "}
-                  <span className="font-normal normal-case">
-                    {address.beneficiary}{" "}
-                  </span>
-                  <b>Teléfono:</b>{" "}
-                  <span className="font-normal normal-case">
-                    {address.phone}
-                  </span>
-                </p>
-              </div>
-              <p className="font-bold text-gray-700 uppercase">
-                <b>Dirección:</b>{" "}
-                <span className="font-normal normal-case">
-                  {address.street !== "" && `${address.street}`}{" "}
-                  {address.number !== "" && `#${address.number}`}{" "}
-                  {address.betweenStreet !== "" && `%${address.betweenStreet}`}
-                  {address.locality !== "" && `, Rpto ${address.locality}`}
-                </span>
-                <span className="font-normal normal-case">
-                  , {address.town}
-                </span>
-                <span className="font-normal normal-case">
-                  , {address.province}
-                </span>
-                {address.ref && (
-                  <>
-                    <>, Ref:</>{" "}
-                    <span className="font-normal normal-case">
-                      {address.ref}
-                    </span>
-                  </>
-                )}
-              </p>
-            </div>
-          </div>
-        </div>
-        <div className="mt-3">
-          <h1 className="title">Descripción Productos</h1>
+        <section className="d-flex justify-content-center">
+          <Send customer={customer} />
+          <Receives address={address} />
+        </section>
+        <section className="mt-3">
+          <h5 className="title text-center">DESCRIPCIÓN PRODUCTOS</h5>
+
           <EditableTable
             products={products}
             func={setProducts}
             setShowModal={setShowModal}
           />
-        </div>
+        </section>
       </main>
     </Layout>
   );

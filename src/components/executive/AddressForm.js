@@ -13,11 +13,11 @@ import {ROUTE_PRODUCTS} from '../common/Costanst';
 
 export function AddressForm() {
   const alert = useAlert();
+  const navigate = useNavigate();
   const { customer, setAddress } = useShipment();
   const [towns, setTowns] = useState([]);
   const [province, setProvince] = useState();
-  const [provinces, setProvinces] = useState([]);
-  const navigate = useNavigate();
+  const [provinces, setProvinces] = useState([]);  
   const [address, setShippingAddress] = useState({
     beneficiary: "",
     phone: "",
@@ -52,7 +52,7 @@ export function AddressForm() {
       await saveShippingAddress(customer.id, address);
       setAddress(address);
       alert.success("Dirección agregada exitosamente!");
-      navigate({ROUTE_PRODUCTS});
+      navigate(ROUTE_PRODUCTS);
     } catch (error) {
       alert.error(error.message);
     }
