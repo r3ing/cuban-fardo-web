@@ -30,11 +30,9 @@ const Address = ({ address, deleteAddressfromList }) => {
   return (
     <>
       <Accordion.Header>
-        <div className="adresses-title">
-          <b>{address.beneficiary}</b>
-          <b>
-            {address.town}, {address.province}
-          </b>
+        <div className="container adresses-title">          
+          <b className="text-start">{address.beneficiary}</b>
+          <b className="text-end">{address.town}, {address.province}</b>          
         </div>
       </Accordion.Header>
       <Accordion.Body className="shadow-md shadow-orange-300">

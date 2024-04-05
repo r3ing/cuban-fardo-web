@@ -32,7 +32,7 @@ export function CustomerForm({ handleClose }) {
       await addOrEditClient(client);
       handleClose();
       setCustomer(client);
-      navigate({ROUTE_ADDRESSES})
+      navigate(ROUTE_ADDRESSES)
       alert.success(msg);
     } catch (error) {
       alert.error(error.message);

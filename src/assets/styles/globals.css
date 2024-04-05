@@ -1,5 +1,6 @@
 :root {
   --primary: #e99401;
+  --secondary: #f8a60980;
   --negro: #262626;
   --blanco: #fff;
   --fuente-principal: "Outfit", sans-serif;
@@ -282,26 +283,18 @@ tpager td {
 }
 
 
-.adresses-page-item1 {
-  display: flex;
-  flex-direction: column;
-  /* flex-basis: 100%; */
-  flex: 1; 
-  padding: 2rem;
-}
-
-.adresses-title1 {
-  display: flex;
-  gap: 50rem;
+.adresses-title {
+  /* display: flex;
+  gap: 50rem;*/
   font-weight: bold;
   text-transform: uppercase;
+  display: flex;
+  justify-content: space-between;
 }
 
 .adresses-actions1 {
   align-items: end;
 }
-
-
 
 input {
   font-size: 18px;
