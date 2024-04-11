@@ -84,7 +84,7 @@ export function ShippingForm({ handleClose, createShipment }) {
           className="form-control text-capitalize"
           {...register("details", {
             pattern: {
-              value: /[\w\s\/\-_]+/,
+              value: /[\w\s\-_]+/,
               message: "Escriba un detalle válido."
             }
           })}
