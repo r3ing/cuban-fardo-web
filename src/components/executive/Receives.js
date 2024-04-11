@@ -5,16 +5,17 @@ export default function Receives({ address }) {
     <div className="col-6 text-center text-uppercase">
       <h5 className="title text-center text-lg">RECIBE</h5>
       <div className="text-uppercase">
-        {/* <div className="flex items-center"> */}
-          <p className="font-bold text-gray-700 uppercase">
-            <b>Beneficiario:</b>{" "}
-            <span className="font-normal normal-case">
-              {address.beneficiary}{" "}
-            </span>
-            <b>Teléfono:</b>{" "}
-            <span className="font-normal normal-case">{address.phone}</span>
-          </p>
-        {/* </div> */}
+        <p className="font-bold text-gray-700 uppercase">
+          <b>Beneficiario:</b>{" "}
+          <span className="font-normal normal-case">
+            {address.beneficiary}{" "}
+          </span>
+          <b>Teléfono:</b>{" "}
+          <span className="font-normal normal-case">{address.phone}</span>
+          {address.ci && (            
+            <span className="font-normal normal-case"><b>{" "}CI: </b>{address.ci}</span>     
+          )}
+        </p>
         <p className="font-bold text-gray-700 uppercase">
           <b>Dirección:</b>{" "}
           <span className="font-normal normal-case">
@@ -31,6 +32,7 @@ export default function Receives({ address }) {
               <span className="font-normal normal-case">{address.ref}</span>
             </>
           )}
+
         </p>
       </div>
     </div>
