@@ -72,6 +72,13 @@ const Address = ({ address, deleteAddressfromList }) => {
             </p>
           )}
 
+          {address.ci && (
+            <p className="font-bold text-gray-700 uppercase">
+              <b>Ci:</b> {" "}
+              <span className="font-normal normal-case">{address.ci}</span>
+            </p>
+          )}
+
           <div className="adresses-actions text-end">
             <Button
               variant="outline-danger"

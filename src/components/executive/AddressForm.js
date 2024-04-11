@@ -21,14 +21,14 @@ export function AddressForm() {
   const [address, setShippingAddress] = useState({
     beneficiary: "",
     phone: "",
-    ci: "",
+    ci: '',
     street: "",
     number: "",
     betweenStreet: "",
     locality: "",
     ref: "",
     town: "",
-    province: "",
+    province: "",    
   });
 
   const {
@@ -48,6 +48,7 @@ export function AddressForm() {
   };
 
   const onSubmit = async () => {
+    console.log("address: ", address);
     try {
       await saveShippingAddress(customer.id, address);
       setAddress(address);
@@ -139,7 +140,7 @@ export function AddressForm() {
           {...register("street", {
             required: "Agregue una calle.",
             pattern: {
-              value: /^[a-zA-Z0-9 ]*$/,
+              value: /^[a-zA-Z0-9 /]*$/,
               message: "Escriba un nombre de calle válido.",
             },
           })}
@@ -163,7 +164,7 @@ export function AddressForm() {
         <input
           {...register("number", {
             pattern: {
-              value: /^[0-9a-zA-Z ]*$/,
+              value: /^[0-9a-zA-Z /]*$/,
               message: "Agregue un número válido.",
             },
           })}
@@ -187,7 +188,7 @@ export function AddressForm() {
         <input
           {...register("betweenStreet", {
             pattern: {
-              value: /^[0-9a-zA-Z ]*$/,
+              value: /^[0-9a-zA-Z /]*$/,
               message: "Agregue un entre calles válido",
             },
           })}
@@ -211,7 +212,7 @@ export function AddressForm() {
         <input
           {...register("locality", {
             pattern: {
-              value: /^[a-zA-Z0-9 ]*$/,
+              value: /^[a-zA-Z0-9 ,/]*$/,
               message: "Escriba un reparto válido.",
             },
           })}
