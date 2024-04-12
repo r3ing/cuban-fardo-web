@@ -91,7 +91,7 @@ export function Products() {
 
     setSpinnerShow(false);
 
-    navigate({ ROUTE_CUSTOMERS });
+    navigate(ROUTE_CUSTOMERS);
   };
 
   const handleClose = () => {
