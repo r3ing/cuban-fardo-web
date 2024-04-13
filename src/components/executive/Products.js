@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { EditableTable } from "../common/EditableTable";
 import { GenericModal } from "../common/GenericModal";
-import { CREATE_SHIPMENT, DELIVERY_STATUS_CREATED } from "../common/Costanst";
+import { CREATE_SHIPMENT, DELIVERY_STATUS_CREATED, SHIPMENT_CREATED } from "../common/Costanst";
 import { ShippingForm } from "./ShippingForm";
 import { generateId } from "../utils/Functions";
 import { addShipment } from "../../repositories/ShipmentsRepository";
@@ -75,10 +75,11 @@ export function Products() {
         ", " +
         address.town +
         ", " +
-        address.province +
-        ", CI: " +
+        address.province +  
+        ", CI: " + 
         address.ci,
     };
+
 
     shipping.sender = sender;
     shipping.receives = receives;
@@ -90,6 +91,8 @@ export function Products() {
     addShipment(shipping);
 
     setSpinnerShow(false);
+
+    alert.success(SHIPMENT_CREATED);
 
     navigate(ROUTE_CUSTOMERS);
   };

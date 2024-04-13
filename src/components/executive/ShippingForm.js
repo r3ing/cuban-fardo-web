@@ -1,15 +1,15 @@
-import React from 'react';
-import { useState } from 'react';
+import React from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
 export function ShippingForm({ handleClose, createShipment }) {
-
   const [shipping, setShipping] = useState({
     weight: 0,
     amount: 0,
-    details: ''
+    details: "",
+
   });
- 
+
   const {
     register,
     handleSubmit,
@@ -17,9 +17,8 @@ export function ShippingForm({ handleClose, createShipment }) {
   } = useForm({ mode: "all" });
 
   const onSubmit = () => {
-      handleClose();
-      createShipment(shipping.weight, shipping.amount, shipping.details);
-      
+    handleClose();
+    createShipment(shipping.weight, shipping.amount, shipping.details);
   };
 
   const handleInputChange = (e) => {
@@ -40,15 +39,19 @@ export function ShippingForm({ handleClose, createShipment }) {
             required: "Agregre el peso.",
             pattern: {
               value: /^\d+(\.\d{1,2})?$/,
-              message: "Escriba un peso válido."
-            }
+              message: "Escriba un peso válido.",
+            },
           })}
           placeholder="Peso en lb"
           onChange={handleInputChange}
           value={shipping.weight}
         />
       </div>
-      {errors.weight && <small className="text-danger animated fadeIn">{errors.weight.message}</small>}
+      {errors.weight && (
+        <small className="text-danger animated fadeIn">
+          {errors.weight.message}
+        </small>
+      )}
 
       <div className="form-group input-group mt-3">
         <div className="input-group-text bg-light">
@@ -61,19 +64,23 @@ export function ShippingForm({ handleClose, createShipment }) {
             required: "Agrege el monto del envio.",
             min: {
               value: 1,
-              message: "Escriba un monto válido."
+              message: "Escriba un monto válido.",
             },
             pattern: {
               value: /^\d+(\.\d{1,2})?$/,
-              message: "Escriba un monto válido."
-            }
+              message: "Escriba un monto válido.",
+            },
           })}
           placeholder="Monto total"
           onChange={handleInputChange}
           value={shipping.amount}
         />
       </div>
-      {errors.amount && <small className="text-danger animated fadeIn">{errors.amount.message}</small>} 
+      {errors.amount && (
+        <small className="text-danger animated fadeIn">
+          {errors.amount.message}
+        </small>
+      )}
 
       <div className="form-group input-group mt-3">
         <div className="input-group-text bg-light">
@@ -85,21 +92,53 @@ export function ShippingForm({ handleClose, createShipment }) {
           {...register("details", {
             pattern: {
               value: /[\w\s\-_]+/,
-              message: "Escriba un detalle válido."
-            }
+              message: "Escriba un detalle válido.",
+            },
           })}
           placeholder="Detalles"
           onChange={handleInputChange}
           value={shipping.details}
         />
       </div>
-      {errors.details && <small className="text-danger animated fadeIn">{errors.details.message}</small>}     
+      {errors.details && (
+        <small className="text-danger animated fadeIn">
+          {errors.details.message}
+        </small>
+      )}
+
+      {/* <div className="mt-3 uppercase">
+        <span className="sub-title">TIPO DE ENVÍO: {" "}</span>  
+        <div className="form-check form-check-inline">
+          <input
+            className="form-check-input"
+            type="radio"
+            name="regular"
+            id="regular"
+            value="regular"
+            checked
+          />
+          <label className="form-check-label" for="regular">
+            Regular 7/15 días
+          </label>
+        </div>
+        <div className="form-check form-check-inline">
+          <input
+            className="form-check-input"
+            type="radio"
+            name="slow"
+            id="slow"
+            value="slow"
+          />
+          <label className="form-check-label" for="slow">
+            Lento 25/35 días
+          </label>
+        </div>
+      </div> */}
 
       <button className="btn btn-warning mt-3">
         <i className="material-icons icon">save</i>
         Guardar
       </button>
-
     </form>
   );
 }

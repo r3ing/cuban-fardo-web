@@ -140,7 +140,7 @@ export function AddressForm() {
           {...register("street", {
             required: "Agregue una calle.",
             pattern: {
-              value: /^[a-zA-Z0-9 /]*$/,
+              value: /^[a-zA-Z0-9#, /]*$/,
               message: "Escriba un nombre de calle válido.",
             },
           })}
