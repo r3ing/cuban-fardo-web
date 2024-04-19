@@ -63,7 +63,7 @@ export function CustomerForm({ handleClose }) {
           {...register("name", {
             required: "Agregue el nombre del cliente.",
             pattern: {
-              value: /^[a-zA-Z ]*$/,
+              value:  /^[a-zA-ZáéíóúñÑ ]*$/,
               message: "Escriba un nombre de cliente válido."
             }
           })}
@@ -84,7 +84,7 @@ export function CustomerForm({ handleClose }) {
           {...register("lastName", {
             required: "Agregue el apellido del cliente.",
             pattern: {
-              value: /^[a-zA-Z ]*$/,
+              value: /^[a-zA-ZáéíóúñÑ ]*$/,
               message: "Escriba un apellido válido."
             }
           })}

@@ -6,7 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { useAlert } from "react-alert";
 import { EditableTable } from "../common/EditableTable";
 import { GenericModal } from "../common/GenericModal";
-import { CREATE_SHIPMENT, DELIVERY_STATUS_CREATED, SHIPMENT_CREATED } from "../common/Costanst";
+import {
+  CREATE_SHIPMENT,
+  DELIVERY_STATUS_CREATED,
+  SHIPMENT_CREATED,
+} from "../common/Costanst";
 import { ShippingForm } from "./ShippingForm";
 import { generateId } from "../utils/Functions";
 import { addShipment } from "../../repositories/ShipmentsRepository";
@@ -15,11 +19,13 @@ import GridSpinner from "../common/GridSpinner";
 import { ROUTE_CUSTOMERS } from "../common/Costanst";
 import Send from "./Send";
 import Receives from "./Receives";
+import { useAuth } from "../../context/authContext";
 
 export function Products() {
   const navigate = useNavigate();
   const alert = useAlert();
-  const { customer, address, setArticles } = useShipment();
+  const { user } = useAuth();
+  const { customer, address, setArticles, setCustomer, setAddress } = useShipment();
   const [products, setProducts] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [spinnerShow, setSpinnerShow] = useState(false);
@@ -52,6 +58,7 @@ export function Products() {
       shippingAddress: `/client/${customer.id}/shippingAddress/${address.id}`,
       status: DELIVERY_STATUS_CREATED,
       tracking: generateId(),
+      user: user.email,
     };
 
     const fileName = `${shipping.tracking}-${address.province}.pdf`;
@@ -61,28 +68,8 @@ export function Products() {
       phone: customer.phone,
     };
 
-    let receives = {
-      name: address.beneficiary,
-      phone: address.phone,
-      address:
-        address.street +
-        " #" +
-        address.number +
-        " % " +
-        address.betweenStreet +
-        ", Rpto " +
-        address.locality +
-        ", " +
-        address.town +
-        ", " +
-        address.province +  
-        ", CI: " + 
-        address.ci,
-    };
-
-
     shipping.sender = sender;
-    shipping.receives = receives;
+    shipping.receives = createReceivesObject();
 
     setSpinnerShow(true);
 
@@ -90,15 +77,51 @@ export function Products() {
 
     addShipment(shipping);
 
-    setSpinnerShow(false);
+    setSpinnerShow(false);   
 
     alert.success(SHIPMENT_CREATED);
 
     navigate(ROUTE_CUSTOMERS);
+
+    setCustomer(null);
+    setAddress(null);
+    setArticles(null);
   };
 
   const handleClose = () => {
     setShowModal(false);
+  };
+
+  const createReceivesObject = () => {
+    let receives = {
+      name: address.beneficiary,
+      phone: address.phone,
+      address: "",
+    };
+
+    let direction = address.street;
+
+    address.number
+      ? (direction = direction.concat(" #", address.number))
+      : (direction = direction.concat(""));
+
+    address.betweenStreet
+      ? (direction = direction.concat(" e/", address.betweenStreet))
+      : (direction = direction.concat(""));
+
+    address.locality
+      ? (direction = direction.concat(", Rpto ", address.locality))
+      : (direction = direction.concat(""));
+
+    direction = direction.concat(`, ${address.town}`, `, ${address.province}`);
+
+    address.ci
+      ? (direction = direction.concat(", CI: ", address.ci))
+      : (direction = direction.concat(""));
+
+    receives.address = direction;
+
+    return receives;
   };
 
   useEffect(() => {

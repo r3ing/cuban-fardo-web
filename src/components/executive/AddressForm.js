@@ -48,7 +48,6 @@ export function AddressForm() {
   };
 
   const onSubmit = async () => {
-    console.log("address: ", address);
     try {
       await saveShippingAddress(customer.id, address);
       setAddress(address);
@@ -90,7 +89,7 @@ export function AddressForm() {
           {...register("beneficiary", {
             required: "Agregue el nombre del beneficiario.",
             pattern: {
-              value: /^[a-zA-Z ]*$/,
+              value: /^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ ]*$/,
               message: "Escriba un nombre válido.",
             },
           })}
@@ -140,7 +139,7 @@ export function AddressForm() {
           {...register("street", {
             required: "Agregue una calle.",
             pattern: {
-              value: /^[a-zA-Z0-9#, /]*$/,
+              value: /^[\w\sÑñ#,/ ]*$/,
               message: "Escriba un nombre de calle válido.",
             },
           })}
@@ -164,7 +163,7 @@ export function AddressForm() {
         <input
           {...register("number", {
             pattern: {
-              value: /^[0-9a-zA-Z /]*$/,
+              value: /^[\w\s /]*$/,
               message: "Agregue un número válido.",
             },
           })}
@@ -188,7 +187,7 @@ export function AddressForm() {
         <input
           {...register("betweenStreet", {
             pattern: {
-              value: /^[0-9a-zA-Z /]*$/,
+              value: /^[\w\s,/]*$/,
               message: "Agregue un entre calles válido",
             },
           })}
@@ -212,7 +211,7 @@ export function AddressForm() {
         <input
           {...register("locality", {
             pattern: {
-              value: /^[a-zA-Z0-9 ,/]*$/,
+              value: /^[\w\s ,/]*$/,
               message: "Escriba un reparto válido.",
             },
           })}
@@ -293,7 +292,7 @@ export function AddressForm() {
         <input
           {...register("ref", {
             pattern: {
-              value: /^[0-9a-zA-Z ]*$/,
+              value: /^[\w\sÑñ ,/]*$/,
               message: "Escriba una referencia válida.",
             },
           })}
