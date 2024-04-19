@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useShipment } from "../../context/shipmentContext";
 import { useAlert } from "react-alert";
 import { deleteAddress } from "../../repositories/AddressRepository";
-import {ROUTE_PRODUCTS} from '../common/Costanst';
+import { ROUTE_PRODUCTS } from "../common/Costanst";
 
 const Address = ({ address, deleteAddressfromList }) => {
   const navigate = useNavigate();
@@ -30,9 +30,11 @@ const Address = ({ address, deleteAddressfromList }) => {
   return (
     <>
       <Accordion.Header>
-        <div className="container adresses-title">          
+        <div className="container adresses-title">
           <b className="text-start">{address.beneficiary}</b>
-          <b className="text-end">{address.town}, {address.province}</b>          
+          <b className="text-end">
+            {address.town}, {address.province}
+          </b>
         </div>
       </Accordion.Header>
       <Accordion.Body className="shadow-md shadow-orange-300">
@@ -46,35 +48,33 @@ const Address = ({ address, deleteAddressfromList }) => {
           <p className="font-bold text-gray-700 uppercase">
             <b>Address:</b> {""}
             <span className="font-normal normal-case">
-              {address.street !== "" && `${address.street}`}{" "}
-              {address.number !== "" && `#${address.number}`}{" "}
-              {address.betweenStreet !== "" && `%${address.betweenStreet}`}
-              {", "}
-              {address.locality !== "" && `Rpto ${address.locality}`}{" "}
+              {address.street !== "" && `${address.street}`}
+              {address.number !== "" && ` #${address.number}`}
+              {address.betweenStreet !== "" && ` e/ ${address.betweenStreet}`}
+              {address.locality !== "" && `, Rpto ${address.locality}`}
             </span>
           </p>
           <div className="flex items-center">
             <p className="font-bold text-gray-700 uppercase">
-              <b>Town:</b> {""}
-              <span className="font-normal normal-case">{address.town}</span>
+              <span className="font-normal normal-case">
+                <b>Town:</b> {address.town}
+              </span>
             </p>
             <p className="font-bold text-gray-700 uppercase">
-              <b>Province:</b> {""}
               <span className="font-normal normal-case">
-                {address.province}
+                <b>Province:</b> {address.province}
               </span>
             </p>
           </div>
           {address.ref && (
             <p className="font-bold text-gray-700 uppercase">
-              <b>Ref:</b> {""}
-              <span className="font-normal normal-case">{address.ref}</span>
+              <span className="font-normal normal-case"><b>Ref:</b> {address.ref}</span>
             </p>
           )}
 
           {address.ci && (
             <p className="font-bold text-gray-700 uppercase">
-              <b>Ci:</b> {" "}
+              <b>Ci:</b>{" "}
               <span className="font-normal normal-case">{address.ci}</span>
             </p>
           )}
