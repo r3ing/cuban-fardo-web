@@ -14,6 +14,7 @@ import {
 import { ShippingForm } from "./ShippingForm";
 import { generateId } from "../utils/Functions";
 import { addShipment } from "../../repositories/ShipmentsRepository";
+import { getOffices } from "../../repositories/OfficeRepository";
 import { pdfReport } from "../common/PdfReport";
 import GridSpinner from "../common/GridSpinner";
 import { ROUTE_CUSTOMERS } from "../common/Costanst";
@@ -27,6 +28,7 @@ export function Products() {
   const { user } = useAuth();
   const { customer, address, setArticles, setCustomer, setAddress } = useShipment();
   const [products, setProducts] = useState([]);
+  const [offices, setOffices] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [spinnerShow, setSpinnerShow] = useState(false);
 
@@ -70,9 +72,10 @@ export function Products() {
 
     shipping.sender = sender;
     shipping.receives = createReceivesObject();
+    shipping.office = getOffice();
 
     setSpinnerShow(true);
-
+ 
     await pdfReport(shipping, fileName);
 
     addShipment(shipping);
@@ -124,12 +127,23 @@ export function Products() {
     return receives;
   };
 
+  const getOffice = () => {
+    return offices.find((of) => of.users.includes(user.email)); 
+  }
+
   useEffect(() => {
     if (!customer) {
       alert.error("Sorry, something went wrong!");
       navigate(ROUTE_CUSTOMERS);
       return;
     }
+
+    setSpinnerShow(true);
+
+    getOffices().then((data) => {     
+      setSpinnerShow(false);
+      setOffices(data);
+   });  
 
     // eslint-disable-next-line
   }, []);

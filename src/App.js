@@ -32,7 +32,7 @@ function App() {
             <Route
               path={ROUTE_SHIPPINGS}
               element={
-                <ProtectedRoute roles={["executive", "delivery"]}>
+                <ProtectedRoute roles={["admin","executive","delivery"]}>
                   <Shippings />
                 </ProtectedRoute>
               }
@@ -40,7 +40,7 @@ function App() {
             <Route
               path={ROUTE_PRODUCTS}
               element={
-                <ProtectedRoute role={["admin, executive"]}>
+                <ProtectedRoute roles={["admin","executive"]}>
                   <Products />
                 </ProtectedRoute>
               }
@@ -48,7 +48,7 @@ function App() {
             <Route
               path={ROUTE_CUSTOMERS}
               element={
-                <ProtectedRoute role={["admin, executive"]}>
+                <ProtectedRoute roles={["admin","executive"]}>
                   <Client />
                 </ProtectedRoute>
               }
@@ -56,7 +56,7 @@ function App() {
             <Route
               path={ROUTE_ADDRESSES}
               element={
-                <ProtectedRoute role={["admin, executive"]}>
+                <ProtectedRoute roles={["admin","executive"]}>
                   <Addresses />
                 </ProtectedRoute>
               }
