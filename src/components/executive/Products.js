@@ -56,7 +56,7 @@ export function Products() {
       client: `/client/${customer.id}`,
       createDate: Date.now(),
       articles: products,
-      province: address.province,
+      province: address.province.toUpperCase(),
       shippingAddress: `/client/${customer.id}/shippingAddress/${address.id}`,
       status: DELIVERY_STATUS_CREATED,
       tracking: generateId(),
@@ -113,10 +113,10 @@ export function Products() {
       : (direction = direction.concat(""));
 
     address.locality
-      ? (direction = direction.concat(", Rpto ", address.locality))
+      ? (direction = direction.concat(", ", address.locality))
       : (direction = direction.concat(""));
 
-    direction = direction.concat(`, ${address.town}`, `, ${address.province}`);
+    direction = direction.concat(`, ${address.town.toUpperCase()}`, `, ${address.province.toUpperCase()}`);
 
     address.ci
       ? (direction = direction.concat(", CI: ", address.ci))

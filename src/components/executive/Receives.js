@@ -27,7 +27,7 @@ export default function Receives() {
             {address.street !== "" && `${address.street}`}
             {address.number !== "" && ` #${address.number}`}
             {address.betweenStreet !== "" && ` e/ ${address.betweenStreet}`}
-            {address.locality !== "" && `, Rpto ${address.locality}`}
+            {address.locality !== "" && `, ${address.locality}`}
           </span>
           <span className="font-normal normal-case">, {address.town}</span>
           <span className="font-normal normal-case">, {address.province}</span>

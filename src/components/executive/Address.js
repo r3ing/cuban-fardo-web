@@ -51,7 +51,7 @@ const Address = ({ address, deleteAddressfromList }) => {
               {address.street !== "" && `${address.street}`}
               {address.number !== "" && ` #${address.number}`}
               {address.betweenStreet !== "" && ` e/ ${address.betweenStreet}`}
-              {address.locality !== "" && `, Rpto ${address.locality}`}
+              {address.locality !== "" && `, ${address.locality}`}
             </span>
           </p>
           <div className="flex items-center">

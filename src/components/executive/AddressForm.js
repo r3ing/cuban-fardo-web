@@ -163,7 +163,7 @@ export function AddressForm() {
         <input
           {...register("number", {
             pattern: {
-              value: /^[\w\s /]*$/,
+              value: /^[\w\s# /]*$/,
               message: "Agregue un número válido.",
             },
           })}
@@ -217,7 +217,7 @@ export function AddressForm() {
           })}
           type="text"
           className="form-control text-capitalize"
-          placeholder="Reparto"
+          placeholder="Comunidad o Reparto"
           onChange={handleInputChange}
           value={address.locality}
         />
