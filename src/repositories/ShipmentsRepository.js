@@ -2,10 +2,13 @@ import { db } from "../config/firebase";
 import {
   collection,
   addDoc,
+  getDocs
 } from "firebase/firestore";
 
+const shipmentCollection = collection(db, "shipping");
+
 export const addOrEditShipment = async (idClient, shipment) => {
-  const data = collection(db, `/client/${idClient}/shipments`);
+  const data = collection(db, `/client/${idClient}/shipments`); 
 
   try {
     // if (!client.id) {
@@ -23,10 +26,8 @@ export const addOrEditShipment = async (idClient, shipment) => {
 };
 
 export const addShipment = async (shipment) => {
-  const shipmentColletcion = collection(db, "shipping");
-
   try {
-    await addDoc(shipmentColletcion, shipment).then((docRef) => {
+    await addDoc(shipmentCollection, shipment).then((docRef) => {
       shipment.id = docRef.id;
     });
   } catch (error) {
@@ -34,4 +35,13 @@ export const addShipment = async (shipment) => {
   }
 
   return shipment;
+};
+
+export const getShipments = async () => {
+  try {
+    const data = await getDocs(shipmentCollection);
+    return data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  } catch (error) {
+     throw new Error(error);
+  }
 };

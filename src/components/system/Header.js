@@ -1,9 +1,9 @@
-import React from 'react';
+import React from "react";
 import { Image } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
-import logo from '../../assets/img/logo.png';
-import {ROUTE_HOME, ROUTE_CUSTOMERS} from '../common/Costanst'
+import logo from "../../assets/img/logo.png";
+import { ROUTE_HOME, ROUTE_CUSTOMERS } from "../common/Costanst";
 
 export function Header() {
   const { loginWithGoogle, user, logout } = useAuth();
@@ -12,7 +12,6 @@ export function Header() {
   const handleLoginWithGoogle = async () => {
     try {
       await loginWithGoogle();
-
     } catch (error) {
       console.error(error);
     }
@@ -48,23 +47,28 @@ export function Header() {
             >
               Home
             </NavLink> */}
-            {user ? <> <NavLink
-              to={ROUTE_CUSTOMERS}
-              className={({ isActive }) =>
-                isActive ? "navegacion-active" : ""
-              }
-            >
-              Clientes
-            </NavLink>
-              {/* <NavLink
-              to="/shipping"
-              className={({ isActive }) =>
-                isActive ? "navegacion-active" : ""
-              }
-            >
-              Shippings
-            </NavLink> */}
-            </> : null}
+            {user ? (
+              <>
+                {" "}
+                <NavLink
+                  to={ROUTE_CUSTOMERS}
+                  className={({ isActive }) =>
+                    isActive ? "navegacion-active" : ""
+                  }
+                >
+                  Clientes
+                </NavLink>
+                <NavLink
+                  to="/shippings"
+                  className={({ isActive }) =>
+                    isActive ? "navegacion-active" : ""
+                  }
+                >
+                  Shippings
+                </NavLink>
+              </>
+            ) : null}
+
             {/* <Link
               to="/"
               className={({ isActive }) =>
@@ -81,6 +85,7 @@ export function Header() {
             >
               Help
             </Link> */}
+
             {!user ? (
               <Link to="#" onClick={handleLoginWithGoogle}>
                 Entrar

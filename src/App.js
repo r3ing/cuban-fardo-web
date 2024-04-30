@@ -2,10 +2,7 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Shippings } from "./components/executive/Shippings";
 import { Client } from "./components/executive/Client";
-import { About } from "./components/system/About";
 import { Home } from "./components/system/Home";
-import { Login } from "./components/system/Login";
-import { Support } from "./components/system/Support";
 import { ProtectedRoute } from "./components/utils/ProtectedRoute";
 import { AuthProvider } from "./context/authContext";
 import { Products } from "./components/executive/Products";
@@ -26,9 +23,8 @@ function App() {
         <ShipmentProvider>
           <Routes>
             <Route path={ROUTE_HOME} element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/support" element={<Support />} />
+            {/* <Route path="/login" element={<Login />} /> */}
+            <Route path="*" element={<Home />} />
             <Route
               path={ROUTE_SHIPPINGS}
               element={

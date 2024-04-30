@@ -1,150 +1,88 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { getClients } from "../../repositories/ClientRepository";
-import { useAlert } from "react-alert";
-import { Layout } from "../system/Layout";
-import { Table } from "../common/Table";
-import { Button } from "react-bootstrap";
-import { ADD_NEW_CUSTOMER, LOOK_FOR_CLIENT } from "../common/Costanst";
-import { ComboboxAutocomplete } from "../common/ComboboxAutocomplete";
+import { getShipments } from "../../repositories/ShipmentsRepository";
 import { CustomerForm } from "./CustomerForm";
-import { Modals } from "../common/Modals";
+import { Layout } from "../system/Layout";
+import { Button } from "react-bootstrap";
+import { Table } from "../common/Table";
+import { GenericModal } from "../common/GenericModal";
+import { ADD_NEW_CUSTOMER, EDIT_CUSTOMER, ROUTE_ADDRESSES } from "../common/Costanst";
 import { useShipment } from "../../context/shipmentContext";
+import { useNavigate } from "react-router-dom";
+//import { useAlert } from "react-alert";
+
+
 
 export function Shippings() {
-  const alert = useAlert();
-  const navigate = useNavigate();
-  const { setCustomer } = useShipment();
-  const [clients, setClients] = useState([]);
-  const [dataFiltered, setDataFiltered] = useState([]);
+  const [shipments, setShipments] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [visible, setVisible] = useState(false);
-  const [clientSelected, setSelected] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+  const [edit, setEdit] = useState(false);
+  const { setCustomer } = useShipment();
+  const navigate = useNavigate();
+  //const alert = useAlert();
 
-  const [modalTitle, setModalTitle] = useState("");
-  const [modalBody, setModalBody] = useState(null);
-  const [modalFooter, setModalFooter] = useState(false);
-  //const [buttonClose, setButtonClose] = useState(false);
-  const [buttonPrimaryActionLabel, setButtonPrimaryActionLabel] = useState("");
-  const [buttonSecondaryActionLabel, setButtonSecondaryActionLabel] =
-    useState("");
-
-  const handleClose = () => {
-    setVisible(false);
+  const handleClose = () => { 
+    setShowModal(false); 
   };
 
-  const getAllClients = async () => {
-    setLoading(true);
-    const clients = await getClients();
-    setLoading(false);
-    setClients(clients);
-    setModalTitle(LOOK_FOR_CLIENT);
-    setDataFiltered(clients);
+  const handelShowModal = () => {
+    setShowModal(true);
   };
 
-  const handleSearch = (dataFiltered) => {
-    setDataFiltered(dataFiltered);
-  };
+  const addClient = () => {
+    setCustomer(null);
+    setEdit(false);
+    handelShowModal();
+  }
 
-  //const handleCloseFormNewCustomer = () => setShowModalNewCustomer(false);
+  const editClient = (row) => {
+    setEdit(true);
+    setCustomer(row);
+    handelShowModal();
+  }
 
-  const lookClient = async () => {
-    try {
-      const clients = await getClients();
-      clients.map((c) => {
-        c.value = c.id;
-        c.label = c.name + " " + c.lastName;
-        return c;
-      });
-      setClients(clients);
-      setVisible(true);
-      setModalBody(
-        <ComboboxAutocomplete options={clients} getSelected={getSelected} />
-      );
-      setModalFooter(true);
-      setButtonPrimaryActionLabel("New Customer");
-      setButtonSecondaryActionLabel("New Shipment");
-    } catch (error) {
-      alert.error("Up, error searching for clients!");
-    }
-  };
-
-  const getSelected = (selected) => {
-    setSelected(selected);
-  };
-
-  const setNewClient = (client) => {
-    console.log("client: ", client);
-  };
-
-  const primaryAction = () => {
-    setModalTitle(ADD_NEW_CUSTOMER);
-    setModalBody(
-      <CustomerForm handleClose={handleClose} setNewClient={setNewClient} />
-    );
-    setModalFooter(false);
-  };
-
-  const secondaryAction = () => {
-    setCustomer(clientSelected);
-    setVisible(false);
-    navigate("/shipping");
-  };
+  const addAddress = (row) => {
+    setCustomer(row);
+    navigate(ROUTE_ADDRESSES)
+  }
 
   const columns = [
     {
-      name: "Nombre",
+      name: "CODIGO",      
       selector: (row) => row.name,
-      sortable: true,
     },
     {
-      name: "Last Name",
+      name: "NOMBRE",      
+      selector: (row) => row.name,
+    },
+    {
+      name: "APELLIDOS",
       selector: (row) => row.lastName,
-      sortable: true,
     },
     {
-      name: "Phone",
+      name: "TELÉFONO",
       selector: (row) => row.phone,
-      sortable: true,
     },
     {
-      minWidth: "150px",
+      minWidth: "100px",
       cell: (row) => (
         <>
-          <button
-            className="btn btn-primary btn-sm btn-table mr-2"
-            type="button"
-            title="Ver Detalle"
-            raised="true"
-            primary="true"
-            disabled={true}
-            onClick={() => {}}
-          >
-            <i className="fa fa-search" aria-hidden="true"></i>
-          </button>
-          <button
-            className="btn btn-primary btn-sm btn-table mr-2"
-            type="button"
-            title="Editar"
-            raised="true"
-            primary="true"
+          <Button
+            variant="outline-warning"
+            className="table-btn"
+            onClick={() => editClient(row)}
+            disabled={false}>
+            <i className="material-icons icon">edit_square</i>
+          </Button>
+          <Button
+            variant="outline-success"
+            onClick={() => addAddress(row)}
             disabled={false}
-            onClick={() => {}}
+            className="table-btn"
           >
-            <i className="fa fa-pencil" aria-hidden="true"></i>
-          </button>
-          <button
-            className="btn btn-dark btn-sm btn-table mr-2"
-            type="button"
-            title="Reenviar Correo"
-            raised="true"
-            primary="true"
-            disabled={false}
-            onClick={() => {}}
-          >
-            <i className="fa fa-envelope" aria-hidden="true"></i>
-          </button>
+            <i className="material-icons icon">emoji_transportation</i>
+          </Button>
         </>
       ),
       ignoreRowClick: true,
@@ -154,54 +92,53 @@ export function Shippings() {
   ];
 
   useEffect(() => {
-    getAllClients();
+    setLoading(true);
+
+    getShipments().then((data) => {     
+       setLoading(false);
+       setShipments(data);
+    });
+
     // eslint-disable-next-line
   }, []);
 
+  console.log('shipments: ',shipments);
+
   return (
-    <Layout title="Shippings">
-      {
-        <Modals
-          visible={visible}
-          handleClose={handleClose}
-          title={modalTitle}
-          body={modalBody}
-          footer={modalFooter}
-          //buttonClose={buttonClose}
-          buttonPrimaryAction={true}
-          buttonSecondaryAction={true}
-          buttonPrimaryActionLabel={buttonPrimaryActionLabel}
-          buttonSecondaryActionLabel={buttonSecondaryActionLabel}
-          primaryAction={primaryAction}
-          secondaryAction={secondaryAction}
-        />
-      }
+    <Layout title="Customers">
+      <GenericModal
+        showModal={showModal}
+        handleClose={handleClose}
+        title={edit ? EDIT_CUSTOMER : ADD_NEW_CUSTOMER}
+        body={<CustomerForm handleClose={handleClose} />}
+        buttonClose={true}
+        footer={false}
+      />
       <main className="contenedor mt-5">
         <div className="card shadow border-warning mb-3">
           <div className="card-header">
             <div className="table-header">
-              <h2>Shippings</h2>
+              <h4 className='table-title mt-1'>CLientes</h4>
               <Button
-                className="custom-btn"
                 variant="outline-warning"
-                onClick={() => {
-                  lookClient();
-                }}
+                onClick={addClient}
+                className="custom-btn"
               >
-                New Shipment
+                <i className="material-icons icon">person_add</i>
+                Nuevo Cliente
               </Button>
             </div>
           </div>
           <div className="card-body">
             {
               <Table
-                title="Shipping List"
-                data={clients}
-                dataFiltered={dataFiltered}
+                title="customers List"
+                data={[]}
                 columns={columns}
                 loading={loading}
-                handleSearch={handleSearch}
-                selectableRows={true}
+                canSearch={true}
+                searchCriteria={["name", "lastName", "phone"]}
+                selectableRows={false}
               />
             }
           </div>
