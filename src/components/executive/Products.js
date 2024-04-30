@@ -12,7 +12,7 @@ import {
   SHIPMENT_CREATED,
 } from "../common/Costanst";
 import { ShippingForm } from "./ShippingForm";
-import { generateId } from "../utils/Functions";
+import { generateId, encodeListOfProducts } from "../utils/Functions";
 import { addShipment } from "../../repositories/ShipmentsRepository";
 import { getOffices } from "../../repositories/OfficeRepository";
 import { pdfReport } from "../common/PdfReport";
@@ -26,7 +26,7 @@ export function Products() {
   const navigate = useNavigate();
   const alert = useAlert();
   const { user } = useAuth();
-  const { customer, address, setArticles, setCustomer, setAddress } = useShipment();
+  const { customer, address, setCustomer, setAddress } = useShipment();
   const [products, setProducts] = useState([]);
   const [offices, setOffices] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -39,15 +39,11 @@ export function Products() {
     transform: "translate(-50%, -50%)",
   };
 
-  const createShipment = async (weight, amount, details) => {
-    let articles = "";
+  const createShipment = async (weight, amount, details) => {    
 
     products.forEach((p) => {
-      //articles += p.qty + ":" + p.product.trim() + ";";
       p.product = p.product.toUpperCase().trim();
     });
-
-    setArticles(articles);
 
     let shipping = {
       weight: weight,
@@ -78,6 +74,11 @@ export function Products() {
  
     await pdfReport(shipping, fileName);
 
+    shipping.articles = encodeListOfProducts(products);
+    shipping.branch = shipping.office.state;
+
+    delete shipping.office;
+
     addShipment(shipping);
 
     setSpinnerShow(false);   
@@ -88,7 +89,6 @@ export function Products() {
 
     setCustomer(null);
     setAddress(null);
-    setArticles(null);
   };
 
   const handleClose = () => {
