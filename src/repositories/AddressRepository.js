@@ -5,7 +5,9 @@ import {
   doc,
   getDocs,
   addDoc,
-  deleteDoc
+  deleteDoc,
+  query,
+  orderBy
   // updateDoc,
 } from "firebase/firestore";
 
@@ -48,7 +50,8 @@ export const deleteAddress = async (idClient, idAddress) => {
 export const getProvinces = async () => {
   const data = collection(db, "province");
   try {
-    const result = await getDocs(data);
+    const orderedData = query(data, orderBy("name"));
+    const result = await getDocs(orderedData);
     return result.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
   } catch (error) {
     throw new Error(error);
@@ -58,7 +61,8 @@ export const getProvinces = async () => {
 export const getCities = async (idProvince) => {
   const data = collection(db, `/province/${idProvince}/town`);
   try {
-    const result = await getDocs(data);
+    const orderedData = query(data, orderBy("name"));
+    const result = await getDocs(orderedData);
     return result.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
   } catch (error) {
     throw new Error(error);

@@ -245,7 +245,7 @@ export function AddressForm() {
           {provinces.map((p, key) => {
             return (
               <option key={key} value={p.id}>
-                {p.name}
+                {p.name.toUpperCase()}
               </option>
             );
           })}
@@ -273,7 +273,7 @@ export function AddressForm() {
           {towns.map((t, key) => {
             return (
               <option key={key} value={t.id}>
-                {t.name}
+                {t.name.toUpperCase()}
               </option>
             );
           })}

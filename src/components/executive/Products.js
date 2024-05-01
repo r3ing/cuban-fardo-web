@@ -118,9 +118,13 @@ export function Products() {
 
     direction = direction.concat(`, ${address.town.toUpperCase()}`, `, ${address.province.toUpperCase()}`);
 
+    address.ref
+      ? (direction = direction.concat(", REF: ", address.ref))
+      : (direction = direction.concat(""));
+
     address.ci
       ? (direction = direction.concat(", CI: ", address.ci))
-      : (direction = direction.concat(""));
+      : (direction = direction.concat(""));    
 
     receives.address = direction;
 
