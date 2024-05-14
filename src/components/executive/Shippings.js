@@ -9,6 +9,7 @@ import { GenericModal } from "../common/GenericModal";
 import { ADD_NEW_CUSTOMER, EDIT_CUSTOMER, ROUTE_ADDRESSES } from "../common/Costanst";
 import { useShipment } from "../../context/shipmentContext";
 import { useNavigate } from "react-router-dom";
+import { formatDateFromMilliseconds } from '../utils/Functions';
 //import { useAlert } from "react-alert";
 
 
@@ -49,40 +50,37 @@ export function Shippings() {
 
   const columns = [
     {
-      name: "CODIGO",      
-      selector: (row) => row.name,
+      name: "CODIGO",
+      selector: (row) => row.tracking,
     },
     {
-      name: "NOMBRE",      
-      selector: (row) => row.name,
-    },
-    {
-      name: "APELLIDOS",
-      selector: (row) => row.lastName,
+      name: "NOMBRE",     
+      selector: (row) => row.sender.name,
     },
     {
       name: "TELÉFONO",
-      selector: (row) => row.phone,
+      selector: (row) => row.sender.phone,
     },
     {
+      name: "PROVINCE",
+      selector: (row) => row.province,
+    },
+    {
+      name: "FECHA ENVÍO",
+      selector: (row) => formatDateFromMilliseconds(row.createDate),
+    },    
+    {
+      name: "PDF",
       minWidth: "100px",
       cell: (row) => (
         <>
           <Button
-            variant="outline-warning"
-            className="table-btn"
-            onClick={() => editClient(row)}
-            disabled={false}>
-            <i className="material-icons icon">edit_square</i>
-          </Button>
-          <Button
             variant="outline-success"
-            onClick={() => addAddress(row)}
-            disabled={false}
             className="table-btn"
-          >
-            <i className="material-icons icon">emoji_transportation</i>
-          </Button>
+            //onClick={() => editClient(row)}
+            disabled={false}>
+            <i className="material-icons icon">picture_as_pdf</i>
+          </Button>          
         </>
       ),
       ignoreRowClick: true,
@@ -105,39 +103,31 @@ export function Shippings() {
   console.log('shipments: ',shipments);
 
   return (
-    <Layout title="Customers">
-      <GenericModal
-        showModal={showModal}
-        handleClose={handleClose}
-        title={edit ? EDIT_CUSTOMER : ADD_NEW_CUSTOMER}
-        body={<CustomerForm handleClose={handleClose} />}
-        buttonClose={true}
-        footer={false}
-      />
+    <Layout title="Shippings">      
       <main className="contenedor mt-5">
         <div className="card shadow border-warning mb-3">
           <div className="card-header">
             <div className="table-header">
-              <h4 className='table-title mt-1'>CLientes</h4>
-              <Button
+              <h4 className='table-title mt-1'>Envios</h4>
+              {/* <Button
                 variant="outline-warning"
                 onClick={addClient}
                 className="custom-btn"
               >
                 <i className="material-icons icon">person_add</i>
                 Nuevo Cliente
-              </Button>
+              </Button> */}
             </div>
           </div>
           <div className="card-body">
             {
               <Table
-                title="customers List"
-                data={[]}
+                title="Shipping List"
+                data={shipments}
                 columns={columns}
                 loading={loading}
                 canSearch={true}
-                searchCriteria={["name", "lastName", "phone"]}
+                searchCriteria={["tracking", "name", "phone", "province"]}
                 selectableRows={false}
               />
             }

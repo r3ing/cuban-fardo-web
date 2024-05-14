@@ -2,7 +2,9 @@ import { db } from "../config/firebase";
 import {
   collection,
   addDoc,
-  getDocs
+  getDocs,
+  query,
+  orderBy
 } from "firebase/firestore";
 
 const shipmentCollection = collection(db, "shipping");
@@ -39,8 +41,9 @@ export const addShipment = async (shipment) => {
 
 export const getShipments = async () => {
   try {
-    const data = await getDocs(shipmentCollection);
-    return data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+      const orderedData = query(shipmentCollection, orderBy("createDate", 'desc'));
+      const result = await getDocs(orderedData);
+      return result.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
   } catch (error) {
      throw new Error(error);
   }
