@@ -8,7 +8,7 @@ import { useNavigate } from "react-router-dom";
 import Accordion from "react-bootstrap/Accordion";
 import Address from "./Address";
 import { AddressForm } from "./AddressForm";
-import { ROUTE_CUSTOMERS } from "../common/Costanst";
+import { ROUTE_CUSTOMERS } from "../utils/Constant";
 
 export function Addresses() {
   const navigate = useNavigate();

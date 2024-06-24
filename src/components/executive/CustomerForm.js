@@ -5,7 +5,7 @@ import { addOrEditClient } from "../../repositories/ClientRepository";
 import { useAlert } from "react-alert";
 import {useShipment } from "../../context/shipmentContext";
 import { useNavigate } from "react-router-dom";
-import {ROUTE_ADDRESSES} from '../common/Costanst'
+import {ROUTE_ADDRESSES} from '../utils/Constant'
 
 export function CustomerForm({ handleClose }) {
   const alert = useAlert();

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { useShipment } from "../../context/shipmentContext";
 import { useAlert } from "react-alert";
 import { deleteAddress } from "../../repositories/AddressRepository";
-import { ROUTE_PRODUCTS } from "../common/Costanst";
+import { ROUTE_PRODUCTS } from "../utils/Constant";
 
 const Address = ({ address, deleteAddressfromList }) => {
   const navigate = useNavigate();

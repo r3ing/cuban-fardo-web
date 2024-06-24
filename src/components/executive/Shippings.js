@@ -6,7 +6,7 @@ import { useAlert } from "react-alert";
 import { Layout } from "../system/Layout";
 import { Table } from "../common/Table";
 import { Button } from "react-bootstrap";
-import { ADD_NEW_CUSTOMER, LOOK_FOR_CLIENT } from "../common/Costanst";
+import { ADD_NEW_CUSTOMER, LOOK_FOR_CLIENT } from "../utils/Constant";
 import { ComboboxAutocomplete } from "../common/ComboboxAutocomplete";
 import { CustomerForm } from "./CustomerForm";
 import { Modals } from "../common/Modals";

@@ -1,10 +1,11 @@
 import React from 'react';
 import { useAuth } from "../../context/authContext";
 import { Navigate } from "react-router-dom";
+import { ROUTE_LOGIN } from './Constant'
 
 export function ProtectedRoute({ children, roles }) {
   const { REACT_APP_USER } = process.env;
-  const { user, loading, logout } = useAuth();
+  const { currentUser, loading, logout } = useAuth();
 
   const usersApp = REACT_APP_USER ? REACT_APP_USER.split(":") : "";
 
@@ -24,11 +25,11 @@ export function ProtectedRoute({ children, roles }) {
 
   if (loading) return <h1>loading...</h1>;
  
-  if (!user) return <Navigate to="/" />;
+  if (!currentUser) return <Navigate to={ROUTE_LOGIN} />;
 
-  const currentUser = authorization.find((u) => u.user === user.email);
+  const userApp = authorization.find((u) => u.user === currentUser.email);
 
-  if (currentUser.role !== "admin" && !roles.includes(currentUser.role)) {
+  if (!userApp && userApp.role !== "admin" && !roles.includes(userApp.role)) {
     handleLogout();
   }
 

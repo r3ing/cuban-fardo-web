@@ -2,22 +2,24 @@ import React from "react";
 import { Routes, Route } from "react-router-dom";
 import { Shippings } from "./components/executive/Shippings";
 import { Client } from "./components/executive/Client";
-import { About } from "./components/system/About";
 import { Home } from "./components/system/Home";
 import { Login } from "./components/system/Login";
-import { Support } from "./components/system/Support";
 import { ProtectedRoute } from "./components/utils/ProtectedRoute";
 import { AuthProvider } from "./context/authContext";
 import { Products } from "./components/executive/Products";
 import { ShipmentProvider } from "./context/shipmentContext";
 import { Addresses } from "./components/executive/Addresses";
+import Signup from "./components/system/Signup";
 import {
   ROUTE_HOME,
   ROUTE_SHIPPINGS,
   ROUTE_PRODUCTS,
   ROUTE_CUSTOMERS,
   ROUTE_ADDRESSES,
-} from "./components/common/Costanst";
+  ROUTE_LOGIN,
+  ROUTE_FORGOT_PASSWORD,
+} from "./components/utils/Constant";
+import ForgotPassword from "./components/system/ForgotPassword";
 
 function App() {
   return (
@@ -25,14 +27,18 @@ function App() {
       <AuthProvider>
         <ShipmentProvider>
           <Routes>
-            <Route path={ROUTE_HOME} element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/about" element={<About />} />
-            <Route path="/support" element={<Support />} />
+            <Route
+              path={ROUTE_HOME}
+              element={
+                <ProtectedRoute roles={["admin", "executive", "delivery"]}>
+                  <Home />
+                </ProtectedRoute>
+              }
+            />
             <Route
               path={ROUTE_SHIPPINGS}
               element={
-                <ProtectedRoute roles={["admin","executive","delivery"]}>
+                <ProtectedRoute roles={["admin", "executive", "delivery"]}>
                   <Shippings />
                 </ProtectedRoute>
               }
@@ -40,7 +46,7 @@ function App() {
             <Route
               path={ROUTE_PRODUCTS}
               element={
-                <ProtectedRoute roles={["admin","executive"]}>
+                <ProtectedRoute roles={["admin", "executive"]}>
                   <Products />
                 </ProtectedRoute>
               }
@@ -48,7 +54,7 @@ function App() {
             <Route
               path={ROUTE_CUSTOMERS}
               element={
-                <ProtectedRoute roles={["admin","executive"]}>
+                <ProtectedRoute roles={["admin", "executive"]}>
                   <Client />
                 </ProtectedRoute>
               }
@@ -56,11 +62,16 @@ function App() {
             <Route
               path={ROUTE_ADDRESSES}
               element={
-                <ProtectedRoute roles={["admin","executive"]}>
+                <ProtectedRoute roles={["admin", "executive"]}>
                   <Addresses />
                 </ProtectedRoute>
               }
             />
+             
+
+            <Route path={ROUTE_LOGIN} element={<Login />} />
+            <Route path={ROUTE_FORGOT_PASSWORD} element={<ForgotPassword />} />
+            <Route path="/signup" element={<Signup />} />
           </Routes>
         </ShipmentProvider>
       </AuthProvider>

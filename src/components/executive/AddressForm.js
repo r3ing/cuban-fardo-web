@@ -9,7 +9,7 @@ import { useForm } from "react-hook-form";
 import { useAlert } from "react-alert";
 import { useShipment } from "../../context/shipmentContext";
 import { useNavigate } from "react-router-dom";
-import {ROUTE_PRODUCTS} from '../common/Costanst';
+import {ROUTE_PRODUCTS} from '../utils/Constant';
 
 export function AddressForm() {
   const alert = useAlert();

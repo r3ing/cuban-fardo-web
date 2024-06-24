@@ -1,42 +1,76 @@
-import React from 'react';
+import React, { useRef, useState } from "react";
 import { useAuth } from "../../context/authContext";
-import { useNavigate } from "react-router-dom";
-import {ROUTE_HOME} from '../common/Costanst'
+import { Container, Form, Button, Card } from "react-bootstrap";
+import { ROUTE_HOME } from "../utils/Constant";
+import { Link, useNavigate } from "react-router-dom";
 
 export function Login() {
-  const { loginWithGoogle } = useAuth();
+  const emailRef = useRef();
+  const passwordRef = useRef();
+  const { login, currentUser, logout } = useAuth();
+  const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
-  const handleLoginWithGoogle = async () => {
-    try {
-      await loginWithGoogle();
+  // const handleLoginWithGoogle = async () => {
+  //   try {
+  //     await loginWithGoogle();
+  //     navigate(ROUTE_HOME);
+  //   } catch (error) {
+  //     console.error(error);
+  //   }
+  // };
+
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    setError("");
+    setLoading(true);
+    
+    try {      
+      await login(emailRef.current.value, passwordRef.current.value);
       navigate(ROUTE_HOME);
-    } catch (error) {
-      console.error(error);
+    } catch(error) {       
+      setError("Usuario o contraseña incorrecta!");
+      setLoading(false);
     }
-  };
+  }
+
+  //if(currentUser) logout();
 
   return (
-    <>
-
-      <div className="w-full max-w-xs m-auto">
-        <h3 className="text-center mb-3 text-slate">Wolcome CUBAN FARGO</h3>
-        <div className="rounded px-8 pt-2 pb-8 mb-4 bg-slate-300">
-          <button
-            className="text-base text-white bg-blue-400 font-bold rounded shadow focus:outline-none hover:bg-blue-500 shadow-md rounded border-2 py-2 px-4 w-full"
-            onClick={handleLoginWithGoogle}
-          >
-            <span className="block mt-1 align-middle">
-              <img
-                className="google-icon"
-                src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg"
-                alt="Google"
-              />
-            </span>
-            Google Login
-          </button>
-        </div>
+    <Container
+      className="d-flex align-items-center justify-content-center"
+      style={{ minHeight: "100vh" }}
+    >
+      {currentUser && currentUser.email}
+      <div className="w-100" style={{ maxWidth: "100vh" }}>
+        <Card>
+          <Card.Body>
+            <h2 className="text-center mb-4">Bienvenido a PACKRUNNER</h2>            
+            <Form onSubmit={handleSubmit}>
+              <Form.Group id="email">
+                <Form.Label>Usuario</Form.Label>
+                <Form.Control type="email" ref={emailRef} required />
+              </Form.Group>
+              <Form.Group id="password" className="mt-2">
+                <Form.Label>Contraseña</Form.Label>
+                <Form.Control type="password" ref={passwordRef} required />
+              </Form.Group>
+              <small className="text-danger animated fadeIn mt-4 ">
+                {error}
+              </small>
+              <Button disabled={loading} className="w-100 mt-2" type="submit">
+                Entrar
+              </Button>
+            </Form>
+            <div className="w-100 text-center mt-3">
+              <Link to="/forgot-password">¿Olvidaste tu contraseña?</Link>
+            </div>
+          </Card.Body>
+        </Card>
       </div>
-    </>
+    </Container>
   );
 }

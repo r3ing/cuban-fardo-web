@@ -3,25 +3,16 @@ import { Image } from "react-bootstrap";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { useAuth } from "../../context/authContext";
 import logo from '../../assets/img/logo.png';
-import {ROUTE_HOME, ROUTE_CUSTOMERS} from '../common/Costanst'
+import { ROUTE_CUSTOMERS, ROUTE_LOGIN } from '../utils/Constant'
 
 export function Header() {
-  const { loginWithGoogle, user, logout } = useAuth();
+  const {  currentUser, logout } = useAuth();
   const navigate = useNavigate();
-
-  const handleLoginWithGoogle = async () => {
-    try {
-      await loginWithGoogle();
-
-    } catch (error) {
-      console.error(error);
-    }
-  };
 
   const handleLogout = async () => {
     try {
       await logout();
-      navigate(ROUTE_HOME);
+      navigate(ROUTE_LOGIN);
     } catch (error) {
       console.error(error);
     }
@@ -48,7 +39,7 @@ export function Header() {
             >
               Home
             </NavLink> */}
-            {user ? <> <NavLink
+            {currentUser ? <> <NavLink
               to={ROUTE_CUSTOMERS}
               className={({ isActive }) =>
                 isActive ? "navegacion-active" : ""
@@ -64,25 +55,9 @@ export function Header() {
             >
               Shippings
             </NavLink> */}
-            </> : null}
-            {/* <Link
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "navegacion-active" : ""
-              }
-            >
-              About us
-            </Link>
-            <Link
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "navegacion-active" : ""
-              }
-            >
-              Help
-            </Link> */}
-            {!user ? (
-              <Link to="#" onClick={handleLoginWithGoogle}>
+            </> : null}            
+            {!currentUser ? (
+              <Link to={ROUTE_LOGIN}>
                 Entrar
               </Link>
             ) : (

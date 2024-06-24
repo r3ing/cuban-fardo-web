@@ -10,14 +10,14 @@ import {
   CREATE_SHIPMENT,
   DELIVERY_STATUS_CREATED,
   SHIPMENT_CREATED,
-} from "../common/Costanst";
+} from "../utils/Constant";
 import { ShippingForm } from "./ShippingForm";
 import { generateId, encodeListOfProducts } from "../utils/Functions";
 import { addShipment } from "../../repositories/ShipmentsRepository";
 import { getOffices } from "../../repositories/OfficeRepository";
 import { pdfReport } from "../common/PdfReport";
 import GridSpinner from "../common/GridSpinner";
-import { ROUTE_CUSTOMERS } from "../common/Costanst";
+import { ROUTE_CUSTOMERS } from "../utils/Constant";
 import Send from "./Send";
 import Receives from "./Receives";
 import { useAuth } from "../../context/authContext";

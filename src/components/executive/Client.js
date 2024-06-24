@@ -6,7 +6,7 @@ import { Layout } from "../system/Layout";
 import { Button } from "react-bootstrap";
 import { Table } from "../common/Table";
 import { GenericModal } from "../common/GenericModal";
-import { ADD_NEW_CUSTOMER, EDIT_CUSTOMER, ROUTE_ADDRESSES } from "../common/Costanst";
+import { ADD_NEW_CUSTOMER, EDIT_CUSTOMER, ROUTE_ADDRESSES } from "../utils/Constant";
 import { useShipment } from "../../context/shipmentContext";
 import { useNavigate } from "react-router-dom";
 //import { useAlert } from "react-alert";

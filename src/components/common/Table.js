@@ -2,7 +2,7 @@ import React from "react";
 import { useState } from "react";
 import { FormControl, InputGroup, Spinner } from "react-bootstrap";
 import DataTable, { createTheme } from "react-data-table-component";
-import { DATATABLE_NO_DATA } from "../common/Costanst";
+import { DATATABLE_NO_DATA } from "../utils/Constant";
 
 export function Table(props) {
   const {
