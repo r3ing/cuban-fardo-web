@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import { createContext, useEffect, useState } from "react";
 import { useContext } from "react";
 import {
@@ -6,6 +6,8 @@ import {
   signOut,
   GoogleAuthProvider,
   signInWithPopup,
+  setPersistence,
+  browserSessionPersistence,
 } from "firebase/auth";
 import { auth } from "../config/firebase";
 
@@ -27,24 +29,30 @@ export function AuthProvider({ children }) {
 
   const users = usersApp.map((ua) => {
     return ua.split(",")[0];
-  }); 
+  });
 
   const logout = () => {
-    signOut(auth); 
+    signOut(auth);
     setUser(null);
   };
 
   const loginWithGoogle = () => {
     const googleProvider = new GoogleAuthProvider();
-    return signInWithPopup(auth, googleProvider);
+    setPersistence(auth, browserSessionPersistence)
+      .then(() => {
+        return signInWithPopup(auth, googleProvider);
+      })
+      .catch((error) => {
+        console.log(error.code + ':' + error.message);
+      });
   };
 
   useEffect(() => {
-    onAuthStateChanged(auth, currentUser => {
-        if(currentUser && users.includes(currentUser.email)) {
-          setUser(currentUser);
-          setLoading(false);
-        }
+    onAuthStateChanged(auth, (currentUser) => {
+      if (currentUser && users.includes(currentUser.email)) {
+        setUser(currentUser);
+        setLoading(false);
+      }
     });
     //eslint-disable-next-line
   }, []);
