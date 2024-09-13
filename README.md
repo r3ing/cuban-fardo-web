@@ -1,8 +1,8 @@
-# Cuban Fardo Express React Application
+# Qban Fardo Express React Application
 
 ## Overview
 
-Cuban Fardo Express is a React application designed to facilitate the process of sending packages to Cuba from Kentucky. 
+Qban Fardo Express is a React application designed to facilitate the process of sending packages to Cuba from Kentucky. 
 This application streamlines the package shipment process, providing users with a user-friendly interface to manage their shipments, track packages, and access essential information.
 
 ## Features
