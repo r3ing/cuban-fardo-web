@@ -40,7 +40,7 @@ export function AuthProvider({ children }) {
     return signInWithEmailAndPassword(auth, email, password)
   }
 
-  const logout = () => {
+  const logout = () => {    
     setCurrentUser(null);
     return signOut(auth)
   }

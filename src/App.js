@@ -4,7 +4,7 @@ import { Shippings } from "./components/executive/Shippings";
 import { Client } from "./components/executive/Client";
 import { Home } from "./components/system/Home";
 import { Login } from "./components/system/Login";
-import { ProtectedRoute } from "./components/utils/ProtectedRoute";
+import { ProtectedRoute } from "./components/system/ProtectedRoute";
 import { AuthProvider } from "./context/authContext";
 import { Products } from "./components/executive/Products";
 import { ShipmentProvider } from "./context/shipmentContext";
@@ -27,7 +27,10 @@ function App() {
       <AuthProvider>
         <ShipmentProvider>
           <Routes>
+            <Route path={ROUTE_LOGIN} element={<Login />} />
+            <Route path={ROUTE_FORGOT_PASSWORD} element={<ForgotPassword />} />
             <Route
+              index
               path={ROUTE_HOME}
               element={
                 <ProtectedRoute roles={["admin", "executive", "delivery"]}>
@@ -67,10 +70,7 @@ function App() {
                 </ProtectedRoute>
               }
             />
-             
 
-            <Route path={ROUTE_LOGIN} element={<Login />} />
-            <Route path={ROUTE_FORGOT_PASSWORD} element={<ForgotPassword />} />
             <Route path="/signup" element={<Signup />} />
           </Routes>
         </ShipmentProvider>

@@ -27,6 +27,7 @@ export default function Signup() {
       //useNavigate("/");
     } catch(error) {
       setError("Failed to create an account");
+      setLoading(false);
     }
 
     

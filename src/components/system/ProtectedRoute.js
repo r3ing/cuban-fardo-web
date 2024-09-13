@@ -1,7 +1,7 @@
 import React from 'react';
 import { useAuth } from "../../context/authContext";
 import { Navigate } from "react-router-dom";
-import { ROUTE_LOGIN } from './Constant'
+import { ROUTE_LOGIN } from '../utils/Constant'
 
 export function ProtectedRoute({ children, roles }) {
   const { REACT_APP_USER } = process.env;
@@ -32,6 +32,8 @@ export function ProtectedRoute({ children, roles }) {
   if (!userApp && userApp.role !== "admin" && !roles.includes(userApp.role)) {
     handleLogout();
   }
+
+  
 
   //if (!users.includes(user.email)) handleLogout();
 
