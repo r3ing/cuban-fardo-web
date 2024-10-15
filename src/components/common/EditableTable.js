@@ -105,7 +105,7 @@ export function EditableTable({ products, func, setShowModal }) {
                 <Button
                   variant="outline-secondary"
                   onClick={() => deleteProduct(productId)}
-                  disabled={false}
+                  disabled={!product}
                   className="shadow-none"
                 >
                   <i className="material-icons icon icon-blue">delete</i>

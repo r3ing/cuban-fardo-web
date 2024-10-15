@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { addOrEditClient } from "../../repositories/ClientRepository";
 import { useAlert } from "react-alert";
@@ -11,29 +11,22 @@ export function CustomerForm({ handleClose }) {
   const alert = useAlert();
   const navigate = useNavigate();
   const { customer, setCustomer } = useShipment();
-  const [client, setClient] = useState({
-    name: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    shippingAddres: [],
-    shipping: [],
-  });
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
-  } = useForm({ mode: "all" });
+  } = useForm();
 
   const onSubmit = async () => {
     try {
-      const msg = client.id ? "Cliente actualizado exitosamente." : "Cliente creado exitosamente.";
-      await addOrEditClient(client);
+      const msg = customer.id ? "Cliente actualizado exitosamente." : "Cliente creado exitosamente.";
+      await addOrEditClient(customer);
       handleClose();
-      setCustomer(client);
       navigate(ROUTE_ADDRESSES)
-      alert.success(msg);
+      alert.success(msg); 
+      
     } catch (error) {
       alert.error(error.message);
     }
@@ -41,14 +34,16 @@ export function CustomerForm({ handleClose }) {
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setClient({ ...client, [name]: value });
+    setCustomer({ ...customer, [name]: value.toUpperCase() });
   };
 
   useEffect(() => {
     if (customer) {
-      setClient(customer)
+      setValue("name", customer.name);
+      setValue("lastName", customer.lastName);
+      setValue("phone", customer.phone);
     }
-  }, [customer]);
+  }, [customer, setValue]);
 
 
   return (
@@ -68,8 +63,7 @@ export function CustomerForm({ handleClose }) {
             }
           })}
           placeholder="Nombre"
-          onChange={handleInputChange}
-          value={client.name}
+          onChange={handleInputChange}          
         />
       </div>
       {errors.name && <small className="text-danger animated fadeIn">{errors.name.message}</small>}
@@ -90,7 +84,6 @@ export function CustomerForm({ handleClose }) {
           })}
           placeholder="Apellidos"
           onChange={handleInputChange}
-          value={client.lastName}
         />
       </div>
       {errors.lastName && <small className="text-danger animated fadeIn">{errors.lastName.message}</small>}
@@ -110,7 +103,6 @@ export function CustomerForm({ handleClose }) {
           })}
           placeholder="Teléfono"
           onChange={handleInputChange}
-          value={client.phone}
         />
       </div>
       {errors.phone && <small className="text-danger animated fadeIn">{errors.phone.message}</small>}
