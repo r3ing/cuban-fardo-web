@@ -8,21 +8,18 @@ import {
   doc,
   deleteDoc,
   query,
+  orderBy,
   where,
 } from "firebase/firestore";
 
-const clientColletcion = collection(db, "client");
+const clientCollection = collection(db, "client");
 
 export const getClients = async () => {
 
-  // const colletcion = collection(db, "/client");
-
-  // // const coll = await getDocs(colletcion);
-  // // coll.docs.forEach((d) => console.log("shipments: ", d.data()));
-
-  try {
-    const data = await getDocs(clientColletcion);
-    return data.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  try { 
+    const orderedData = query(clientCollection, orderBy("name"));
+    const result = await getDocs(orderedData);
+    return result.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
   } catch (error) {
      throw new Error(error);
   }
@@ -30,14 +27,14 @@ export const getClients = async () => {
 
 export const addOrEditClient = async (client) => {
     if (!client.id) {
-      const qry = query(clientColletcion, where("phone", "==", client.phone));
+      const qry = query(clientCollection, where("phone", "==", client.phone));
       const clients = await getDocs(qry);
 
       if (!clients.empty) {
         throw new Error("Up, customer registered, please verify the information!!!");
       }
 
-      await addDoc(clientColletcion, client).then((docRef) => {
+      await addDoc(clientCollection, client).then((docRef) => {
         client.id = docRef.id;
       });
 
