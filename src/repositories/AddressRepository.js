@@ -5,6 +5,7 @@ import {
   doc,
   getDocs,
   addDoc,
+  updateDoc,
   deleteDoc,
   query,
   orderBy
@@ -28,9 +29,14 @@ export const saveShippingAddress = async (idClient, address) => {
   );
 
   try {
-    await addDoc(addressCollection, address).then((docRef) => {
+    if(!address.id) {
+      await addDoc(addressCollection, address).then((docRef) => {
       address.id = docRef.id;
-    });
+      });
+    } else {
+        const updateAddress = doc(db, addressCollection, address.id);
+        await updateDoc(updateAddress, address);
+    }
   } catch (error) {
     throw new Error(error);
   }

@@ -14,48 +14,57 @@ import {ROUTE_PRODUCTS} from '../common/Costanst';
 export function AddressForm() {
   const alert = useAlert();
   const navigate = useNavigate();
-  const { customer, setAddress } = useShipment();
+  const { customer, address, setAddress } = useShipment();
+  
   const [towns, setTowns] = useState([]);
   const [province, setProvince] = useState();
   const [provinces, setProvinces] = useState([]);  
-  const [address, setShippingAddress] = useState({
-    beneficiary: "",
-    phone: "",
-    ci: '',
-    street: "",
-    number: "",
-    betweenStreet: "",
-    locality: "",
-    ref: "",
-    town: "",
-    province: "",    
-  });
+  // const [address, setShippingAddress] = useState({
+  //   beneficiary: "",
+  //   phone: "",
+  //   ci: '',
+  //   street: "",
+  //   number: "",
+  //   betweenStreet: "",
+  //   locality: "",
+  //   ref: "",
+  //   town: "",
+  //   province: "",    
+  // });
 
   const {
     register,
     handleSubmit,
+    setValue,
     formState: { errors },
-  } = useForm({ mode: "all" });
+  } = useForm();
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setShippingAddress({ ...address, [name]: value });
+    setAddress({ ...address, [name]: value.toUpperCase() });
 
     if (e.target.name === "town") {
       let townLabel = e.target.options[e.target.selectedIndex].text;
-      setShippingAddress({ ...address, town: townLabel });
+      setAddress({ ...address, town: townLabel });
     }
   };
 
   const onSubmit = async () => {
     try {
+      const msg = address.id ? "Dirección actualizada exitosamente." : "Dirección agregada exitosamente!.";
       await saveShippingAddress(customer.id, address);
-      setAddress(address);
-      alert.success("Dirección agregada exitosamente!");
-      navigate(ROUTE_PRODUCTS);
+      //setAddress(address);
+      alert.success(msg);
+      //navigate(ROUTE_PRODUCTS);
     } catch (error) {
       alert.error(error.message);
     }
+  };
+
+  const selectProvince = (e) => {
+    setProvince(e.target.value);
+    let provinceLabel = e.target.options[e.target.selectedIndex].text;
+    setAddress({ ...address, province: provinceLabel });
   };
 
   useEffect(() => {
@@ -68,13 +77,23 @@ export function AddressForm() {
         setTowns(data);
       });
     }
-  }, [province]);
 
-  const selectProvince = (e) => {
-    setProvince(e.target.value);
-    let provinceLabel = e.target.options[e.target.selectedIndex].text;
-    setShippingAddress({ ...address, province: provinceLabel });
-  };
+    if (address) {
+      setValue("beneficiary", address.beneficiary);
+      setValue("phone", address.phone);
+      setValue("street", address.street);
+      setValue("number", address.number);
+      setValue("betweenStreet", address.betweenStreet);
+      setValue("locality", address.locality);
+    
+      //province
+      //town
+
+      setValue("ref", address.ref);
+      setValue("ci", address.ci);
+    }    
+    
+  }, [province, address, setValue]);  
 
   return (
     <form
@@ -97,7 +116,7 @@ export function AddressForm() {
           className="form-control text-capitalize"
           placeholder="Nombre"
           onChange={handleInputChange}
-          value={address.beneficiary}
+          //value={address.beneficiary}
         />
       </div>
       {errors.beneficiary && (
@@ -122,7 +141,7 @@ export function AddressForm() {
           className="form-control text-capitalize"
           placeholder="Teléfono"
           onChange={handleInputChange}
-          value={address.phone}
+          // value={address.phone}
         />
       </div>
       {errors.phone && (
@@ -147,7 +166,7 @@ export function AddressForm() {
           className="form-control text-capitalize"
           placeholder="Calle"
           onChange={handleInputChange}
-          value={address.street}
+          // value={address.street}
         />
       </div>
       {errors.street && (
@@ -171,7 +190,7 @@ export function AddressForm() {
           className="form-control text-capitalize"
           placeholder="Número"
           onChange={handleInputChange}
-          value={address.number}
+          // value={address.number}
         />
       </div>
       {errors.number && (
@@ -195,7 +214,7 @@ export function AddressForm() {
           className="form-control text-capitalize"
           placeholder="Entre calles"
           onChange={handleInputChange}
-          value={address.betweenStreet}
+          // value={address.betweenStreet}
         />
       </div>
       {errors.between && (
@@ -219,7 +238,7 @@ export function AddressForm() {
           className="form-control text-capitalize"
           placeholder="Comunidad o Reparto"
           onChange={handleInputChange}
-          value={address.locality}
+          // value={address.locality}
         />
       </div>
       {errors.locality && (
@@ -300,7 +319,7 @@ export function AddressForm() {
           className="form-control text-capitalize"
           placeholder="Referencia"
           onChange={handleInputChange}
-          value={address.ref}
+          // value={address.ref}
         />
       </div>
       {errors.ref && (
@@ -324,7 +343,7 @@ export function AddressForm() {
           className="form-control text-capitalize"
           placeholder="CI"
           onChange={handleInputChange}
-          value={address.ci}
+          // value={address.ci}
         />
       </div>
       {errors.ci && (

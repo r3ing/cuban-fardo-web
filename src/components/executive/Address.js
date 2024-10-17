@@ -19,12 +19,19 @@ const Address = ({ address, deleteAddressfromList }) => {
     navigate(ROUTE_PRODUCTS);
   };
 
+  const setAddressForEdit = () => {
+    setAddress(address);
+  }
+
   const removeAddress = () => {
-    deleteAddress(customer.id, address.id);
-
-    deleteAddressfromList(address.id);
-
-    alert.success("Dirección eliminada!");
+    if (
+      window.confirm("¿Estás seguro de que deseas eliminar esta Dirección?") ===
+      true
+    ) {
+      deleteAddress(customer.id, address.id);
+      deleteAddressfromList(address.id);
+      alert.success("Dirección eliminada!");
+    }
   };
 
   return (
@@ -41,40 +48,42 @@ const Address = ({ address, deleteAddressfromList }) => {
         <div className="">
           <div className="flex items-center">
             <p className="font-bold text-gray-700 uppercase">
-              <b>Phone:</b> {""}
+              <b>Teléfono:</b> {""}
               <span className="font-normal normal-case">{address.phone}</span>
             </p>
           </div>
           <p className="font-bold text-gray-700 uppercase">
-            <b>Address:</b> {""}
+            <b>Dirección:</b> {""}
             <span className="font-normal normal-case">
               {address.street !== "" && `${address.street}`}
               {address.number !== "" && ` #${address.number}`}
-              {address.betweenStreet !== "" && ` e/ ${address.betweenStreet}`}
+              {address.betweenStreet !== "" && ` E/ ${address.betweenStreet}`}
               {address.locality !== "" && `, ${address.locality}`}
             </span>
           </p>
           <div className="flex items-center">
             <p className="font-bold text-gray-700 uppercase">
               <span className="font-normal normal-case">
-                <b>Town:</b> {address.town}
+                <b>Municipio:</b> {address.town}
               </span>
             </p>
             <p className="font-bold text-gray-700 uppercase">
               <span className="font-normal normal-case">
-                <b>Province:</b> {address.province}
+                <b>Provincia:</b> {address.province}
               </span>
             </p>
           </div>
           {address.ref && (
             <p className="font-bold text-gray-700 uppercase">
-              <span className="font-normal normal-case"><b>Ref:</b> {address.ref}</span>
+              <span className="font-normal normal-case">
+                <b>Referencia:</b> {address.ref}
+              </span>
             </p>
           )}
 
           {address.ci && (
             <p className="font-bold text-gray-700 uppercase">
-              <b>Ci:</b>{" "}
+              <b>CI:</b>{" "}
               <span className="font-normal normal-case">{address.ci}</span>
             </p>
           )}
@@ -88,14 +97,13 @@ const Address = ({ address, deleteAddressfromList }) => {
               <i className="material-icons icon">delete</i>
             </Button>
 
-            {/* <Button
+            <Button
                 variant="outline-warning"
                 className="table-btn"
-                onClick={() => {}}
-                disabled={true}
+                onClick={setAddressForEdit}
               >
                 <i className="material-icons icon">edit_square</i>
-              </Button> */}
+              </Button>
 
             <Button
               variant="outline-success"

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { addOrEditClient } from "../../repositories/ClientRepository";
 import { useAlert } from "react-alert";
@@ -11,6 +11,7 @@ export function CustomerForm({ handleClose }) {
   const alert = useAlert();
   const navigate = useNavigate();
   const { customer, setCustomer } = useShipment();
+  const [loading, setLoading] = useState(false);
 
   const {
     register,
@@ -21,14 +22,16 @@ export function CustomerForm({ handleClose }) {
 
   const onSubmit = async () => {
     try {
+      setLoading(true);
       const msg = customer.id ? "Cliente actualizado exitosamente." : "Cliente creado exitosamente.";
       await addOrEditClient(customer);
+      setLoading(false);
       handleClose();
-      navigate(ROUTE_ADDRESSES)
-      alert.success(msg); 
-      
+      navigate(ROUTE_ADDRESSES);
+      alert.success(msg);      
     } catch (error) {
       alert.error(error.message);
+      setLoading(false);
     }
   };
 
@@ -107,7 +110,7 @@ export function CustomerForm({ handleClose }) {
       </div>
       {errors.phone && <small className="text-danger animated fadeIn">{errors.phone.message}</small>}
 
-      <button className="btn btn-warning mt-2">
+      <button className="btn btn-warning mt-2" disabled={loading}>
         <i className="material-icons icon">save</i>
         Guardar
       </button>
