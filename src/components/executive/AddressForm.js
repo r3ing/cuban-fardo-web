@@ -68,30 +68,33 @@ export function AddressForm() {
   };
 
   useEffect(() => {
+
     getProvinces().then((data) => {
-      setProvinces(data);
+      //setProvinces([]);
+      console.log(data);
+      
     });
 
-    if (province && province !== "") {
-      getCities(province).then((data) => {
-        setTowns(data);
-      });
-    }
+    // if (province && province !== "") {
+    //   getCities(province).then((data) => {
+    //     setTowns(data);
+    //   });
+    // }
 
-    if (address) {
-      setValue("beneficiary", address.beneficiary);
-      setValue("phone", address.phone);
-      setValue("street", address.street);
-      setValue("number", address.number);
-      setValue("betweenStreet", address.betweenStreet);
-      setValue("locality", address.locality);
+    // if (address) {
+    //   setValue("beneficiary", address.beneficiary);
+    //   setValue("phone", address.phone);
+    //   setValue("street", address.street);
+    //   setValue("number", address.number);
+    //   setValue("betweenStreet", address.betweenStreet);
+    //   setValue("locality", address.locality);
     
-      //province
-      //town
+    //   //province
+    //   //town
 
-      setValue("ref", address.ref);
-      setValue("ci", address.ci);
-    }    
+    //   setValue("ref", address.ref);
+    //   setValue("ci", address.ci);
+    // }    
     
   }, [province, address, setValue]);  
 
