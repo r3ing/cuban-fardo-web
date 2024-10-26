@@ -1,18 +1,25 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Image } from "react-bootstrap";
-//import { useAuth } from "../../context/authContext";
+import { useAuth } from "../../context/authContext";
+import { useOffice } from "../../context/officeContex";
 import { Layout } from "./Layout";
 import image from "../../assets/img/nosotros.jpg";
 
 export function Home() {
-  //const { user } = useAuth();
+  const { user } = useAuth();
+  const { office, getOffice } = useOffice();
+
+  useEffect(() => {
+    if (user && !office) {
+      getOffice(user.email);
+    }
+  }, [user, office, getOffice]);
 
   return (
     <Layout title="Home">
       <main className="contenedor">
         <h2 className="heading">Qvan Fardo Express</h2>
-        {/* <h1>Welcome {user.displayName || user.email}</h1> */}
-
+        {/* <h1>Welcome {user && (user.displayName || user.email)}</h1> */}
         <div className="about-content">
           <Image
             className="main-image"
