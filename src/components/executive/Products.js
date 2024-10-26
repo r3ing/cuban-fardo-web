@@ -1,5 +1,6 @@
 import React from "react";
 import { useShipment } from "../../context/shipmentContext";
+import { useOffice } from "../../context/officeContex";
 import { Layout } from "../system/Layout";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -14,7 +15,6 @@ import {
 import { ShippingForm } from "./ShippingForm";
 import { generateId, encodeListOfProducts } from "../utils/Functions";
 import { addShipment } from "../../repositories/ShipmentsRepository";
-import { getOffices } from "../../repositories/OfficeRepository";
 import { pdfReport } from "../common/PdfReport";
 import GridSpinner from "../common/GridSpinner";
 import { ROUTE_CUSTOMERS } from "../common/Costanst";
@@ -26,9 +26,9 @@ export function Products() {
   const navigate = useNavigate();
   const alert = useAlert();
   const { user } = useAuth();
+  const { office } = useOffice();
   const { customer, address, setCustomer, setAddress } = useShipment();
   const [products, setProducts] = useState([]);
-  const [offices, setOffices] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [spinnerShow, setSpinnerShow] = useState(false);
 
@@ -39,8 +39,7 @@ export function Products() {
     transform: "translate(-50%, -50%)",
   };
 
-  const createShipment = async (weight, amount, details) => {    
-
+  const createShipment = async (weight, amount, details) => {
     products.forEach((p) => {
       p.product = p.product.toUpperCase().trim();
     });
@@ -68,20 +67,17 @@ export function Products() {
 
     shipping.sender = sender;
     shipping.receives = createReceivesObject();
-    shipping.office = getOffice();
+    shipping.branch = office.state;
 
     setSpinnerShow(true);
- 
+
     await pdfReport(shipping, fileName);
 
     shipping.articles = encodeListOfProducts(products);
-    shipping.branch = shipping.office.state;
-
-    delete shipping.office;
 
     addShipment(shipping);
 
-    setSpinnerShow(false);   
+    setSpinnerShow(false);
 
     alert.success(SHIPMENT_CREATED);
 
@@ -116,7 +112,10 @@ export function Products() {
       ? (direction = direction.concat(", ", address.locality))
       : (direction = direction.concat(""));
 
-    direction = direction.concat(`, ${address.town.toUpperCase()}`, `, ${address.province.toUpperCase()}`);
+    direction = direction.concat(
+      `, ${address.town.toUpperCase()}`,
+      `, ${address.province.toUpperCase()}`
+    );
 
     address.ref
       ? (direction = direction.concat(", REF: ", address.ref))
@@ -124,16 +123,12 @@ export function Products() {
 
     address.ci
       ? (direction = direction.concat(", CI: ", address.ci))
-      : (direction = direction.concat(""));    
+      : (direction = direction.concat(""));
 
     receives.address = direction;
 
     return receives;
   };
-
-  const getOffice = () => {
-    return offices.find((of) => of.users.includes(user.email)); 
-  }
 
   useEffect(() => {
     if (!customer) {
@@ -141,14 +136,6 @@ export function Products() {
       navigate(ROUTE_CUSTOMERS);
       return;
     }
-
-    setSpinnerShow(true);
-
-    getOffices().then((data) => {     
-      setSpinnerShow(false);
-      setOffices(data);
-   });  
-
     // eslint-disable-next-line
   }, []);
 
