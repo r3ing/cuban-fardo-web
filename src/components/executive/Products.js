@@ -67,13 +67,16 @@ export function Products() {
 
     shipping.sender = sender;
     shipping.receives = createReceivesObject();
-    shipping.branch = office.state;
-
+    shipping.office = office;
+    
     setSpinnerShow(true);
 
     await pdfReport(shipping, fileName);
 
     shipping.articles = encodeListOfProducts(products);
+    shipping.branch = office.state;
+
+    delete shipping.office;
 
     addShipment(shipping);
 
