@@ -25,6 +25,25 @@ export const getClients = async () => {
   }
 };
 
+export const getCustomersByBranch = async (branch) => {
+  
+  try { 
+    let statement;
+    
+    if(branch) {
+     statement = query(clientCollection, where("branch", "==", branch));
+    } else {
+      statement = query(clientCollection, orderBy("name"));
+    }
+
+    const resultSet  = await getDocs(statement);
+
+    return resultSet.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+  } catch (error) {
+     throw new Error(error);
+  }
+};
+
 export const addOrEditClient = async (client) => {
     if (!client.id) {
       const qry = query(clientCollection, where("phone", "==", client.phone));

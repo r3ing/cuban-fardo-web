@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect, useState } from "react";
-import { getClients } from "../../repositories/ClientRepository";
+import { getCustomersByBranch } from "../../repositories/ClientRepository";
 import { CustomerForm } from "./CustomerForm";
 import { Layout } from "../system/Layout";
 import { Button } from "react-bootstrap";
@@ -8,10 +8,8 @@ import { Table } from "../common/Table";
 import { GenericModal } from "../common/GenericModal";
 import { ADD_NEW_CUSTOMER, EDIT_CUSTOMER, ROUTE_ADDRESSES } from "../common/Costanst";
 import { useShipment } from "../../context/shipmentContext";
+import { useOffice } from "../../context/officeContex";
 import { useNavigate } from "react-router-dom";
-//import { useAlert } from "react-alert";
-
-
 
 export function Client() {
   const [clients, setClients] = useState([]);
@@ -19,8 +17,8 @@ export function Client() {
   const [showModal, setShowModal] = useState(false);
   const [edit, setEdit] = useState(false);
   const { setCustomer } = useShipment();
+  const { office } = useOffice();
   const navigate = useNavigate();
-  //const alert = useAlert();
 
   const handleClose = () => { 
     setShowModal(false); 
@@ -90,7 +88,7 @@ export function Client() {
   useEffect(() => {
     setLoading(true);
 
-    getClients().then((data) => {     
+    getCustomersByBranch(office.state).then((data) => {     
        setLoading(false);
        setClients(data);
     });
