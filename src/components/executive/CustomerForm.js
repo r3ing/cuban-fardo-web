@@ -5,12 +5,14 @@ import { addOrEditClient } from "../../repositories/ClientRepository";
 import { useAlert } from "react-alert";
 import {useShipment } from "../../context/shipmentContext";
 import { useNavigate } from "react-router-dom";
+import { useOffice } from "../../context/officeContex";
 import {ROUTE_ADDRESSES} from '../common/Costanst'
 
 export function CustomerForm({ handleClose }) {
   const alert = useAlert();
   const navigate = useNavigate();
   const { customer, setCustomer } = useShipment();
+  const { office } = useOffice();
 
   const {
     register,
@@ -21,12 +23,19 @@ export function CustomerForm({ handleClose }) {
 
   const onSubmit = async () => {
     try {
-      const msg = customer.id ? "Cliente actualizado exitosamente." : "Cliente creado exitosamente.";
+      let msg = '';
+      
+      if(!customer.id) {
+        msg = "Cliente creado exitosamente.";
+        customer.branch = office.state;
+      } else {
+        msg = "Cliente actualizado exitosamente.";
+      }
+
       await addOrEditClient(customer);
       handleClose();
       navigate(ROUTE_ADDRESSES)
-      alert.success(msg); 
-      
+      alert.success(msg);      
     } catch (error) {
       alert.error(error.message);
     }
