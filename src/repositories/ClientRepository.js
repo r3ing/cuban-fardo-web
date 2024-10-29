@@ -15,54 +15,57 @@ import {
 const clientCollection = collection(db, "client");
 
 export const getClients = async () => {
-
-  try { 
+  try {
     const orderedData = query(clientCollection, orderBy("name"));
     const result = await getDocs(orderedData);
     return result.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
   } catch (error) {
-     throw new Error(error);
+    throw new Error(error);
   }
 };
 
 export const getCustomersByBranch = async (branch) => {
-  
-  try { 
+  try {
     let statement;
-    
-    if(branch) {
-     statement = query(clientCollection, where("branch", "==", branch));
+
+    if (branch) {
+      statement = query(clientCollection, where("branch", "==", branch));
     } else {
       statement = query(clientCollection, orderBy("name"));
     }
 
-    const resultSet  = await getDocs(statement);
+    const resultSet = await getDocs(statement);
 
     return resultSet.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
   } catch (error) {
-     throw new Error(error);
+    throw new Error(error);
   }
 };
 
 export const addOrEditClient = async (client) => {
-    if (!client.id) {
-      const qry = query(clientCollection, where("phone", "==", client.phone));
-      const clients = await getDocs(qry);
+  if (!client.id) {
+    const qry = query(
+      clientCollection,
+      where("phone", "==", client.phone),
+      where("branch", "==", client.branch)
+    );
+    const clients = await getDocs(qry);
 
-      if (!clients.empty) {
-        throw new Error("Up, customer registered, please verify the information!!!");
-      }
-
-      await addDoc(clientCollection, client).then((docRef) => {
-        client.id = docRef.id;
-      });
-
-    } else {
-      const updateClient = doc(db, "client", client.id);
-      await updateDoc(updateClient, client);
+    if (!clients.empty) {
+      throw new Error(
+        "Up, customer registered, please verify the information!!!"
+      );
     }
 
-    return client;
+    await addDoc(clientCollection, client).then((docRef) => {
+      client.id = docRef.id;
+    });
+  } else {
+    const updateClient = doc(db, "client", client.id);
+    await updateDoc(updateClient, client);
+  }
+
+  return client;
 };
 
 export const deleteClient = async (id) => {
